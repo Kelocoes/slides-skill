@@ -3,6 +3,7 @@ build/
 svg-inkscape/
 old_context/
 util/
+slides/
 
 # LaTeX auxiliary files in root
 *.aux

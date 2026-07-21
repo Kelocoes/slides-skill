@@ -26,7 +26,33 @@
 \setbeamercolor{normal text}{fg=icesidark}
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{headline}{}
-\setbeamertemplate{footline}{}
+
+% Helper to draw page number with custom color and position inside a TikZ picture
+% #1: position (l for left, r for right)
+% #2: color (white, icesiblue, icesidark)
+\newcommand{\drawPageNumberTikZ}[2]{%
+    \ifx#1l%
+        \node[anchor=south west, inner sep=0pt, xshift=1.90cm, yshift=1.60cm] at (current page.south west) {%
+            \fontsize{10pt}{10pt}\selectfont\color{#2}\insertframenumber
+        };
+    \else
+        \node[anchor=south east, inner sep=0pt, xshift=-1.90cm, yshift=1.60cm] at (current page.south east) {%
+            \fontsize{10pt}{10pt}\selectfont\color{#2}\insertframenumber
+        };
+    \fi
+}
+
+% General page number drawer
+\newcommand{\drawPageNumber}[2]{%
+    \begin{tikzpicture}[remember picture, overlay]
+        \drawPageNumberTikZ{#1}{#2}%
+    \end{tikzpicture}%
+}
+
+% Page number footline for standard slides
+\setbeamertemplate{footline}{%
+    \drawPageNumber{r}{icesiblue}%
+}
 
 % Helper: Positive RGB Logo
 \newcommand{\drawPositiveLogo}{
@@ -61,6 +87,7 @@
         \node[anchor=north west, inner sep=0pt, align=left, text width=10.38cm] at ([xshift=1.94cm, yshift=-13.73cm]current page.north west) {
             \color{icesidark}\fontsize{18pt}{22pt}\selectfont #2
         };
+        \drawPageNumberTikZ{r}{white}
     \end{tikzpicture}
     \end{frame}
 }
@@ -80,6 +107,7 @@
         \node[anchor=north west, inner sep=0pt, align=left, text width=17.81cm] at ([xshift=7.60cm, yshift=-17.13cm]current page.north west) {
             \color{white}\fontsize{14pt}{18pt}\selectfont #3
         };
+        \drawPageNumberTikZ{l}{icesiblue}
     \end{tikzpicture}
     \end{frame}
 }
@@ -99,6 +127,7 @@
         \node[anchor=north west, inner sep=0pt, align=left, text width=23.42cm] at ([xshift=1.36cm, yshift=-13.24cm]current page.north west) {
             \color{white}\fontsize{18pt}{22pt}\selectfont #2
         };
+        \drawPageNumberTikZ{r}{white}
     \end{tikzpicture}
     \end{frame}
 }
@@ -126,6 +155,7 @@
         \node[anchor=north west, inner sep=0pt, align=left, text width=18.50cm] at ([xshift=1.94cm, yshift=-15.51cm]current page.north west) {
             \color{icesiblue}\fontsize{14pt}{18pt}\selectfont\bfseries #3
         };
+        \drawPageNumberTikZ{r}{white}
     \end{tikzpicture}
     \end{frame}
 }
@@ -150,6 +180,7 @@
         \node[anchor=north west, inner sep=0pt, align=left, text width=10.17cm] at ([xshift=2.12cm, yshift=-13.70cm]current page.north west) {
             \color{white}\fontsize{18pt}{22pt}\selectfont #2
         };
+        \drawPageNumberTikZ{r}{icesiblue}
     \end{tikzpicture}
     \end{frame}
 }
@@ -175,6 +206,7 @@
         \node[anchor=north west, inner sep=0pt, align=left, text width=16.80cm] at ([xshift=1.47cm, yshift=-9.69cm]current page.north west) {
             \color{white}\fontsize{18pt}{22pt}\selectfont #2
         };
+        \drawPageNumberTikZ{r}{icesiblue}
     \end{tikzpicture}
     \end{frame}
 }
@@ -195,6 +227,7 @@
         \node[anchor=north west, inner sep=0pt, align=left, text width=25.18cm] at ([xshift=7.33cm, yshift=-14.82cm]current page.north west) {
             \color{white}\fontsize{32pt}{38pt}\selectfont\bfseries\hyphenpenalty=10000\exhyphenpenalty=10000 #1
         };
+        \drawPageNumberTikZ{r}{white}
     \end{tikzpicture}
     \end{frame}
 }
@@ -216,6 +249,7 @@
             \node[anchor=north west, inner sep=0pt, align=left, text width=25.18cm] at ([xshift=7.33cm, yshift=-14.82cm]current page.north west) {
                 \color{white}\fontsize{30pt}{36pt}\selectfont\bfseries\hyphenpenalty=10000\exhyphenpenalty=10000 #1
             };
+            \drawPageNumberTikZ{r}{white}
         \end{tikzpicture}
     }{
         \begin{tikzpicture}[remember picture, overlay]
@@ -229,6 +263,7 @@
             \node[anchor=north west, inner sep=0pt, align=left, text width=25.18cm] at ([xshift=7.33cm, yshift=-14.82cm]current page.north west) {
                 \color{white}\fontsize{30pt}{36pt}\selectfont\bfseries\hyphenpenalty=10000\exhyphenpenalty=10000 #1
             };
+            \drawPageNumberTikZ{r}{white}
         \end{tikzpicture}
     }
     \end{frame}
@@ -250,6 +285,7 @@
         \node[anchor=north west, inner sep=0pt, align=left, text width=21.19cm] at ([xshift=11.83cm, yshift=-13.50cm]current page.north west) {
             \color{icesiblue}\fontsize{32pt}{38pt}\selectfont\bfseries\hyphenpenalty=10000\exhyphenpenalty=10000 #1
         };
+        \drawPageNumberTikZ{r}{icesiblue}
     \end{tikzpicture}
     \end{frame}
 }
@@ -266,6 +302,7 @@
         \node[anchor=north west, inner sep=0pt, align=left, text width=30.00cm] at ([xshift=1.36cm, yshift=-10.54cm]current page.north west) {
             \color{icesiblue}\fontsize{36pt}{42pt}\selectfont\bfseries\hyphenpenalty=10000\exhyphenpenalty=10000 #1
         };
+        \drawPageNumberTikZ{r}{icesiblue}
     \end{tikzpicture}
     \end{frame}
 }
@@ -282,6 +319,7 @@
         \node[anchor=north west, inner sep=0pt, align=left, text width=30.00cm] at ([xshift=1.36cm, yshift=-10.54cm]current page.north west) {
             \color{white}\fontsize{36pt}{42pt}\selectfont\bfseries\hyphenpenalty=10000\exhyphenpenalty=10000 #1
         };
+        \drawPageNumberTikZ{r}{white}
     \end{tikzpicture}
     \end{frame}
 }
@@ -298,6 +336,7 @@
         \node[anchor=north west, inner sep=0pt, align=left, text width=30.00cm] at ([xshift=1.36cm, yshift=-10.54cm]current page.north west) {
             \color{white}\fontsize{36pt}{42pt}\selectfont\bfseries\hyphenpenalty=10000\exhyphenpenalty=10000 #1
         };
+        \drawPageNumberTikZ{r}{white}
     \end{tikzpicture}
     \end{frame}
 }
@@ -314,6 +353,7 @@
         \node[anchor=north west, inner sep=0pt, align=left, text width=30.00cm] at ([xshift=1.36cm, yshift=-10.54cm]current page.north west) {
             \color{icesidark}\fontsize{36pt}{42pt}\selectfont\bfseries\hyphenpenalty=10000\exhyphenpenalty=10000 #1
         };
+        \drawPageNumberTikZ{r}{icesidark}
     \end{tikzpicture}
     \end{frame}
 }
@@ -330,6 +370,7 @@
         \node[anchor=north west, inner sep=0pt, align=left, text width=30.00cm] at ([xshift=1.36cm, yshift=-10.54cm]current page.north west) {
             \color{white}\fontsize{36pt}{42pt}\selectfont\bfseries\hyphenpenalty=10000\exhyphenpenalty=10000 #1
         };
+        \drawPageNumberTikZ{r}{white}
     \end{tikzpicture}
     \end{frame}
 }
@@ -360,6 +401,7 @@
         \node[anchor=north west, inner sep=0pt, align=left, text width=18.0cm] at ([xshift=14.00cm, yshift=-4.66cm]current page.north west) {
             \color{icesiblue}\fontsize{24pt}{28pt}\selectfont\bfseries\hyphenpenalty=10000\exhyphenpenalty=10000 #1
         };
+        \drawPageNumberTikZ{r}{icesiblue}
     \end{tikzpicture}
     \vspace*{4.8cm}
     \begin{columns}[T, onlytextwidth]
@@ -395,6 +437,7 @@
         \node[anchor=north west, inner sep=0pt, align=left, text width=18.0cm] at ([xshift=14.00cm, yshift=-4.66cm]current page.north west) {
             \color{icesiblue}\fontsize{24pt}{28pt}\selectfont\bfseries\hyphenpenalty=10000\exhyphenpenalty=10000 #1
         };
+        \drawPageNumberTikZ{r}{icesiblue}
     \end{tikzpicture}
     \vspace*{4.8cm}
     \begin{columns}[T, onlytextwidth]
@@ -430,6 +473,7 @@
         \node[anchor=north west, inner sep=0pt, align=left, text width=18.0cm] at ([xshift=14.00cm, yshift=-4.66cm]current page.north west) {
             \color{icesiblue}\fontsize{24pt}{28pt}\selectfont\bfseries\hyphenpenalty=10000\exhyphenpenalty=10000 #1
         };
+        \drawPageNumberTikZ{r}{icesiblue}
     \end{tikzpicture}
     \vspace*{4.8cm}
     \begin{columns}[T, onlytextwidth]
@@ -463,6 +507,7 @@
         \node[anchor=north west, inner sep=0pt, align=left, text width=19.59cm] at ([xshift=0.85cm, yshift=-4.88cm]current page.north west) {
             \color{white}\fontsize{20pt}{24pt}\selectfont\bfseries #1
         };
+        \drawPageNumberTikZ{r}{icesiblue}
     \end{tikzpicture}
     \rule{0pt}{7.2cm}
     \begin{minipage}{\textwidth}
@@ -486,6 +531,7 @@
         \node[anchor=north west, inner sep=0pt, align=left, text width=18.57cm] at ([xshift=13.87cm, yshift=-4.88cm]current page.north west) {
             \color{white}\fontsize{20pt}{24pt}\selectfont\bfseries #1
         };
+        \drawPageNumberTikZ{l}{icesiblue}
     \end{tikzpicture}
     \rule{0pt}{7.2cm}
     \begin{minipage}{\textwidth}
