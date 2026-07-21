@@ -1,0 +1,166 @@
+\documentclass[aspectratio=169, 12pt]{beamer}
+
+% Page geometry matching PPTX Widescreen (33.86cm x 19.05cm)
+\geometry{paperwidth=33.86cm, paperheight=19.05cm}
+\paperwidth=33.86cm
+\paperheight=19.05cm
+\pdfpagewidth=\paperwidth
+\pdfpageheight=\paperheight
+
+\usepackage{icesibeamer}
+\usepackage{fontspec}
+\usepackage[spanish]{babel}
+
+% Institutional Font: Plus Jakarta Sans from resources/fonts/
+\setmainfont{PlusJakartaSans-Regular.ttf}[
+    Path = resources/fonts/,
+    BoldFont = PlusJakartaSans-Bold.ttf
+]
+\setsansfont{PlusJakartaSans-Regular.ttf}[
+    Path = resources/fonts/,
+    BoldFont = PlusJakartaSans-Bold.ttf
+]
+
+\begin{document}
+
+% SLIDE 1: Portada Principal A
+\titleSlideA{Node.js:\\Servidores JavaScript}{Conceptos esenciales, arquitectura y desarrollo en el servidor}
+
+% SLIDE 2: ¿Qué es Node.js?
+\slideStandard{¿Qué es Node.js?}{
+    Node.js es un entorno de ejecución para JavaScript construido con el motor de JavaScript V8 de Chrome.
+    \vspace{0.6cm}
+    \begin{itemize}
+        \item \textbf{Creador:} Lanzado originalmente por Ryan Dahl en 2009.
+        \item \textbf{Propósito:} Permitir el desarrollo de aplicaciones de red rápidas y escalables fuera del navegador.
+        \item \textbf{Ejecución:} Ejecuta JavaScript directamente en la máquina del lado del servidor.
+        \item \textbf{Asíncrono:} Diseñado nativamente para manejar flujos de operaciones concurrentes.
+    \end{itemize}
+}
+
+% SLIDE 3: Arquitectura
+\slideTwoCols{Arquitectura de Entrada/Salida No Bloqueante}{
+    \textbf{Modelo Asíncrono y Single-Threaded}
+    \vspace{0.4cm}
+    \begin{itemize}
+        \item Node.js utiliza un único hilo principal para ejecutar el código JavaScript (Single-Thread).
+        \item Delega las tareas pesadas de Entrada/Salida (I/O) al sistema operativo o a un pool de hilos interno (\texttt{libuv}).
+        \item Esto evita que el servidor se detenga a esperar que se completen lecturas de discos o consultas de red.
+    \end{itemize}
+}{
+    \textbf{Ventaja Competitiva}
+    \vspace{0.4cm}
+    \begin{itemize}
+        \item En servidores tradicionales (como Apache/PHP), cada solicitud de usuario crea un nuevo hilo dedicado.
+        \item Node.js puede manejar miles de conexiones simultáneas con un consumo de memoria drásticamente menor.
+        \item Ideal para aplicaciones con alta carga de comunicación y baja necesidad de CPU intensa.
+    \end{itemize}
+}
+
+% SLIDE 4: El Event Loop
+\slideSidebarLeftBlue{El Event Loop}{
+    El Event Loop (bucle de eventos) es el mecanismo central que permite a Node.js realizar operaciones de I/O no bloqueantes.
+    \vspace{0.5cm}
+    
+    Funciona coordinando fases de ejecución:
+    \begin{enumerate}
+        \item \textbf{Timers:} Procesa callbacks de \texttt{setTimeout} y \texttt{setInterval}.
+        \item \textbf{Pending Callbacks:} Ejecuta I/O pendientes del sistema.
+        \item \textbf{Poll:} Recupera nuevos eventos de I/O y ejecuta sus respectivos callbacks.
+        \item \textbf{Check:} Ejecuta callbacks programados por \texttt{setImmediate}.
+    \end{enumerate}
+}{resources/event_loop.jpg}
+
+% SLIDE 5: División de Sección
+\sectionSlideEBlue{Módulos y el Ecosistema NPM}
+
+% SLIDE 6: Ecosistema NPM
+\slideStandard{NPM: Node Package Manager}{
+    NPM es el gestor de paquetes por defecto de Node.js y el registro de software más grande a nivel mundial.
+    \vspace{0.6cm}
+    \begin{itemize}
+        \item \textbf{Reutilización de Código:} Permite instalar librerías creadas por la comunidad con un simple comando.
+        \item \textbf{package.json:} Archivo de manifiesto que registra la configuración del proyecto y sus dependencias.
+        \item \textbf{Dependencias de Desarrollo:} Diferenciación clara entre paquetes requeridos para producción y herramientas de desarrollo.
+        \item \textbf{Seguridad y Control:} Herramientas integradas como \texttt{npm audit} para detectar vulnerabilidades en el árbol de dependencias.
+    \end{itemize}
+}
+
+% SLIDE 7: Módulos Nativos
+\slideFourCards{Módulos Nativos Principales}{
+    \textbf{http / https}
+    \newline\newline
+    Módulos para crear servidores web nativos y realizar peticiones externas directamente en el flujo de red.
+}{
+    \textbf{fs (File System)}
+    \newline\newline
+    Proporciona APIs para interactuar con el sistema de archivos de forma síncrona o asíncrona.
+}{
+    \textbf{path}
+    \newline\newline
+    Facilita utilidades para trabajar con rutas de archivos y directorios de forma multiplataforma.
+}{
+    \textbf{events}
+    \newline\newline
+    Manejo de programación dirigida por eventos a través de la clase base \texttt{EventEmitter}.
+}
+
+% SLIDE 8: División de Sección
+\sectionSlideEOrange{Programación Asíncrona en Node.js}
+
+% SLIDE 9: Flujo Asíncrono
+\slideThreeCols{Manejo del Flujo Asíncrono}{
+    \textbf{1. Callbacks}
+    \vspace{0.3cm}
+    \begin{itemize}
+        \item Funciones pasadas como argumentos que se ejecutan al finalizar una tarea.
+        \item Pueden generar el antipatrón de \textit{Callback Hell} si se anidan en exceso.
+    \end{itemize}
+}{
+    \textbf{2. Promesas}
+    \vspace{0.3cm}
+    \begin{itemize}
+        \item Objetos que representan el éxito o fracaso futuro de una operación.
+        \item Permiten encadenamiento limpio usando métodos como \texttt{.then()} y \texttt{.catch()}.
+    \end{itemize}
+}{
+    \textbf{3. Async / Await}
+    \vspace{0.3cm}
+    \begin{itemize}
+        \item Sintaxis moderna construida sobre promesas.
+        \item Escribe código asíncrono con una estructura y legibilidad que asemeja al código síncrono tradicional.
+    \end{itemize}
+}
+
+% SLIDE 10: Servidor Básico
+\slideStripeTopLeft{Creación de un Servidor Web}{
+    Crear un servidor HTTP básico en Node.js requiere muy pocas líneas de código utilizando el módulo nativo:
+    \vspace{0.4cm}
+    \begin{enumerate}
+        \item \textbf{Importación:} Se importa el módulo nativo \texttt{http}.
+        \item \textbf{Instanciación:} Se invoca \texttt{http.createServer()} pasando un callback de solicitud y respuesta.
+        \item \textbf{Respuesta:} Se escribe el estado HTTP 200, el tipo de contenido y se finaliza la respuesta.
+        \item \textbf{Escucha:} Se asocia el servidor a un puerto (ej. 3000) mediante la función \texttt{.listen()}.
+    \end{enumerate}
+}
+
+% SLIDE 11: Casos de Uso
+\slideStandard{¿Cuándo usar Node.js?}{
+    Node.js brilla en escenarios específicos de desarrollo de software moderno:
+    \vspace{0.5cm}
+    \begin{itemize}
+        \item \textbf{Casos de Uso Ideales:}
+            \begin{itemize}
+                \item APIs RESTful, servicios WebSockets y aplicaciones de chat en tiempo real.
+                \item Microservicios ligeros y herramientas de línea de comandos (CLI).
+                \item Aplicaciones de streaming de datos y Single Page Applications (SPA).
+            \end{itemize}
+        \vspace{0.3cm}
+        \item \textbf{Cuándo Evitarlo:}
+            \begin{itemize}
+                \item Tareas que requieran un uso intensivo de CPU (cálculos matemáticos complejos, procesamiento de video o Big Data).
+            \end{itemize}
+    \end{itemize}
+}
+
+\end{document}

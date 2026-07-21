@@ -56,8 +56,8 @@
         \drawNegativeLogo
         \fill[white] ([xshift=1.36cm, yshift=-7.73cm]current page.north west) rectangle ++(16.33cm, -5.28cm);
         \fill[icesiyellow] ([xshift=1.36cm, yshift=-13.01cm]current page.north west) rectangle ++(11.59cm, -2.75cm);
-        \node[anchor=north west, inner sep=0pt, align=left, text width=14.99cm] at ([xshift=1.94cm, yshift=-8.47cm]current page.north west) {
-            \color{icesiblue}\fontsize{34pt}{40pt}\selectfont\bfseries #1
+        \node[anchor=north west, inner sep=0pt, align=left, text width=15.50cm] at ([xshift=1.70cm, yshift=-8.30cm]current page.north west) {
+            \color{icesiblue}\fontsize{34pt}{40pt}\selectfont\bfseries\hyphenpenalty=10000\exhyphenpenalty=10000 #1
         };
         \node[anchor=north west, inner sep=0pt, align=left, text width=10.38cm] at ([xshift=1.94cm, yshift=-13.73cm]current page.north west) {
             \color{icesidark}\fontsize{18pt}{22pt}\selectfont #2
@@ -263,9 +263,9 @@
         \fill[white] (current page.south west) rectangle (current page.north east);
         % Positive logo top-left (blue/green logo)
         \drawPositiveLogo
-        % Blue text title
-        \node[anchor=north west, inner sep=0pt, align=left, text width=21.19cm] at ([xshift=1.36cm, yshift=-10.54cm]current page.north west) {
-            \color{icesiblue}\fontsize{36pt}{42pt}\selectfont\bfseries #1
+        % Blue text title (expanded to prevent hyphenation)
+        \node[anchor=north west, inner sep=0pt, align=left, text width=30.00cm] at ([xshift=1.36cm, yshift=-10.54cm]current page.north west) {
+            \color{icesiblue}\fontsize{36pt}{42pt}\selectfont\bfseries\hyphenpenalty=10000\exhyphenpenalty=10000 #1
         };
     \end{tikzpicture}
     \end{frame}
@@ -279,9 +279,9 @@
         \fill[icesiblue] (current page.south west) rectangle (current page.north east);
         % Negative logo top-left (white logo)
         \drawNegativeLogo
-        % White text title
-        \node[anchor=north west, inner sep=0pt, align=left, text width=21.19cm] at ([xshift=1.36cm, yshift=-10.54cm]current page.north west) {
-            \color{white}\fontsize{36pt}{42pt}\selectfont\bfseries #1
+        % White text title (expanded to prevent hyphenation)
+        \node[anchor=north west, inner sep=0pt, align=left, text width=30.00cm] at ([xshift=1.36cm, yshift=-10.54cm]current page.north west) {
+            \color{white}\fontsize{36pt}{42pt}\selectfont\bfseries\hyphenpenalty=10000\exhyphenpenalty=10000 #1
         };
     \end{tikzpicture}
     \end{frame}
@@ -295,9 +295,9 @@
         \fill[icesigreen] (current page.south west) rectangle (current page.north east);
         % Negative logo top-left (white logo)
         \drawNegativeLogo
-        % White text title
-        \node[anchor=north west, inner sep=0pt, align=left, text width=21.19cm] at ([xshift=1.36cm, yshift=-10.54cm]current page.north west) {
-            \color{white}\fontsize{36pt}{42pt}\selectfont\bfseries #1
+        % White text title (expanded to prevent hyphenation)
+        \node[anchor=north west, inner sep=0pt, align=left, text width=30.00cm] at ([xshift=1.36cm, yshift=-10.54cm]current page.north west) {
+            \color{white}\fontsize{36pt}{42pt}\selectfont\bfseries\hyphenpenalty=10000\exhyphenpenalty=10000 #1
         };
     \end{tikzpicture}
     \end{frame}
@@ -311,9 +311,9 @@
         \fill[icesiyellow] (current page.south west) rectangle (current page.north east);
         % Positive logo top-left
         \drawPositiveLogo
-        % Dark text title
-        \node[anchor=north west, inner sep=0pt, align=left, text width=21.19cm] at ([xshift=1.36cm, yshift=-10.54cm]current page.north west) {
-            \color{icesidark}\fontsize{36pt}{42pt}\selectfont\bfseries #1
+        % Dark text title (expanded to prevent hyphenation)
+        \node[anchor=north west, inner sep=0pt, align=left, text width=30.00cm] at ([xshift=1.36cm, yshift=-10.54cm]current page.north west) {
+            \color{icesidark}\fontsize{36pt}{42pt}\selectfont\bfseries\hyphenpenalty=10000\exhyphenpenalty=10000 #1
         };
     \end{tikzpicture}
     \end{frame}
@@ -327,9 +327,9 @@
         \fill[icesiorange] (current page.south west) rectangle (current page.north east);
         % Negative logo top-left
         \drawNegativeLogo
-        % White text title
-        \node[anchor=north west, inner sep=0pt, align=left, text width=21.19cm] at ([xshift=1.36cm, yshift=-10.54cm]current page.north west) {
-            \color{white}\fontsize{36pt}{42pt}\selectfont\bfseries #1
+        % White text title (expanded to prevent hyphenation)
+        \node[anchor=north west, inner sep=0pt, align=left, text width=30.00cm] at ([xshift=1.36cm, yshift=-10.54cm]current page.north west) {
+            \color{white}\fontsize{36pt}{42pt}\selectfont\bfseries\hyphenpenalty=10000\exhyphenpenalty=10000 #1
         };
     \end{tikzpicture}
     \end{frame}
@@ -340,8 +340,8 @@
 % CATEGORY 3: CONTENT / TRANSITION SLIDES WITH SIDEBAR
 % ==========================================
 
-% Sidebar Left - Variante Naranja
-\newcommand{\slideSidebarLeftOrange}[2]{
+% Sidebar Left - Variante Naranja (with optional graphical image in parameters)
+\newcommand{\slideSidebarLeftOrange}[3]{
     \begin{frame}[plain]
     \begin{tikzpicture}[remember picture, overlay]
         % Left sidebar (Orange)
@@ -350,12 +350,19 @@
         \node[anchor=north west, inner sep=0pt] at ([xshift=1.30cm, yshift=-0.80cm]current page.north west) {
             \includegraphics[width=4.95cm]{resources/logos/ICESI_logo_prin_descriptor_BYN_RGB_POSITIVO_0924.pdf}
         };
+        % Schematic image centered in colored area if provided
+        \edef\imgpath{#3}%
+        \ifx\imgpath\empty\else
+            \node[anchor=center, inner sep=0pt] at ([xshift=6.20cm, yshift=-10.50cm]current page.north west) {
+                \includegraphics[width=9.50cm, height=9.50cm, keepaspectratio]{#3}
+            };
+        \fi
         % Title on the right white area
         \node[anchor=north west, inner sep=0pt, align=left, text width=18.0cm] at ([xshift=14.00cm, yshift=-4.66cm]current page.north west) {
-            \color{icesiblue}\fontsize{24pt}{28pt}\selectfont\bfseries #1
+            \color{icesiblue}\fontsize{24pt}{28pt}\selectfont\bfseries\hyphenpenalty=10000\exhyphenpenalty=10000 #1
         };
     \end{tikzpicture}
-    \vspace*{4.5cm}
+    \vspace*{4.8cm}
     \begin{columns}[T, onlytextwidth]
         \begin{column}{0.38\textwidth}
             % Left spacing matching sidebar area
@@ -368,8 +375,8 @@
     \end{frame}
 }
 
-% Sidebar Left - Variante Azul
-\newcommand{\slideSidebarLeftBlue}[2]{
+% Sidebar Left - Variante Azul (with optional graphical image in parameters)
+\newcommand{\slideSidebarLeftBlue}[3]{
     \begin{frame}[plain]
     \begin{tikzpicture}[remember picture, overlay]
         % Left sidebar (Blue)
@@ -378,12 +385,19 @@
         \node[anchor=north west, inner sep=0pt] at ([xshift=1.30cm, yshift=-0.80cm]current page.north west) {
             \includegraphics[width=4.95cm]{resources/logos/ICESI_logo_prin_descriptor_BYN_RGB_POSITIVO_0924.pdf}
         };
+        % Schematic image centered in colored area if provided
+        \edef\imgpath{#3}%
+        \ifx\imgpath\empty\else
+            \node[anchor=center, inner sep=0pt] at ([xshift=6.20cm, yshift=-10.50cm]current page.north west) {
+                \includegraphics[width=9.50cm, height=9.50cm, keepaspectratio]{#3}
+            };
+        \fi
         % Title on the right white area
         \node[anchor=north west, inner sep=0pt, align=left, text width=18.0cm] at ([xshift=14.00cm, yshift=-4.66cm]current page.north west) {
-            \color{icesiblue}\fontsize{24pt}{28pt}\selectfont\bfseries #1
+            \color{icesiblue}\fontsize{24pt}{28pt}\selectfont\bfseries\hyphenpenalty=10000\exhyphenpenalty=10000 #1
         };
     \end{tikzpicture}
-    \vspace*{4.5cm}
+    \vspace*{4.8cm}
     \begin{columns}[T, onlytextwidth]
         \begin{column}{0.38\textwidth}
             % Left spacing matching sidebar area
@@ -396,8 +410,8 @@
     \end{frame}
 }
 
-% Sidebar Left - Variante Morada
-\newcommand{\slideSidebarLeftPurple}[2]{
+% Sidebar Left - Variante Morada (with optional graphical image in parameters)
+\newcommand{\slideSidebarLeftPurple}[3]{
     \begin{frame}[plain]
     \begin{tikzpicture}[remember picture, overlay]
         % Left sidebar (Purple)
@@ -406,12 +420,19 @@
         \node[anchor=north west, inner sep=0pt] at ([xshift=1.30cm, yshift=-0.80cm]current page.north west) {
             \includegraphics[width=4.95cm]{resources/logos/ICESI_logo_prin_descriptor_BYN_RGB_POSITIVO_0924.pdf}
         };
+        % Schematic image centered in colored area if provided
+        \edef\imgpath{#3}%
+        \ifx\imgpath\empty\else
+            \node[anchor=center, inner sep=0pt] at ([xshift=6.20cm, yshift=-10.50cm]current page.north west) {
+                \includegraphics[width=9.50cm, height=9.50cm, keepaspectratio]{#3}
+            };
+        \fi
         % Title on the right white area
         \node[anchor=north west, inner sep=0pt, align=left, text width=18.0cm] at ([xshift=14.00cm, yshift=-4.66cm]current page.north west) {
-            \color{icesiblue}\fontsize{24pt}{28pt}\selectfont\bfseries #1
+            \color{icesiblue}\fontsize{24pt}{28pt}\selectfont\bfseries\hyphenpenalty=10000\exhyphenpenalty=10000 #1
         };
     \end{tikzpicture}
-    \vspace*{4.5cm}
+    \vspace*{4.8cm}
     \begin{columns}[T, onlytextwidth]
         \begin{column}{0.38\textwidth}
             % Left spacing matching sidebar area
@@ -484,17 +505,17 @@
 \newcommand{\drawStandardSlideHeader}[1]{
     \drawPositiveLogo
     \node[anchor=north west, inner sep=0pt, align=left, text width=31.59cm] at ([xshift=0.85cm, yshift=-4.66cm]current page.north west) {
-        \color{icesiblue}\fontsize{24pt}{28pt}\selectfont\bfseries #1
+        \color{icesiblue}\fontsize{24pt}{28pt}\selectfont\bfseries\hyphenpenalty=10000\exhyphenpenalty=10000 #1
     };
 }
 
 % Standard minimal slide: Title + Bullet points
 \newcommand{\slideStandard}[2]{
-    \begin{frame}
+    \begin{frame}[t]
     \begin{tikzpicture}[remember picture, overlay]
         \drawStandardSlideHeader{#1}
     \end{tikzpicture}
-    \vspace*{4.5cm}
+    \mbox{}\vspace*{4.8cm}
     \begin{minipage}{\textwidth}
         \fontsize{14pt}{18pt}\selectfont
         #2
@@ -504,11 +525,11 @@
 
 % Two Columns Content Slide
 \newcommand{\slideTwoCols}[3]{
-    \begin{frame}
+    \begin{frame}[t]
     \begin{tikzpicture}[remember picture, overlay]
         \drawStandardSlideHeader{#1}
     \end{tikzpicture}
-    \vspace*{4.5cm}
+    \mbox{}\vspace*{4.8cm}
     \begin{columns}[T, onlytextwidth]
         \begin{column}{0.48\textwidth}
             \fontsize{14pt}{18pt}\selectfont
@@ -524,11 +545,11 @@
 
 % Three Columns Content Slide
 \newcommand{\slideThreeCols}[4]{
-    \begin{frame}
+    \begin{frame}[t]
     \begin{tikzpicture}[remember picture, overlay]
         \drawStandardSlideHeader{#1}
     \end{tikzpicture}
-    \vspace*{4.5cm}
+    \mbox{}\vspace*{4.8cm}
     \begin{columns}[T, onlytextwidth]
         \begin{column}{0.31\textwidth}
             \fontsize{13pt}{16pt}\selectfont
@@ -548,13 +569,13 @@
 
 % Four Cards Grid Content Slide (matches Slide 20/24 card layouts)
 \newcommand{\slideFourCards}[5]{
-    \begin{frame}
+    \begin{frame}[t]
     \begin{tikzpicture}[remember picture, overlay]
         \drawStandardSlideHeader{#1}
         % Draw gray container block at bottom
         \fill[icesigray2!20] ([xshift=-0.27cm, yshift=-9.52cm]current page.north west) rectangle ++(34.47cm, -9.91cm);
     \end{tikzpicture}
-    \vspace*{5.5cm}
+    \mbox{}\vspace*{5.2cm}
     \begin{columns}[T, onlytextwidth]
         \begin{column}{0.23\textwidth}
             \begin{tcolorbox}[colback=white,colframe=icesiblue,arc=4pt,title=\textbf{Card 1},coltitle=white,fonttitle=\bfseries]

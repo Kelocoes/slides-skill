@@ -1,25 +1,38 @@
-# Instrucciones para Agentes (AGENTS.md)
+# Agent Instructions (AGENTS.md)
 
-Este repositorio contiene la réplica en LaTeX (Beamer) de la plantilla institucional de la Universidad Icesi.
+This repository contains the LaTeX (Beamer) replica of the institutional slide template for Universidad Icesi.
 
-## 🤖 Directrices para Agentes y Subagentes
+---
 
-Cualquier agente que trabaje en esta presentación debe cumplir estrictamente las siguientes reglas:
+## 🤖 Repository Guide for Agents
 
-1. **Uso de la Librería de Componentes y Plantillas:**
-   - Toda diapositiva nueva debe usar las macros semánticas provistas por [icesibeamer.sty](icesibeamer.sty) (por ejemplo, `\titleSlideA`, `\slideStandard`, etc.).
-   - Puedes consultar, reutilizar e inspirarte en las plantillas individuales ubicadas en la carpeta [templates/icesibeamer/](templates/icesibeamer/) para componer diapositivas según las necesidades visuales del usuario.
-   - **No escribir código TikZ ad-hoc en las diapositivas** si ya existe una macro para ese diseño. Si es necesario crear un nuevo layout, este debe agregarse formalmente a [icesibeamer.sty](icesibeamer.sty).
+Any agent working on this presentation must strictly follow the control guidelines located in the `agents/` directory:
 
-2. **Tipografía e Imágenes:**
-   - La tipografía debe ser **Plus Jakarta Sans** cargada de local en `resources/fonts/`.
-   - Las imágenes de portadas y secciones deben colocarse en `resources/` y ser llamadas a través de las macros con control de existencia (el paquete define imágenes placeholder elegantes si las fotos reales no están presentes).
+### 1. Context and Memory
+Review slide classification and design decisions at:
+- 💾 **[agents/memory.md](file:///C:/Users/GlobE/Desktop/Docencia%20Icesi/skill-slides/agents/memory.md)**: Details the intended layout usage of the 19 project slides and the history of technical changes.
 
-3. **Reglas de Formateo Visual y Habilidades (Skills):**
-   - Consulta el manual detallado de posicionamiento, márgenes de seguridad y paletas de colores oficiales en [agents/formatting_rules.md](agents/formatting_rules.md).
-   - Para aprender a seleccionar la plantilla correcta según el tipo de contenido y generar diapositivas de forma estructurada, consulta la guía de la habilidad en [agents/generate-slides/SKILL.md](agents/generate-slides/SKILL.md).
+### 2. Consistency and Formatting Rules
+Review exact dimensions, brand colors, and safe bounding boxes to prevent text overlaps at:
+- 📐 **[agents/formatting_rules.md](file:///C:/Users/GlobE/Desktop/Docencia%20Icesi/skill-slides/agents/formatting_rules.md)**: Manual detailing safe text bounding boxes for each slide layout.
 
-4. **Compilación Limpia:**
-   - Compilar usando XeLaTeX: `xelatex -shell-escape -interaction=nonstopmode -output-directory=build main.tex`.
-   - Mantener el directorio raíz libre de archivos compilados auxiliares (`.pdf_tex`, `.aux`, `.log`, `.nav`, `.out`, `.snm`, `.toc`). Estos deben guardarse exclusivamente en `build/` o en `svg-inkscape/`.
+### 3. Composition Skills
+Review the interactive guide to composing new slides using native theme commands at:
+- 🛠️ **[agents/generate-slides/SKILL.md](file:///C:/Users/GlobE/Desktop/Docencia%20Icesi/skill-slides/agents/generate-slides/SKILL.md)**: Guidelines on structured frame composition and content flow.
 
+---
+
+## 🚀 General Production Guidelines
+
+1. **Exclusive Use of Stylesheet**:
+   - Every slide in [main.tex](file:///C:/Users/GlobE/Desktop/Docencia%20Icesi/skill-slides/main.tex) must invoke the macros defined in [icesibeamer.sty](file:///C:/Users/GlobE/Desktop/Docencia%20Icesi/skill-slides/icesibeamer.sty) (`\titleSlideA`, `\slideStandard`, etc.).
+   - **Do not write ad-hoc TikZ code directly on slides**. Any new visual component must be modularized and integrated directly into the main stylesheet first.
+2. **Typography and Images**:
+   - Primary typeface: **Plus Jakarta Sans** (loaded locally from `resources/fonts/`).
+   - Vector graphics must be handled as native PDFs under `resources/logos/` and `resources/patterns/` and imported via `\includegraphics` (no local Inkscape requirement).
+3. **Compilation and Cleanup**:
+   - Compile by running XeLaTeX consecutively:
+     ```bash
+     xelatex -interaction=nonstopmode -output-directory=build main.tex
+     ```
+   - The root directory must remain 100% clean. All auxiliary compilation files (`.aux`, `.log`, `.nav`, `.out`, `.snm`, `.toc`) must be stored exclusively inside the `build/` folder.
