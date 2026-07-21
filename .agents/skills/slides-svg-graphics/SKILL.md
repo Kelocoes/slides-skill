@@ -1,19 +1,19 @@
 ---
 name: slides-svg-graphics
-description: Guidelines and compilation workflow to generate brand-compliant vector graphics, flowcharts, and SVG icons for Universidad Icesi presentations.
+description: Guidelines and workflow to generate brand-compliant vector graphics, flowcharts, and SVG illustrations for Universidad Icesi HTML/Reveal.js presentations. SVGs are used directly without PDF conversion.
 ---
 
-# Skill: `slides-svg-graphics` (Graphics and Iconification for Slides)
+# Skill: `slides-svg-graphics` (Gráficos SVG en HTML)
 
-This skill establishes the guidelines to build, export, and embed stunning vector graphics, logical diagrams, and custom SVG illustrations in Universidad Icesi slide presentations.
+Esta skill establece las directrices para crear, exportar y embeber gráficos vectoriales, diagramas lógicos e ilustraciones SVG personalizadas en las diapositivas HTML de la Universidad Icesi. A diferencia del flujo LaTeX, **los SVGs se usan directamente como `<img>` sin ninguna conversión a PDF**.
 
 ---
 
-## 🎨 1. Official Brand Color Tokens for Diagrams
+## 🎨 1. Tokens de Color Institucional para Diagramas
 
-All diagrams and custom SVGs must strictly use the official institutional color scheme:
+Todos los diagramas y SVGs personalizados deben usar estrictamente el esquema de colores institucional:
 
-| Role / Element | Hex Color | Named Token |
+| Rol / Elemento | Hex | Token |
 | :--- | :--- | :--- |
 | **Primary / Accent Nodes** | `#5454E9` | `icesiblue` |
 | **Secondary Processes** | `#865CF0` | `icesipurple` |
@@ -22,53 +22,54 @@ All diagrams and custom SVGs must strictly use the official institutional color 
 | **Error / Critical** | `#E9683B` | `icesiorange` |
 | **Dark Borders / Texts** | `#393939` | `icesidark` |
 
-> **Rule**: Always use `fill="transparent"` as the SVG root background so the diagram integrates cleanly on any slide background (blue sidebar, white content area, etc.).
+> **Regla**: Usar siempre `fill="transparent"` o `fill="none"` como fondo del `<svg>` raíz para que el diagrama se integre limpiamente sobre cualquier fondo de slide (sidebar de color, zona blanca, etc.).
 
 ---
 
-## 🛠️ 2. SVG Design Specifications
+## 🛠️ 2. Especificaciones de Diseño SVG
 
-### 2.1 File Naming and Storage
-- Save all generated SVGs under `resources/patterns/`
-- Use snake_case filenames: `event_loop_diagram.svg`, `node_architecture.svg`
-- After SVG creation, convert to PDF for maximum LaTeX rendering quality (see §3)
+### 2.1 Nomenclatura y Almacenamiento
+- Guardar todos los SVGs de cada tema en `slides/<tema>/assets/`
+- Usar nombres en snake_case: `event_loop_diagram.svg`, `node_architecture.svg`
+- Recursos globales de plantilla (patrón de rayas, etc.): `resources/patterns/`
+- **No convertir a PDF**: el SVG se usa directamente en HTML
 
-### 2.2 SVG Structure Template
+### 2.2 Template de Estructura SVG
 ```xml
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 WIDTH HEIGHT">
   <defs>
-    <!-- Gradients, filters, markers go here -->
+    <!-- Gradients, filters, markers van aquí -->
     <filter id="shadow">
       <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000022"/>
     </filter>
-    <!-- Arrow marker for diagrams -->
+    <!-- Arrow marker para diagramas -->
     <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
       <polygon points="0 0, 10 3.5, 0 7" fill="#5454E9"/>
     </marker>
   </defs>
-  <!-- Diagram elements... -->
+  <!-- Elementos del diagrama... -->
 </svg>
 ```
 
-### 2.3 Recommended Element Styles
+### 2.3 Estilos de Elementos Recomendados
 
-**Rounded rectangle node (primary)**:
+**Nodo rectángulo redondeado (primario)**:
 ```xml
 <rect x="10" y="10" width="160" height="50" rx="12" ry="12"
   fill="#5454E9" stroke="none" filter="url(#shadow)"/>
 <text x="90" y="40" text-anchor="middle" dominant-baseline="middle"
-  fill="white" font-family="sans-serif" font-size="14" font-weight="bold">
+  fill="white" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" font-weight="bold">
   Texto del Nodo
 </text>
 ```
 
-**Flow arrow between nodes**:
+**Flecha de flujo entre nodos**:
 ```xml
 <line x1="170" y1="35" x2="220" y2="35"
   stroke="#5454E9" stroke-width="2" marker-end="url(#arrow)"/>
 ```
 
-**Circular phase node (for cyclic diagrams)**:
+**Nodo circular (para diagramas cíclicos)**:
 ```xml
 <circle cx="200" cy="200" r="40" fill="#4CB979" stroke="white" stroke-width="3"/>
 <text x="200" y="200" text-anchor="middle" dominant-baseline="middle"
@@ -77,149 +78,145 @@ All diagrams and custom SVGs must strictly use the official institutional color 
 
 ---
 
-## 📊 3. Diagram Types and When to Use Them
+## 📊 3. Tipos de Diagramas y Cuándo Usarlos
 
-### Type A: Circular Phase Diagram
-**Use for**: Event Loop phases, lifecycle cycles, recurring processes.
-- Draw phases as colored arc segments or equidistant circles around a center node
-- Use distinct colors for each phase (rotate through brand colors)
-- Center: `icesiblue` circle with "NODE.JS" or process name in white
-- Arrows follow clockwise direction with consistent `stroke-width="2"`
+### Tipo A: Diagrama de Fases Circular
+**Usar para**: Fases del Event Loop, ciclos de vida, procesos recurrentes.
+- Fases como arcos coloreados o círculos equidistantes alrededor de un nodo central
+- Centro: `icesiblue` con nombre del proceso en blanco
+- Flechas en sentido horario con `stroke-width="2"` consistente
+- **viewBox recomendado**: `0 0 400 400`
 
-**Recommended viewBox**: `0 0 400 400`
+### Tipo B: Stack de Arquitectura por Capas
+**Usar para**: Stacks tecnológicos, arquitectura de sistemas, capas de dependencia.
+- Rectángulos horizontales apilados verticalmente (top=mayor abstracción)
+- Gradiente de colores: `icesiyellow` → `icesiblue` → `icesipurple` → `icesigreen` → `icesidark`
+- **viewBox recomendado**: `0 0 500 320`
 
-### Type B: Layered Architecture Stack
-**Use for**: Technology stacks, system architecture, dependency layers.
-- Draw horizontal rectangles stacked vertically, top=highest abstraction
-- Use gradient from `icesiyellow` (top/app layer) → `icesiblue` → `icesipurple` → `icesigreen` → `icesidark` (bottom/OS)
-- Bidirectional arrows `⟺` between adjacent layers
-- Include short descriptive text in each layer
+### Tipo C: Evolución Lineal / Timeline
+**Usar para**: Evolución tecnológica, historial de versiones, progresión de APIs.
+- Tres o cuatro cajas conectadas con flechas izquierda-derecha
+- Cada caja: color distinto, año/versión abajo, nombre arriba
+- **viewBox recomendado**: `0 0 500 180`
 
-**Recommended viewBox**: `0 0 500 320`
+### Tipo D: Tabla Comparativa / Matriz
+**Usar para**: Node.js vs Python, Sync vs Async, SQL vs NoSQL.
+- Grid con fila de encabezado y filas de características
+- Checkmark (✓ `#4CB979`) o X (✗ `#E9683B`) en celdas
+- **viewBox recomendado**: `0 0 600 380`
 
-### Type C: Linear Evolution / Timeline
-**Use for**: Technology evolution, version history, API progression (Callbacks → Promises → Async/Await).
-- Three or four boxes connected by arrows left-to-right
-- Each box: distinct fill color, year/version below, name above
-- Use `icesiblue`, `icesipurple`, `icesigreen`, `icesiorange` in sequence
-- Optional "evolution arrow" spanning the full width below
-
-**Recommended viewBox**: `0 0 500 180`
-
-### Type D: Comparison Table / Matrix
-**Use for**: Node.js vs Python vs Java, Sync vs Async, SQL vs NoSQL comparisons.
-- Grid with header row and feature rows
-- Each column has a distinct header color
-- Checkmark (✓ `#4CB979`) or X (✗ `#E9683B`) in cells
-- Alternating row backgrounds: `#F8F9FF` / `white`
-
-**Recommended viewBox**: `0 0 600 380`
-
-### Type E: Flowchart / Decision Tree
-**Use for**: Request-Response cycles, async execution flow, middleware pipeline.
-- Diamond shapes for decisions, rectangles for processes, ovals for start/end
-- Colors: decisions=`icesiyellow`+dark text, processes=`icesiblue`+white text, endpoints=`icesidark`+white
-- Arrow labels on conditional branches ("Sí" / "No", "resolve" / "reject")
-
-**Recommended viewBox**: `0 0 500 400`
+### Tipo E: Flowchart / Árbol de Decisión
+**Usar para**: Ciclos Request-Response, flujo de ejecución async, pipeline de middleware.
+- Rombos para decisiones, rectángulos para procesos, óvalos para inicio/fin
+- **viewBox recomendado**: `0 0 500 400`
 
 ---
 
-## 🔄 4. Tooling and Compilation Pipeline
+## 🔄 4. Pipeline de Creación (Sin CLI de conversión)
 
-### Option A: Direct SVG (Recommended for custom diagrams)
-1. Write the SVG file manually or with the agent's code generation
-2. Save to `resources/patterns/diagram_name.svg`
-3. Convert SVG → PDF using one of:
-   ```powershell
-   # Option 1: rsvg-convert (if available)
-   rsvg-convert -f pdf -o resources/patterns/diagram_name.pdf resources/patterns/diagram_name.svg
+### Flujo simplificado (sin Inkscape, sin rsvg-convert):
 
-   # Option 2: Inkscape CLI (if available)
-   inkscape --export-type=pdf --export-filename=resources/patterns/diagram_name.pdf resources/patterns/diagram_name.svg
+1. **Escribir el SVG** manualmente o con asistencia del agente
+2. **Guardar en** `slides/<tema>/assets/<nombre_diagrama>.svg`
+3. **Embeber directamente** en el slide HTML con `<img>`
 
-   # Option 3: Use ImageMagick for PNG fallback
-   magick convert -density 300 resources/patterns/diagram_name.svg resources/patterns/diagram_name.png
-   ```
-4. Embed in LaTeX using the PDF path
+```html
+<!-- Ejemplo: diagrama en slideTwoCols -->
+icesi.slideTwoCols(
+  'Arquitectura del Sistema',
+  `<ul>
+    <li>Cliente realiza peticiones HTTP</li>
+    <li>API Gateway enruta las solicitudes</li>
+    <li>Cada servicio tiene su propia BD</li>
+  </ul>`,
+  `<img src="slides/nodejs/assets/microservices_architecture.svg"
+        style="width:100%; height:auto; display:block;"
+        alt="Arquitectura de Microservicios">`
+)
+```
 
-### Option B: Mermaid CLI (for flowcharts/sequence diagrams)
-1. Write a `.mmd` file with the diagram definition
-2. Compile:
-   ```bash
-   npx -y @mermaid-js/mermaid-cli -i resources/patterns/diagram.mmd -o resources/patterns/diagram.pdf --backgroundColor transparent
-   ```
-
-### Option C: PNG Fallback (when PDF conversion unavailable)
-Use `\includegraphics` with PNG (300 DPI minimum). Note: PNG on colored backgrounds requires truly transparent PNG (alpha channel). Always check with `page-NN.png` preview.
+> **¿Por qué no necesitas convertir a PDF?**
+> En LaTeX, los SVGs debían convertirse a PDF porque XeLaTeX no puede renderizar SVG directamente. En HTML, el navegador renderiza SVG nativo sin intermediarios.
 
 ---
 
-## 🖼️ 5. LaTeX Embedding Patterns
+## 🖼️ 5. Patrones de Embedding en HTML
 
-### In Sidebar Slides (Zone: left colored panel)
-```latex
-\slideSidebarLeftBlue{Título del Slide}{
-    Contenido textual aquí...
-    \begin{itemize}
-        \item Punto 1
-        \item Punto 2
-    \end{itemize}
-}{resources/patterns/event_loop_diagram.pdf}
+### En Sidebar Slides (zona: panel lateral colorido)
+```javascript
+icesi.slideSidebarLeftBlue(
+  'Event Loop de Node.js',
+  `<ul>
+    <li>Single-threaded, non-blocking</li>
+    <li>libuv gestiona operaciones I/O</li>
+    <li>Callbacks se ejecutan en orden</li>
+  </ul>`,
+  'slides/nodejs/assets/event_loop_diagram.svg'  // El CSS maneja el tamaño: 359×359px
+)
 ```
 
-### In Two-Column Slides (Zone: right column)
-```latex
-\slideTwoCols{Título del Slide}{
-    \textbf{Explicación}
-    \begin{itemize}
-        \item Concepto 1
-        \item Concepto 2
-    \end{itemize}
-}{
-    \vspace{0.5cm}
-    \includegraphics[width=\textwidth, keepaspectratio]{resources/patterns/node_architecture.pdf}
-}
+### En Two-Column Slides (zona: columna derecha)
+```javascript
+icesi.slideTwoCols(
+  'Comparativa Node.js vs Python',
+  `<ul>
+    <li>Node.js: alta concurrencia I/O</li>
+    <li>Python: mejor para ML/Data Science</li>
+  </ul>`,
+  `<img src="slides/nodejs/assets/comparison_table.svg"
+        style="width:100%; height:auto;"
+        alt="Tabla comparativa Node.js vs Python">`
+)
 ```
 
-### In Stripe Slides (Zone: open content area)
-```latex
-\slideStripeTopLeft{Arquitectura Node.js}{
-    \begin{columns}[T]
-        \begin{column}{0.48\textwidth}
-            \begin{itemize}
-                \item Punto 1
-            \end{itemize}
-        \end{column}
-        \begin{column}{0.48\textwidth}
-            \includegraphics[width=\textwidth, keepaspectratio]{resources/patterns/diagram.pdf}
-        \end{column}
-    \end{columns}
-}
+### En Stripe Slides (zona: área de contenido abierta)
+```javascript
+icesi.slideStripeTopLeft(
+  'Arquitectura Node.js',
+  `<div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:start;">
+    <ul>
+      <li>Motor V8 de Google</li>
+      <li>libuv para I/O asíncrono</li>
+    </ul>
+    <img src="slides/nodejs/assets/node_architecture.svg"
+         style="width:100%; height:auto;" alt="Arquitectura">
+  </div>`
+)
+```
+
+### En Standard Slides (ancho completo)
+```javascript
+icesi.slideStandard(
+  'Fases del Event Loop',
+  `<img src="slides/nodejs/assets/event_loop_phases.svg"
+        style="width:80%; height:auto; display:block; margin:0 auto;"
+        alt="Fases del Event Loop de Node.js">`
+)
 ```
 
 ---
 
-## 📐 6. Bounding Box Constraints per Layout
+## 📐 6. Restricciones de Zona Gráfica por Layout
 
-| Layout Macro | Graphic Zone Width | Graphic Zone Height | Notes |
-|---|---|---|---|
-| `\slideSidebarLeft*` | 9.5cm | 9.5cm | Centered in sidebar, transparent bg needed |
-| `\slideTwoCols` col2 | ~14cm (50% of slide) | 10cm max | Use `keepaspectratio` |
-| `\slideStripeTopLeft/Right` open zone | 16cm | 11cm | Combine with mini-columns inside |
-| `\slideStandard` full content | 28cm | 10cm | Place inline with `\includegraphics` |
-| `\slideFourCards` per card | 5cm | 3cm | Only micro-icons, keep minimal |
+| Layout | Zona de imagen disponible | Notas |
+|---|---|---|
+| `slideSidebarLeft*` (parámetro imagePath) | 359×359px | CSS maneja el tamaño automáticamente |
+| `slideTwoCols` col2 | ~570px ancho, 460px alto | `width:100%; height:auto` |
+| `slideStripeTopLeft/Right` (content) | 1218px ancho, 430px alto | Combinar con mini-grid si es necesario |
+| `slideStandard` (content) | 1218px ancho, 460px alto | `width:80%; margin:auto` para centrar |
+| `slideFourCards` por card | ~270px ancho, 320px alto | Solo micro-iconos, mantener minimal |
 
 ---
 
-## ✅ 7. Pre-flight SVG Quality Checklist
+## ✅ 7. Checklist de Calidad SVG
 
-Before embedding any SVG/PDF in a slide, verify:
-- [ ] Transparent background (`fill="none"` or `fill="transparent"` on root `<svg>`)
-- [ ] All text legible at target scale (min font-size 11px in SVG coords for sidebar, 13px for full-width)
-- [ ] Color contrast passes: dark text on light fill, white text on dark fill
-- [ ] No clipping: all elements within the declared `viewBox`
-- [ ] Arrows have visible arrowhead markers
-- [ ] File is saved as `.svg` in `resources/patterns/` 
-- [ ] Companion `.pdf` version generated for LaTeX embedding
-- [ ] Verified via `page-NN.png` preview after compilation
+Antes de embeber cualquier SVG en un slide, verificar:
+- [ ] Fondo transparente (`fill="none"` o `fill="transparent"` en el `<svg>` raíz)
+- [ ] `viewBox` declarado explícitamente (permite escalar sin distorsión)
+- [ ] Todo texto legible al tamaño objetivo: mínimo `font-size="13"` para columnas, `font-size="11"` para sidebar
+- [ ] Contraste de color correcto: texto oscuro en relleno claro, texto blanco en relleno oscuro
+- [ ] Sin recorte: todos los elementos dentro del `viewBox` declarado
+- [ ] Flechas con `marker-end="url(#arrow)"` visibles
+- [ ] Archivo guardado como `.svg` en `slides/<tema>/assets/`
+- [ ] **No se requiere PDF companion** — el SVG se usa directamente
+- [ ] Verificar visualmente en el navegador al 1280×720px (abrir la presentación y navegar al slide)

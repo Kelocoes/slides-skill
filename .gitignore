@@ -4,6 +4,7 @@ svg-inkscape/
 old_context/
 util/
 slides/
+.playwright-mcp/
 
 # LaTeX auxiliary files in root
 *.aux

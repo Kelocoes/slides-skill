@@ -1,163 +1,247 @@
 ---
 name: slides-mermaid-diagrams
-description: Workflow to generate Mermaid diagrams (flowcharts, sequences, architecture) and embed them as SVG/PNG in Universidad Icesi Beamer slides.
+description: Workflow para generar diagramas Mermaid inline directamente en slides HTML de la Universidad Icesi, sin CLI externo ni conversión a PNG/PDF.
 ---
 
-# Skill: `slides-mermaid-diagrams`
+# Skill: `slides-mermaid-diagrams` (Mermaid.js Inline)
 
-Este workflow explica cómo generar diagramas Mermaid (flowcharts, secuencias, arquitectura) y embeberlos como imágenes SVG o PNG en las diapositivas Beamer de la Universidad Icesi.
-
----
-
-### Sección 1: Herramienta y Motor
-
-Para compilar archivos `.mmd` a imágenes `.svg` o `.png`, utilizamos la herramienta de línea de comandos `mmdc` (`@mermaid-js/mermaid-cli`).
-
-**Para compilar a PNG directamente:**
-```bash
-npx -y @mermaid-js/mermaid-cli -i slides/<tema>/assets/<nombre>.mmd -o slides/<tema>/assets/<nombre>.png --backgroundColor transparent --width 800 --height 500
-```
-
-**Para compilar a SVG primero:**
-```bash  
-npx -y @mermaid-js/mermaid-cli -i slides/<tema>/assets/<nombre>.mmd -o slides/<tema>/assets/<nombre>.svg --backgroundColor transparent
-```
-
-Luego, si es necesario, convertir el SVG a PNG con alta resolución usando `svgexport`:
-```bash
-npx svgexport slides/<tema>/assets/<nombre>.svg slides/<tema>/assets/<nombre>.png 2x
-```
+Este workflow explica cómo usar **Mermaid.js directamente dentro de los slides HTML** de la Universidad Icesi. No se requieren herramientas CLI (`mmdc`), ni conversión a PNG/PDF.
 
 ---
 
-### Sección 2: Paleta de Colores Icesi para Mermaid
+### Sección 1: Cómo funciona Mermaid inline
 
-Los diagramas deben adaptarse a los colores de marca de la Universidad Icesi. Puedes definir un archivo de configuración Mermaid (`mermaid-config.json`) con el siguiente tema personalizado:
+Mermaid.js se carga desde CDN y procesa todos los `<div class="mermaid">` automáticamente al cargar la página. El helper `icesi.mermaid(code)` genera este bloque:
 
-```json
-{
-  "theme": "base",
-  "themeVariables": {
-    "primaryColor": "#5454E9",
-    "secondaryColor": "#865CF0",
-    "tertiaryColor": "#4CB979",
-    "primaryTextColor": "#FFFFFF",
-    "lineColor": "#393939"
-  }
-}
+```javascript
+// En el contenido de cualquier slide:
+icesi.slideStandard(
+  'Flujo de Autenticación',
+  icesi.mermaid(`
+    sequenceDiagram
+      actor Cliente
+      participant API
+      participant DB
+      Cliente->>API: POST /login
+      API->>DB: SELECT usuario
+      DB-->>API: datos
+      API-->>Cliente: JWT Token
+  `)
+)
 ```
 
-Para usar esta configuración en el comando:
-```bash
-npx -y @mermaid-js/mermaid-cli -i entrada.mmd -o salida.png --configFile mermaid-config.json --backgroundColor transparent
-```
-
-Alternativamente, puedes usar directivas y `classDef` directamente dentro del `.mmd` para aplicar los colores a los nodos individuales.
-
----
-
-### Sección 3: Tipos de Diagramas y Sus `.mmd`
-
-A continuación, ejemplos completos de código `.mmd` para diferentes tipos de diagramas:
-
-**A. Diagrama de Flujo (Flowchart)**:
-```mermaid
-%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#5454E9', 'primaryTextColor': '#fff', 'lineColor': '#393939'}}}%%
-graph TD
-    A["Cliente"] -->|"Petición HTTP"| B{"API Gateway"}
-    B -->|"Ruta /users"| C["Servicio Usuarios"]
-    B -->|"Ruta /data"| D["Servicio Datos"]
-    C --> E[("PostgreSQL")]
-    D --> F[("MongoDB")]
-    classDef blue fill:#5454E9,stroke:none,color:#fff
-    classDef green fill:#4CB979,stroke:none,color:#fff
-    classDef purple fill:#865CF0,stroke:none,color:#fff
-    class A,B blue
-    class C,D purple
-    class E,F green
-```
-
-**B. Diagrama de Secuencia**:
-```mermaid
-%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#5454E9', 'primaryTextColor': '#fff'}}}%%
-sequenceDiagram
-    autonumber
+El resultado HTML que se inserta en el slide:
+```html
+<div class="mermaid">
+  sequenceDiagram
     actor Cliente
-    participant API
-    participant DB
-    Cliente->>API: POST /login
-    API->>DB: SELECT usuario
-    DB-->>API: datos
-    API-->>Cliente: JWT Token
+    ...
+</div>
 ```
 
-**C. Diagrama de Arquitectura (Subgraphs)**:
-```mermaid
-%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#5454E9', 'primaryTextColor': '#fff'}}}%%
-graph TB
-    subgraph App ["Tu Aplicación"]
+Mermaid convierte este bloque en un SVG renderizado con el tema de colores Icesi.
+
+---
+
+### Sección 2: Inicialización con Tema Icesi
+
+La inicialización de Mermaid ocurre automáticamente dentro de `icesi.init()`. El tema usa los colores institucionales:
+
+```javascript
+// Esto se ejecuta dentro de icesi.init() — NO necesitas llamarlo manualmente:
+mermaid.initialize({
+  startOnLoad: true,
+  theme: 'base',
+  themeVariables: {
+    primaryColor:     '#5454E9',  // icesiblue — nodos primarios
+    secondaryColor:   '#865CF0',  // icesipurple — nodos secundarios
+    tertiaryColor:    '#4CB979',  // icesigreen — nodos terciarios
+    primaryTextColor: '#FFFFFF',
+    lineColor:        '#393939',  // icesidark
+  },
+  fontFamily: "'Plus Jakarta Sans', sans-serif",
+});
+```
+
+Si necesitas override de colores por diagrama, usa directivas `%%{init}%%`:
+
+```
+%%{init: {'theme': 'base', 'themeVariables': {
+  'primaryColor': '#E9683B',
+  'primaryTextColor': '#fff'
+}}}%%
+graph TD ...
+```
+
+---
+
+### Sección 3: Tipos de Diagramas y Ejemplos
+
+#### A. Diagrama de Flujo (Flowchart)
+
+```javascript
+icesi.slideStandard(
+  'Flujo de Petición HTTP',
+  icesi.mermaid(`
+    %%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#5454E9', 'primaryTextColor': '#fff', 'lineColor': '#393939'}}}%%
+    graph TD
+      A["Cliente"] -->|"Petición HTTP"| B{"API Gateway"}
+      B -->|"Ruta /users"| C["Servicio Usuarios"]
+      B -->|"Ruta /data"| D["Servicio Datos"]
+      C --> E[("PostgreSQL")]
+      D --> F[("MongoDB")]
+      classDef blue fill:#5454E9,stroke:none,color:#fff
+      classDef green fill:#4CB979,stroke:none,color:#fff
+      classDef purple fill:#865CF0,stroke:none,color:#fff
+      class A,B blue
+      class C,D purple
+      class E,F green
+  `)
+)
+```
+
+#### B. Diagrama de Secuencia
+
+```javascript
+icesi.slideTwoCols(
+  'Ciclo de Autenticación JWT',
+  `<ul>
+    <li>POST /login envía credenciales</li>
+    <li>El servidor valida contra la BD</li>
+    <li>Se retorna un JWT firmado</li>
+    <li>El cliente adjunta el token en cada request</li>
+  </ul>`,
+  icesi.mermaid(`
+    sequenceDiagram
+      autonumber
+      actor Cliente
+      participant API
+      participant DB
+      Cliente->>API: POST /login
+      API->>DB: SELECT usuario
+      DB-->>API: datos
+      API-->>Cliente: JWT Token
+      Cliente->>API: GET /perfil + JWT
+      API-->>Cliente: Datos protegidos
+  `)
+)
+```
+
+#### C. Diagrama de Arquitectura (Subgraphs)
+
+```javascript
+icesi.slideSidebarLeftBlue(
+  'Arquitectura Node.js',
+  `<ul>
+    <li>Motor V8 ejecuta JavaScript</li>
+    <li>libuv gestiona I/O asíncrono</li>
+    <li>El Event Loop coordina callbacks</li>
+  </ul>`,
+  '' // sin imagen en sidebar, usamos el diagrama inline
+)
+
+// O con el diagrama en la segunda columna:
+icesi.slideTwoCols(
+  'Capas de la Plataforma',
+  `<ul>
+    <li>Aplicación JS (tu código)</li>
+    <li>Node.js APIs (http, fs, stream)</li>
+    <li>Motor V8 + libuv</li>
+    <li>Sistema Operativo</li>
+  </ul>`,
+  icesi.mermaid(`
+    graph TB
+      subgraph App ["Tu Aplicación"]
         JS["JavaScript"]
-    end
-    subgraph Node ["Node.js Runtime"]
+      end
+      subgraph Node ["Node.js Runtime"]
         V8["Motor V8"]
         libuv["libuv"]
-    end
-    JS --> V8
-    V8 --> libuv
+        APIs["Node APIs"]
+      end
+      subgraph OS ["Sistema Operativo"]
+        IO["I/O, Network, Timers"]
+      end
+      JS --> APIs
+      APIs --> V8
+      APIs --> libuv
+      libuv --> IO
+  `)
+)
 ```
 
-**D. Diagrama de Estado / Ciclo de Vida**:
-```mermaid
-stateDiagram-v2
-    [*] --> Pending
-    Pending --> Fulfilled
-    Pending --> Rejected
-    Fulfilled --> [*]
-    Rejected --> [*]
+#### D. Diagrama de Estado / Ciclo de Vida
+
+```javascript
+icesi.slideStripeTopLeft(
+  'Ciclo de Vida de una Promise',
+  icesi.mermaid(`
+    stateDiagram-v2
+      [*] --> Pending
+      Pending --> Fulfilled : resolve()
+      Pending --> Rejected  : reject()
+      Fulfilled --> [*]
+      Rejected  --> [*]
+  `)
+)
+```
+
+#### E. Diagrama de Clases / ER
+
+```javascript
+icesi.slideStandard(
+  'Modelo de Datos',
+  icesi.mermaid(`
+    erDiagram
+      USUARIO ||--o{ PEDIDO : "realiza"
+      PEDIDO ||--|{ ITEM : "contiene"
+      ITEM }|--|| PRODUCTO : "es un"
+  `)
+)
 ```
 
 ---
 
-### Sección 4: Embedding en LaTeX
+### Sección 4: Integración por Tipo de Slide
 
-Ejemplos de cómo usar las imágenes generadas dentro de las macros del layout de Icesi:
-
-**En un slide con sidebar:**
-```latex
-\slideSidebarLeftBlue{Arquitectura}{
-    \begin{itemize}
-        \item Explicación del diagrama.
-        \item Detalle técnico.
-    \end{itemize}
-}{slides/<tema>/assets/diagrama.png}
+#### En `slideStandard` (diagrama ocupa todo el ancho):
+```javascript
+icesi.slideStandard('Título', icesi.mermaid(`graph LR\n  A --> B --> C`))
 ```
 
-**En un slide de dos columnas:**
-```latex
-\slideTwoCols{Diagrama de Secuencia}{
-    \begin{itemize}
-        \item Paso 1: Login
-        \item Paso 2: Consulta
-    \end{itemize}
-}{
-    \includegraphics[width=\textwidth,keepaspectratio]{slides/<tema>/assets/secuencia.png}
-}
+#### En `slideTwoCols` (diagrama en col2, texto en col1):
+```javascript
+icesi.slideTwoCols(
+  'Título',
+  `<ul><li>Punto 1</li></ul>`,
+  icesi.mermaid(`graph TD\n  A --> B`)
+)
 ```
 
-**En un banner decorativo:**
-```latex
-\slideStripeTopLeft{Ciclo de Vida}{
-    \begin{center}
-        \includegraphics[width=0.8\textwidth]{slides/<tema>/assets/estado.png}
-    \end{center}
-}
+#### En `slideSidebarLeft*` (diagrama en el contenido derecho):
+```javascript
+icesi.slideSidebarLeftBlue(
+  'Título',
+  icesi.mermaid(`graph LR\n  A --> B`) + `<p>Descripción adicional</p>`,
+  '' // sin imagen de sidebar
+)
+```
+
+#### En `slideStripeTopLeft/Right` (diagrama en zona de contenido):
+```javascript
+icesi.slideStripeTopLeft(
+  'Título en Barra Verde',
+  icesi.mermaid(`graph TD\n  A --> B --> C`)
+)
 ```
 
 ---
 
 ### Sección 5: Reglas de Calidad Visual
 
-- Ancho máximo del PNG exportado para sidebar: `800px`
-- Para slides de contenido full: `1200px`
-- Fondo siempre transparente (`--backgroundColor transparent`)
-- Verificar visibilidad a tamaño de diapositiva con el PNG de preview (debe ser legible sin hacer zoom).
+- **Fondo transparente**: Mermaid.js usa SVG con fondo transparente por defecto. ✅
+- **Escala**: Los SVGs de Mermaid tienen `max-width:100%; height:auto` en `icesibeamer.css`. ✅
+- **Texto legible**: Usa `font-size` mínimo de 14px en variables de Mermaid para que sea legible al 1280×720px.
+- **Simplicidad**: Máximo 8-10 nodos por diagrama en slides. Si el diagrama es más complejo, dividirlo en dos slides.
+- **Colores**: Usar `classDef` para aplicar colores de marca a nodos específicos en diagramas complejos.
+- **Sin mmdc CLI**: NO exportar a PNG/PDF para esta presentación. Mermaid renderiza directamente en el navegador.

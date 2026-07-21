@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plantilla Institucional — Universidad Icesi</title>
+  <meta name="description" content="Plantilla oficial de presentaciones institucionales para la Universidad Icesi. Basada en el sistema de componentes icesibeamer.js y Reveal.js.">
+
+  <!-- Reveal.js CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <!-- ICESI Beamer — Stylesheet institucional (reemplaza icesibeamer.sty) -->
+  <link rel="stylesheet" href="icesibeamer.css">
+
+  <style>
+    /* Overrides mínimos para que Reveal.js no interfiera con el canvas fijo */
+    body { margin: 0; background: #1a1a2e; }
+    .reveal .slides { overflow: visible; }
+    /* Ajuste del fondo de presentación para separar slides visualmente en modo edición */
+    .reveal-viewport { background: #1a1a2e; }
+  </style>
+</head>
+<body>
+
+<div class="reveal">
+  <div class="slides" id="icesi-slides">
+    <!-- Los slides se inyectan aquí por icesibeamer.js -->
+  </div>
+</div>
+
+<!-- Reveal.js plugins CDN -->
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/markdown/markdown.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+
+<!-- Mermaid.js CDN — Diagramas inline -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+
+<!-- ICESI Beamer — Component Library (reemplaza los macros de icesibeamer.sty) -->
+<script src="icesibeamer.js"></script>
+
+<script>
+  /**
+   * ═══════════════════════════════════════════════════════════════
+   * PRESENTACIÓN DEMO — Universidad Icesi
+   * Equivalente a: main.tex
+   *
+   * Cada llamada icesi.*() genera el HTML de una <section> de Reveal.js.
+   * El contenido puede ser HTML puro o usar los helpers:
+   *   - icesi.mermaid(code)   → diagrama Mermaid inline
+   *   - icesi.markdown(text)  → contenido Markdown (procesado por Reveal.js)
+   *   - icesi.codeBlock(code, lang) → bloque de código con sintaxis
+   * ═══════════════════════════════════════════════════════════════
+   */
+
+  // Configurar ruta base (main.html está en la raíz del proyecto)
+  // Para presentaciones en subdirectorios, usa: icesi.setBasePath('../../')
+
+  const slides = [
+
+    // ──────────────────────────────────────────
+    // SLIDE 1: Portada A — Fondo azul sólido
+    // Equivale a: \titleSlideA{...}{...}
+    // ──────────────────────────────────────────
+    icesi.titleSlideA(
+      'Título de la Diapositiva 1',
+      'Subtítulo de la presentación'
+    ),
+
+    // ──────────────────────────────────────────
+    // SLIDE 2: Portada B — Blanco, barra verde, texto derecha
+    // Equivale a: \titleSlideB{...}{...}{...}
+    // ──────────────────────────────────────────
+    icesi.titleSlideB(
+      'Título de la Diapositiva 2',
+      'Subtítulo de la presentación',
+      'Autor / Nombre del evento / Fecha'
+    ),
+
+    // ──────────────────────────────────────────
+    // SLIDE 3: Portada C — Bloque azul abajo + patrón rayas
+    // Equivale a: \titleSlideC{...}{...}
+    // ──────────────────────────────────────────
+    icesi.titleSlideC(
+      'Título de la Diapositiva 3',
+      'Subtítulo de la presentación'
+    ),
+
+    // ──────────────────────────────────────────
+    // SLIDE 4: Portada D — Split azul/morado + badge amarillo
+    // Equivale a: \titleSlideD{...}{...}{...}
+    // ──────────────────────────────────────────
+    icesi.titleSlideD(
+      'Título de la Diapositiva 4',
+      'Subtítulo de la presentación',
+      'Texto Destacado en Caja Azul'
+    ),
+
+    // ──────────────────────────────────────────
+    // SLIDE 5: Portada E — Blanco, caja azul + caja morada
+    // Equivale a: \titleSlideE{...}{...}
+    // ──────────────────────────────────────────
+    icesi.titleSlideE(
+      'Título de la Diapositiva 5',
+      'Subtítulo de la presentación'
+    ),
+
+    // ──────────────────────────────────────────
+    // SLIDE 6: Portada F — Bloque azul superior, naranja top-right
+    // Equivale a: \titleSlideF{...}{...}
+    // ──────────────────────────────────────────
+    icesi.titleSlideF(
+      'Título de la Diapositiva 6',
+      'Subtítulo de la presentación'
+    ),
+
+    // ──────────────────────────────────────────
+    // SLIDE 7: División A — Barra azul inferior
+    // Equivale a: \sectionSlideA{...}
+    // ──────────────────────────────────────────
+    icesi.sectionSlideA(
+      'División A: Título de Sección'
+    ),
+
+    // ──────────────────────────────────────────
+    // SLIDE 8: División B — Imagen derecha, barra naranja
+    // Equivale a: \sectionSlideB{...}{...}
+    // Pasa '' como segundo arg si no hay imagen
+    // ──────────────────────────────────────────
+    icesi.sectionSlideB(
+      'División B: Título de Sección',
+      ''
+    ),
+
+    // ──────────────────────────────────────────
+    // SLIDE 9: División C — Fondo azul, caja blanca, acento verde
+    // Equivale a: \sectionSlideC{...}
+    // ──────────────────────────────────────────
+    icesi.sectionSlideC(
+      'División C: Título de Sección'
+    ),
+
+    // ──────────────────────────────────────────
+    // SLIDES 10-14: División E — 5 variantes de color
+    // Equivale a: \sectionSlideE* (cada variante)
+    // ──────────────────────────────────────────
+    icesi.sectionSlideEBlue(
+      'División E: Fondo Azul'
+    ),
+
+    icesi.sectionSlideE(
+      'División E: Fondo Blanco'
+    ),
+
+    icesi.sectionSlideEGreen(
+      'División E: Fondo Verde'
+    ),
+
+    icesi.sectionSlideEYellow(
+      'División E: Fondo Amarillo'
+    ),
+
+    icesi.sectionSlideEOrange(
+      'División E: Fondo Naranja'
+    ),
+
+    // ──────────────────────────────────────────
+    // SLIDE 15: Sidebar Izquierda Naranja
+    // Equivale a: \slideSidebarLeftOrange{...}{...}
+    // ──────────────────────────────────────────
+    icesi.slideSidebarLeftOrange(
+      'Título Diapositiva 15',
+      `<p>Esta es una diapositiva con una barra lateral izquierda de color naranja
+      y el logotipo institucional en blanco negativo. El contenido y el título
+      se posicionan limpiamente en la parte derecha.</p>`,
+      ''
+    ),
+
+    // ──────────────────────────────────────────
+    // SLIDE 16: Sidebar Izquierda Azul
+    // Equivale a: \slideSidebarLeftBlue{...}{...}
+    // ──────────────────────────────────────────
+    icesi.slideSidebarLeftBlue(
+      'Título Diapositiva 16',
+      `<p>Esta variante cuenta con la barra lateral en color azul institucional,
+      manteniendo el mismo esquema de alineación y márgenes de seguridad.</p>`,
+      ''
+    ),
+
+    // ──────────────────────────────────────────
+    // SLIDE 17: Sidebar Izquierda Morada
+    // Equivale a: \slideSidebarLeftPurple{...}{...}
+    // ──────────────────────────────────────────
+    icesi.slideSidebarLeftPurple(
+      'Título Diapositiva 17',
+      `<p>Esta variante cuenta con la barra lateral en color morado, ideal para
+      cambiar de sección de forma dinámica.</p>`,
+      ''
+    ),
+
+    // ──────────────────────────────────────────
+    // SLIDE 18: Franja Superior con Acento a la Izquierda
+    // Equivale a: \slideStripeTopLeft{...}{...}
+    // ──────────────────────────────────────────
+    icesi.slideStripeTopLeft(
+      'Título Diapositiva 18',
+      `<p>Esta es una diapositiva con una franja azul superior y una franja verde
+      de acento posicionada a la izquierda. La caja de contenido se ubica en el
+      centro de la diapositiva sobre fondo blanco.</p>`
+    ),
+
+    // ──────────────────────────────────────────
+    // SLIDE 19: Franja Superior con Acento a la Derecha
+    // Equivale a: \slideStripeTopRight{...}{...}
+    // ──────────────────────────────────────────
+    icesi.slideStripeTopRight(
+      'Título Diapositiva 19',
+      `<p>Esta es una diapositiva hermana con una franja azul superior y la franja
+      verde de acento posicionada a la derecha. Ambas comparten la alineación y
+      el uso del logo blanco en negativo en la esquina superior izquierda.</p>`
+    ),
+
+  ];
+
+  // ─── Inyectar todos los slides en el DOM ──────────────────────
+  document.getElementById('icesi-slides').innerHTML = slides.join('\n');
+
+  // ─── Inicializar Reveal.js + Mermaid con tema Icesi ───────────
+  icesi.init();
+</script>
+
+</body>
+</html>
