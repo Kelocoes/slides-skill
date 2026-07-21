@@ -1,0 +1,74 @@
+/* ══════════════════════════════════════════
+   CATEGORÍA 3 — SIDEBARS IZQUIERDA
+   ══════════════════════════════════════════ */
+
+/* ──────────────────────────────────────────
+   SIDEBAR LEFT — 3 variantes (naranja, azul, morado)
+   Ref: \slideSidebarLeft{Orange|Blue|Purple}{title}{content}{img}
+   Visual: page-15, page-16, page-17.png
+   ────────────────────────────────────────── */
+.slide.sidebar-left {
+  background: var(--icesi-white);
+}
+/* Panel lateral: xshift=0, width=12.41cm=469px, height=100% */
+.slide.sidebar-left .sidebar {
+  position: absolute;
+  left: 0; top: 0;
+  width: 469px;
+  height: 720px;
+}
+/* Colores del sidebar según variante */
+.slide.sidebar-left.orange .sidebar { background: var(--icesi-orange); }
+.slide.sidebar-left.blue   .sidebar { background: var(--icesi-blue); }
+.slide.sidebar-left.purple .sidebar { background: var(--icesi-purple); }
+
+/* Logo negativo en el sidebar: xshift=1.30cm→49px, yshift=-0.80cm→30px */
+.slide.sidebar-left .sidebar .logo-negative {
+  position: absolute;
+  top: 30px;
+  left: 49px;
+  width: var(--logo-w);
+}
+
+/* Imagen en el sidebar (opcional): centrada horizontalmente, yshift=-10.50cm→centrado */
+.slide.sidebar-left .sidebar-image {
+  position: absolute;
+  left: 55px;
+  top: 175px;
+  width: 359px;
+  height: 359px;
+  object-fit: contain;
+}
+
+/* Título del slide (en zona blanca derecha): xshift=14.00cm→529px, yshift=-4.66cm→176px, width=18cm=680px */
+.slide.sidebar-left .sidebar-title {
+  position: absolute;
+  left: 529px;
+  top: 176px;
+  width: 680px;
+}
+.slide.sidebar-left .sidebar-title h2 {
+  color: var(--icesi-blue);
+  font-size: 38px;
+  line-height: 46px;
+  font-weight: 700;
+  hyphens: none;
+}
+
+/* Contenido (debajo del título): top deja margen sobre el título */
+.slide.sidebar-left .sidebar-content {
+  position: absolute;
+  left: 529px;
+  top: 290px;
+  width: 700px;
+  color: var(--icesi-dark);
+  font-size: 22px;
+  line-height: 30px;
+}
+.slide.sidebar-left .sidebar-content ul {
+  padding-left: 22px;
+  margin: 0;
+}
+.slide.sidebar-left .sidebar-content li {
+  margin-bottom: 10px;
+}

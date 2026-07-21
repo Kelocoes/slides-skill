@@ -1,0 +1,139 @@
+/* ══════════════════════════════════════════
+   CATEGORÍA 5 — SLIDES DE CONTENIDO
+   ══════════════════════════════════════════ */
+
+/* ──────────────────────────────────────────
+   SLIDE ESTÁNDAR: logo header + contenido libre
+   Ref: \slideStandard{title}{content}
+   ────────────────────────────────────────── */
+.slide.standard .slide-content {
+  position: absolute;
+  top: 240px;
+  left: 32px;
+  width: 1218px;
+  color: var(--icesi-dark);
+  font-size: 22px;
+  line-height: 30px;
+}
+.slide.standard .slide-content ul,
+.slide.standard .slide-content ol {
+  padding-left: 26px;
+  margin: 0;
+}
+.slide.standard .slide-content li {
+  margin-bottom: 10px;
+}
+.slide.standard .slide-content p {
+  margin-bottom: 12px;
+}
+
+/* ──────────────────────────────────────────
+   SLIDE DOS COLUMNAS
+   Ref: \slideTwoCols{title}{col1}{col2}
+   ────────────────────────────────────────── */
+.slide.two-cols .cols-container {
+  position: absolute;
+  top: 240px;
+  left: 32px;
+  width: 1218px;
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+}
+.slide.two-cols .col {
+  flex: 1;
+  color: var(--icesi-dark);
+  font-size: 22px;
+  line-height: 30px;
+}
+.slide.two-cols .col ul {
+  padding-left: 22px;
+  margin: 0;
+}
+.slide.two-cols .col li { margin-bottom: 10px; }
+.slide.two-cols .col img { max-width: 100%; height: auto; }
+
+/* ──────────────────────────────────────────
+   SLIDE TRES COLUMNAS
+   Ref: \slideThreeCols{title}{col1}{col2}{col3}
+   ────────────────────────────────────────── */
+.slide.three-cols .cols-container {
+  position: absolute;
+  top: 240px;
+  left: 32px;
+  width: 1218px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+.slide.three-cols .col {
+  flex: 1;
+  color: var(--icesi-dark);
+  font-size: 20px;
+  line-height: 27px;
+}
+.slide.three-cols .col ul {
+  padding-left: 20px;
+  margin: 0;
+}
+.slide.three-cols .col li { margin-bottom: 9px; }
+.slide.three-cols .col img { max-width: 100%; height: auto; }
+
+/* ──────────────────────────────────────────
+   SLIDE CUATRO TARJETAS
+   Ref: \slideFourCards{title}{c1}{c2}{c3}{c4}
+   ────────────────────────────────────────── */
+/* Fondo gris suave para zona de tarjetas: yshift=-9.52cm→360px, height=9.53cm=360px */
+.slide.four-cards .cards-bg {
+  position: absolute;
+  left: -10px;
+  top: 256px;
+  width: 1300px;
+  height: 464px;
+  background: rgba(206, 207, 212, 0.2);
+}
+
+.slide.four-cards .cards-grid {
+  position: absolute;
+  top: 276px;
+  left: 28px;
+  width: 1226px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+/* Tarjeta base */
+.slide.four-cards .card {
+  background: var(--icesi-white);
+  border-radius: 6px;
+  overflow: hidden;
+  font-size: 18px;
+  line-height: 25px;
+  color: var(--icesi-dark);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.slide.four-cards .card-header {
+  padding: 10px 14px;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--icesi-white);
+  line-height: 22px;
+}
+.slide.four-cards .card-body {
+  padding: 12px 14px;
+  border-left: 3px solid transparent;
+}
+/* Colores por tarjeta */
+.slide.four-cards .card.blue   .card-header { background: var(--icesi-blue); }
+.slide.four-cards .card.blue   .card-body   { border-color: var(--icesi-blue); }
+.slide.four-cards .card.purple .card-header { background: var(--icesi-purple); }
+.slide.four-cards .card.purple .card-body   { border-color: var(--icesi-purple); }
+.slide.four-cards .card.orange .card-header { background: var(--icesi-orange); }
+.slide.four-cards .card.orange .card-body   { border-color: var(--icesi-orange); }
+.slide.four-cards .card.green  .card-header { background: var(--icesi-green); }
+.slide.four-cards .card.green  .card-body   { border-color: var(--icesi-green); }
+
+.slide.four-cards .card ul { padding-left: 18px; margin: 0; }
+.slide.four-cards .card li { margin-bottom: 6px; }

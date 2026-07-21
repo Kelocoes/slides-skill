@@ -1,26 +1,12 @@
-/**
- * ═══════════════════════════════════════════════════════════════════
- * ICESI BEAMER — JavaScript Component Library v2.0
- * Equivalente a: icesibeamer.sty (macros LaTeX → funciones JS)
- * Stack: Reveal.js + icesibeamer.css + Mermaid.js
- *
- * Uso básico:
- *   // Generar el HTML de un slide y añadirlo al DOM
- *   document.querySelector('.reveal .slides').innerHTML = [
- *     icesi.titleSlideA('Título', 'Subtítulo'),
- *     icesi.sectionSlideA('Introducción'),
- *     icesi.slideStandard('Tema', '<ul><li>Punto 1</li></ul>'),
- *   ].join('');
- *   icesi.init();
- *
- * ═══════════════════════════════════════════════════════════════════
- */
-
+/* Compilado automáticamente por src/build.js a partir de archivos modulares */
 const icesi = (() => {
   'use strict';
 
+  // =================================================================
+  // ARCHIVO: core.js
+  // =================================================================
   // ─── Recursos compartidos ───────────────────────────────────────
-  const LOGO_NEG = '../../resources/logos/ICESI_logo_prin_descriptor_BYN_RGB_POSITIVO_0924.svg';
+  const LOGO_NEG = '../../resources/logos/ICESI_logo_prin_descriptor_WHITE.svg';
   const LOGO_POS = '../../resources/logos/ICESI_logo_prin_descriptor_RGB_POSITIVO_0924.svg';
 
   // Contador auto-incrementado de slides (para numeración)
@@ -42,6 +28,10 @@ const icesi = (() => {
     return `<img class="logo-positive" src="${LOGO_POS}" alt="Universidad Icesi">`;
   }
 
+  // Funciones de logo sobreescribibles por setBasePath
+  let _logoNegFn = _logoNeg;
+  let _logoPosF  = _logoPos;
+
   /**
    * Genera el número de página del slide
    * @param {'white'|'blue'|'dark'} color - Color del número
@@ -56,7 +46,7 @@ const icesi = (() => {
       dark: '#393939',
     };
     const c = colorMap[color] || color;
-    return `<span class="slide-number ${side}" style="color:${c}">${n}</span>`;
+    return `<span class="icesi-slide-number ${side}" style="color:${c}">${n}</span>`;
   }
 
   /**
@@ -69,16 +59,20 @@ const icesi = (() => {
   function _section(className, content, numColor = 'blue', numSide = 'right') {
     _n++;
     return `<section data-slide-index="${_n}">
-  <div class="slide ${className}">
-${content}
-${_pageNum(numColor, numSide, _n)}
-  </div>
-</section>`;
+    <div class="slide ${className}">
+  ${content}
+  ${_pageNum(numColor, numSide, _n)}
+    </div>
+  </section>`;
   }
 
-  // ═══════════════════════════════════════════════════════════════
+
+  // =================================================================
+  // ARCHIVO: layouts/title-slides.js
+  // =================================================================
+  // =================================================================
   // CATEGORÍA 1 — PORTADAS (TITLE SLIDES)
-  // ═══════════════════════════════════════════════════════════════
+  // =================================================================
 
   /**
    * Portada A: Fondo azul sólido, caja blanca (título), caja amarilla (subtítulo)
@@ -88,7 +82,7 @@ ${_pageNum(numColor, numSide, _n)}
    */
   function titleSlideA(title, subtitle) {
     return _section('title-a', `
-    ${_logoNeg()}
+    ${_logoNegFn()}
     <div class="title-box">
       <h1>${title}</h1>
     </div>
@@ -107,7 +101,7 @@ ${_pageNum(numColor, numSide, _n)}
    */
   function titleSlideB(title, subtitle, footer) {
     return _section('title-b', `
-    ${_logoPos()}
+    ${_logoPosF()}
     <div class="green-bar"></div>
     <div class="slide-title">${title}</div>
     <div class="slide-subtitle">${subtitle}</div>
@@ -123,7 +117,7 @@ ${_pageNum(numColor, numSide, _n)}
    */
   function titleSlideC(title, subtitle) {
     return _section('title-c', `
-    ${_logoPos()}
+    ${_logoPosF()}
     <div class="blue-block"></div>
     <div class="stripe-pattern"></div>
     <div class="slide-title">${title}</div>
@@ -143,7 +137,7 @@ ${_pageNum(numColor, numSide, _n)}
     <div class="blue-half"></div>
     <div class="purple-half"></div>
     <div class="yellow-accent"></div>
-    ${_logoNeg()}
+    ${_logoNegFn()}
     <div class="slide-title">${title}</div>
     <div class="slide-subtitle">${subtitle}</div>
     <div class="slide-badge">${badge}</div>
@@ -158,7 +152,7 @@ ${_pageNum(numColor, numSide, _n)}
    */
   function titleSlideE(title, subtitle) {
     return _section('title-e', `
-    ${_logoPos()}
+    ${_logoPosF()}
     <div class="blue-box"></div>
     <div class="purple-box"></div>
     <div class="slide-title">${title}</div>
@@ -178,13 +172,17 @@ ${_pageNum(numColor, numSide, _n)}
     <div class="orange-accent"></div>
     <div class="slide-title">${title}</div>
     <div class="slide-subtitle">${subtitle}</div>
-    <img class="logo-positive" src="${LOGO_POS}" alt="Universidad Icesi">
+    ${_logoPosF()}
     `, 'blue', 'right');
   }
 
-  // ═══════════════════════════════════════════════════════════════
+
+  // =================================================================
+  // ARCHIVO: layouts/section-slides.js
+  // =================================================================
+  // =================================================================
   // CATEGORÍA 2 — DIVISORES DE SECCIÓN
-  // ═══════════════════════════════════════════════════════════════
+  // =================================================================
 
   /**
    * Sección A: Minimal, logo top-left, barra azul inferior con título
@@ -193,7 +191,7 @@ ${_pageNum(numColor, numSide, _n)}
    */
   function sectionSlideA(title) {
     return _section('section-a', `
-    ${_logoPos()}
+    ${_logoPosF()}
     <div class="blue-bar"></div>
     <div class="section-title">${title}</div>
     `, 'white', 'right');
@@ -210,7 +208,7 @@ ${_pageNum(numColor, numSide, _n)}
       ? `<img class="right-image" src="${imagePath}" alt="${title}">`
       : '';
     return _section('section-b', `
-    ${_logoPos()}
+    ${_logoPosF()}
     ${img}
     <div class="orange-bar"></div>
     <div class="section-title">${title}</div>
@@ -224,11 +222,11 @@ ${_pageNum(numColor, numSide, _n)}
    */
   function sectionSlideC(title) {
     return _section('section-c', `
-    ${_logoNeg()}
+    ${_logoNegFn()}
     <div class="green-accent"></div>
     <div class="white-box"></div>
     <div class="section-title">${title}</div>
-    `, 'blue', 'right');
+    `, 'white', 'right');
   }
 
   /**
@@ -238,7 +236,7 @@ ${_pageNum(numColor, numSide, _n)}
    */
   function sectionSlideE(title) {
     return _section('section-e', `
-    ${_logoPos()}
+    ${_logoPosF()}
     <div class="section-title">${title}</div>
     `, 'blue', 'right');
   }
@@ -250,7 +248,7 @@ ${_pageNum(numColor, numSide, _n)}
    */
   function sectionSlideEBlue(title) {
     return _section('section-e bg-blue', `
-    ${_logoNeg()}
+    ${_logoNegFn()}
     <div class="section-title">${title}</div>
     `, 'white', 'right');
   }
@@ -262,7 +260,7 @@ ${_pageNum(numColor, numSide, _n)}
    */
   function sectionSlideEGreen(title) {
     return _section('section-e bg-green', `
-    ${_logoNeg()}
+    ${_logoNegFn()}
     <div class="section-title">${title}</div>
     `, 'white', 'right');
   }
@@ -274,7 +272,7 @@ ${_pageNum(numColor, numSide, _n)}
    */
   function sectionSlideEYellow(title) {
     return _section('section-e bg-yellow', `
-    ${_logoPos()}
+    ${_logoPosF()}
     <div class="section-title">${title}</div>
     `, 'dark', 'right');
   }
@@ -286,14 +284,18 @@ ${_pageNum(numColor, numSide, _n)}
    */
   function sectionSlideEOrange(title) {
     return _section('section-e bg-orange', `
-    ${_logoNeg()}
+    ${_logoNegFn()}
     <div class="section-title">${title}</div>
     `, 'white', 'right');
   }
 
-  // ═══════════════════════════════════════════════════════════════
+
+  // =================================================================
+  // ARCHIVO: layouts/sidebar-slides.js
+  // =================================================================
+  // =================================================================
   // CATEGORÍA 3 — SIDEBAR IZQUIERDA (3 variantes de color)
-  // ═══════════════════════════════════════════════════════════════
+  // =================================================================
 
   /**
    * Helper interno para slides con sidebar izquierda
@@ -308,7 +310,7 @@ ${_pageNum(numColor, numSide, _n)}
       : '';
     return _section(`sidebar-left ${color}`, `
     <div class="sidebar">
-      <img class="logo-negative" src="${LOGO_NEG}" alt="Universidad Icesi">
+      ${_logoNegFn()}
       ${img}
     </div>
     <div class="sidebar-title"><h2>${title}</h2></div>
@@ -340,9 +342,13 @@ ${_pageNum(numColor, numSide, _n)}
     return _sidebarLeft('purple', title, content, imagePath);
   }
 
-  // ═══════════════════════════════════════════════════════════════
+
+  // =================================================================
+  // ARCHIVO: layouts/stripe-slides.js
+  // =================================================================
+  // =================================================================
   // CATEGORÍA 4 — DECORATIVOS / BANNER
-  // ═══════════════════════════════════════════════════════════════
+  // =================================================================
 
   /**
    * Franja azul superior + acento verde a la IZQUIERDA
@@ -352,7 +358,7 @@ ${_pageNum(numColor, numSide, _n)}
    */
   function slideStripeTopLeft(title, content) {
     return _section('stripe-top-left', `
-    ${_logoNeg()}
+    ${_logoNegFn()}
     <div class="blue-banner"></div>
     <div class="green-accent"></div>
     <div class="slide-title">${title}</div>
@@ -368,17 +374,21 @@ ${_pageNum(numColor, numSide, _n)}
    */
   function slideStripeTopRight(title, content) {
     return _section('stripe-top-right', `
-    ${_logoNeg()}
+    ${_logoNegFn()}
     <div class="blue-banner"></div>
     <div class="green-accent"></div>
     <div class="slide-title">${title}</div>
     <div class="slide-content">${content}</div>
-    `, 'blue', 'left');
+    `, 'blue', 'right');
   }
 
-  // ═══════════════════════════════════════════════════════════════
+
+  // =================================================================
+  // ARCHIVO: layouts/content-slides.js
+  // =================================================================
+  // =================================================================
   // CATEGORÍA 5 — SLIDES DE CONTENIDO
-  // ═══════════════════════════════════════════════════════════════
+  // =================================================================
 
   /**
    * Slide estándar: Logo + título azul en header + área de contenido libre
@@ -388,7 +398,7 @@ ${_pageNum(numColor, numSide, _n)}
    */
   function slideStandard(title, content) {
     return _section('standard', `
-    ${_logoPos()}
+    ${_logoPosF()}
     <div class="slide-header"><h2>${title}</h2></div>
     <div class="slide-content">${content}</div>
     `, 'blue', 'right');
@@ -403,7 +413,7 @@ ${_pageNum(numColor, numSide, _n)}
    */
   function slideTwoCols(title, col1, col2) {
     return _section('two-cols', `
-    ${_logoPos()}
+    ${_logoPosF()}
     <div class="slide-header"><h2>${title}</h2></div>
     <div class="cols-container">
       <div class="col">${col1}</div>
@@ -422,7 +432,7 @@ ${_pageNum(numColor, numSide, _n)}
    */
   function slideThreeCols(title, col1, col2, col3) {
     return _section('three-cols', `
-    ${_logoPos()}
+    ${_logoPosF()}
     <div class="slide-header"><h2>${title}</h2></div>
     <div class="cols-container">
       <div class="col">${col1}</div>
@@ -453,7 +463,7 @@ ${_pageNum(numColor, numSide, _n)}
       </div>`;
     }
     return _section('four-cards', `
-    ${_logoPos()}
+    ${_logoPosF()}
     <div class="slide-header"><h2>${title}</h2></div>
     <div class="cards-bg"></div>
     <div class="cards-grid">
@@ -465,9 +475,13 @@ ${_pageNum(numColor, numSide, _n)}
     `, 'blue', 'right');
   }
 
-  // ═══════════════════════════════════════════════════════════════
+
+  // =================================================================
+  // ARCHIVO: helpers.js
+  // =================================================================
+  // =================================================================
   // HELPERS DE CONTENIDO
-  // ═══════════════════════════════════════════════════════════════
+  // =================================================================
 
   /**
    * Genera un bloque de diagrama Mermaid inline
@@ -515,9 +529,13 @@ ${_pageNum(numColor, numSide, _n)}
     return `<pre><code class="language-${lang}">${escaped}</code></pre>`;
   }
 
-  // ═══════════════════════════════════════════════════════════════
-  // INICIALIZACIÓN DE REVEAL.JS
-  // ═══════════════════════════════════════════════════════════════
+
+  // =================================================================
+  // ARCHIVO: init.js
+  // =================================================================
+  // =================================================================
+  // INICIALIZACIÓN DE REVEAL.JS Y MERMAID.JS
+  // =================================================================
 
   /**
    * Inicializa Reveal.js con la configuración institucional de Icesi
@@ -562,10 +580,9 @@ ${_pageNum(numColor, numSide, _n)}
     }
 
     // Inicializar Mermaid con tema Icesi (Mermaid v11 API)
-    if (typeof mermaid !== 'undefined') {
-      // Mermaid v11 usa la misma API de initialize
+    if (typeof window.mermaid !== 'undefined') {
       try {
-        mermaid.initialize({
+        window.mermaid.initialize({
           startOnLoad: true,
           theme: 'base',
           themeVariables: {
@@ -616,24 +633,15 @@ ${_pageNum(numColor, numSide, _n)}
   /**
    * Configura rutas de logos personalizadas (si la presentación está en un subdirectorio)
    * @param {string} basePath - Ruta relativa a resources/ desde el HTML de la presentación
-   *
-   * @example
-   * // Si el HTML está en slides/nodejs/nodejs.html:
-   * icesi.setBasePath('../../');
-   * // Ahora los logos buscan en ../../resources/logos/
    */
   function setBasePath(basePath) {
     // Actualiza las rutas internas de logos
-    const neg = basePath + 'resources/logos/ICESI_logo_prin_descriptor_BYN_RGB_POSITIVO_0924.svg';
+    const neg = basePath + 'resources/logos/ICESI_logo_prin_descriptor_WHITE.svg';
     const pos = basePath + 'resources/logos/ICESI_logo_prin_descriptor_RGB_POSITIVO_0924.svg';
     // Reemplaza las funciones de logo con las rutas actualizadas
     _logoNegFn = () => `<img class="logo-negative" src="${neg}" alt="Universidad Icesi">`;
-    _logoPosF = () => `<img class="logo-positive" src="${pos}" alt="Universidad Icesi">`;
+    _logoPosF  = () => `<img class="logo-positive" src="${pos}" alt="Universidad Icesi">`;
   }
-
-  // Funciones de logo sobreescribibles por setBasePath
-  let _logoNegFn = _logoNeg;
-  let _logoPosF  = _logoPos;
 
   // ─── API pública ───────────────────────────────────────────────
   return {
@@ -679,13 +687,13 @@ ${_pageNum(numColor, numSide, _n)}
     init,
     setBasePath,
 
-    // Utilidades internas (prefijo _ indica uso interno)
+    // Utilidades internas
     _reset,
     _count,
   };
+
 })();
 
-// Export para módulos ES6 / Node.js (testing)
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = icesi;
 }

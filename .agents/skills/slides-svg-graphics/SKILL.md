@@ -3,17 +3,17 @@ name: slides-svg-graphics
 description: Guidelines and workflow to generate brand-compliant vector graphics, flowcharts, and SVG illustrations for Universidad Icesi HTML/Reveal.js presentations. SVGs are used directly without PDF conversion.
 ---
 
-# Skill: `slides-svg-graphics` (Gráficos SVG en HTML)
+# Skill: `slides-svg-graphics` (SVG Graphics in HTML)
 
-Esta skill establece las directrices para crear, exportar y embeber gráficos vectoriales, diagramas lógicos e ilustraciones SVG personalizadas en las diapositivas HTML de la Universidad Icesi. A diferencia del flujo LaTeX, **los SVGs se usan directamente como `<img>` sin ninguna conversión a PDF**.
+This skill establishes the guidelines to create, export, and embed vector graphics, logical diagrams, and custom SVG illustrations in Universidad Icesi HTML slides. Unlike the LaTeX workflow, **SVGs are used directly via `<img>` tags without any PDF conversion**.
 
 ---
 
-## 🎨 1. Tokens de Color Institucional para Diagramas
+## 🎨 1. Institutional Color Tokens for Diagrams
 
-Todos los diagramas y SVGs personalizados deben usar estrictamente el esquema de colores institucional:
+All diagrams and custom SVGs must strictly adhere to the institutional color scheme:
 
-| Rol / Elemento | Hex | Token |
+| Role / Element | Hex | Token |
 | :--- | :--- | :--- |
 | **Primary / Accent Nodes** | `#5454E9` | `icesiblue` |
 | **Secondary Processes** | `#865CF0` | `icesipurple` |
@@ -22,54 +22,54 @@ Todos los diagramas y SVGs personalizados deben usar estrictamente el esquema de
 | **Error / Critical** | `#E9683B` | `icesiorange` |
 | **Dark Borders / Texts** | `#393939` | `icesidark` |
 
-> **Regla**: Usar siempre `fill="transparent"` o `fill="none"` como fondo del `<svg>` raíz para que el diagrama se integre limpiamente sobre cualquier fondo de slide (sidebar de color, zona blanca, etc.).
+> **Rule**: Always use `fill="transparent"` or `fill="none"` as the background of the root `<svg>` to integrate the diagram cleanly on any slide background (colored sidebars, white body, etc.).
 
 ---
 
-## 🛠️ 2. Especificaciones de Diseño SVG
+## 🛠️ 2. SVG Design Specifications
 
-### 2.1 Nomenclatura y Almacenamiento
-- Guardar todos los SVGs de cada tema en `slides/<tema>/assets/`
-- Usar nombres en snake_case: `event_loop_diagram.svg`, `node_architecture.svg`
-- Recursos globales de plantilla (patrón de rayas, etc.): `resources/patterns/`
-- **No convertir a PDF**: el SVG se usa directamente en HTML
+### 2.1 File Naming & Storage
+- Save all SVGs for each topic under `slides/<topic>/assets/`
+- Use snake_case file names: `event_loop_diagram.svg`, `node_architecture.svg`
+- Template global assets (stripe pattern, etc.): `resources/patterns/`
+- **Do not convert to PDF**: SVGs are used directly in HTML.
 
-### 2.2 Template de Estructura SVG
+### 2.2 SVG Structure Template
 ```xml
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 WIDTH HEIGHT">
   <defs>
-    <!-- Gradients, filters, markers van aquí -->
+    <!-- Gradients, filters, markers go here -->
     <filter id="shadow">
       <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#00000022"/>
     </filter>
-    <!-- Arrow marker para diagramas -->
+    <!-- Arrow marker for diagrams -->
     <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
       <polygon points="0 0, 10 3.5, 0 7" fill="#5454E9"/>
     </marker>
   </defs>
-  <!-- Elementos del diagrama... -->
+  <!-- Diagram elements... -->
 </svg>
 ```
 
-### 2.3 Estilos de Elementos Recomendados
+### 2.3 Recommended Element Styles
 
-**Nodo rectángulo redondeado (primario)**:
+**Rounded Rectangle Node (Primary)**:
 ```xml
 <rect x="10" y="10" width="160" height="50" rx="12" ry="12"
   fill="#5454E9" stroke="none" filter="url(#shadow)"/>
 <text x="90" y="40" text-anchor="middle" dominant-baseline="middle"
   fill="white" font-family="'Plus Jakarta Sans', sans-serif" font-size="14" font-weight="bold">
-  Texto del Nodo
+  Node Text
 </text>
 ```
 
-**Flecha de flujo entre nodos**:
+**Flow Arrow between Nodes**:
 ```xml
 <line x1="170" y1="35" x2="220" y2="35"
   stroke="#5454E9" stroke-width="2" marker-end="url(#arrow)"/>
 ```
 
-**Nodo circular (para diagramas cíclicos)**:
+**Circular Node (for cyclic/loop diagrams)**:
 ```xml
 <circle cx="200" cy="200" r="40" fill="#4CB979" stroke="white" stroke-width="3"/>
 <text x="200" y="200" text-anchor="middle" dominant-baseline="middle"
@@ -78,145 +78,145 @@ Todos los diagramas y SVGs personalizados deben usar estrictamente el esquema de
 
 ---
 
-## 📊 3. Tipos de Diagramas y Cuándo Usarlos
+## 📊 3. Diagram Types and When to Use Them
 
-### Tipo A: Diagrama de Fases Circular
-**Usar para**: Fases del Event Loop, ciclos de vida, procesos recurrentes.
-- Fases como arcos coloreados o círculos equidistantes alrededor de un nodo central
-- Centro: `icesiblue` con nombre del proceso en blanco
-- Flechas en sentido horario con `stroke-width="2"` consistente
-- **viewBox recomendado**: `0 0 400 400`
+### Type A: Circular Phase Diagram
+**Use for**: Event Loop phases, lifecycles, and recurring/cyclic processes.
+- Phases as colored arcs or equidistant circles around a central core node.
+- Center: `icesiblue` with process name in white.
+- Arrows in clockwise direction with a consistent `stroke-width="2"`.
+- **Recommended viewBox**: `0 0 400 400`
 
-### Tipo B: Stack de Arquitectura por Capas
-**Usar para**: Stacks tecnológicos, arquitectura de sistemas, capas de dependencia.
-- Rectángulos horizontales apilados verticalmente (top=mayor abstracción)
-- Gradiente de colores: `icesiyellow` → `icesiblue` → `icesipurple` → `icesigreen` → `icesidark`
-- **viewBox recomendado**: `0 0 500 320`
+### Type B: Layered Architecture Stack
+**Use for**: Tech stacks, system architectures, and dependency layers.
+- Horizontal rectangles stacked vertically (top layer = highest abstraction).
+- Color gradient: `icesiyellow` → `icesiblue` → `icesipurple` → `icesigreen` → `icesidark`.
+- **Recommended viewBox**: `0 0 500 320`
 
-### Tipo C: Evolución Lineal / Timeline
-**Usar para**: Evolución tecnológica, historial de versiones, progresión de APIs.
-- Tres o cuatro cajas conectadas con flechas izquierda-derecha
-- Cada caja: color distinto, año/versión abajo, nombre arriba
-- **viewBox recomendado**: `0 0 500 180`
+### Type C: Linear Evolution / Timeline
+**Use for**: Tech progression, version history, and API roadmap timelines.
+- Three or four boxes connected with left-to-right arrows.
+- Each box: different color, year/version at bottom, name at top.
+- **Recommended viewBox**: `0 0 500 180`
 
-### Tipo D: Tabla Comparativa / Matriz
-**Usar para**: Node.js vs Python, Sync vs Async, SQL vs NoSQL.
-- Grid con fila de encabezado y filas de características
-- Checkmark (✓ `#4CB979`) o X (✗ `#E9683B`) en celdas
-- **viewBox recomendado**: `0 0 600 380`
+### Type D: Comparison Table / Matrix
+**Use for**: Node.js vs Python, Sync vs Async, SQL vs NoSQL.
+- Grid with header row and feature rows.
+- Checkmark (✓ `#4CB979`) or X (✗ `#E9683B`) in cells.
+- **Recommended viewBox**: `0 0 600 380`
 
-### Tipo E: Flowchart / Árbol de Decisión
-**Usar para**: Ciclos Request-Response, flujo de ejecución async, pipeline de middleware.
-- Rombos para decisiones, rectángulos para procesos, óvalos para inicio/fin
-- **viewBox recomendado**: `0 0 500 400`
+### Type E: Flowchart / Decision Tree
+**Use for**: Request-response cycles, async execution paths, and middleware pipelines.
+- Diamonds for decisions, rectangles for processes, ovals for start/end.
+- **Recommended viewBox**: `0 0 500 400`
 
 ---
 
-## 🔄 4. Pipeline de Creación (Sin CLI de conversión)
+## 🔄 4. Creation Pipeline (No CLI Conversion)
 
-### Flujo simplificado (sin Inkscape, sin rsvg-convert):
+### Simplified workflow:
 
-1. **Escribir el SVG** manualmente o con asistencia del agente
-2. **Guardar en** `slides/<tema>/assets/<nombre_diagrama>.svg`
-3. **Embeber directamente** en el slide HTML con `<img>`
+1. **Write the SVG** markup (manually or with agent assistance).
+2. **Save to** `slides/<topic>/assets/<diagram_name>.svg`.
+3. **Embed directly** in the HTML slide using `<img>` tags.
 
 ```html
-<!-- Ejemplo: diagrama en slideTwoCols -->
+<!-- Example: diagram in slideTwoCols -->
 icesi.slideTwoCols(
-  'Arquitectura del Sistema',
+  'System Architecture',
   `<ul>
-    <li>Cliente realiza peticiones HTTP</li>
-    <li>API Gateway enruta las solicitudes</li>
-    <li>Cada servicio tiene su propia BD</li>
+    <li>Client makes HTTP requests</li>
+    <li>API Gateway routes calls</li>
+    <li>Each service has its own DB</li>
   </ul>`,
   `<img src="slides/nodejs/assets/microservices_architecture.svg"
         style="width:100%; height:auto; display:block;"
-        alt="Arquitectura de Microservicios">`
+        alt="Microservices Architecture">`
 )
 ```
 
-> **¿Por qué no necesitas convertir a PDF?**
-> En LaTeX, los SVGs debían convertirse a PDF porque XeLaTeX no puede renderizar SVG directamente. En HTML, el navegador renderiza SVG nativo sin intermediarios.
+> **Why you do not need PDF conversion:**
+> In LaTeX, SVGs had to be converted to PDF because XeLaTeX cannot render SVG directly. In HTML, the browser renders vector SVGs natively.
 
 ---
 
-## 🖼️ 5. Patrones de Embedding en HTML
+## 🖼️ 5. HTML Embedding Patterns
 
-### En Sidebar Slides (zona: panel lateral colorido)
+### In Sidebar Slides (zone: colored sidebar panel)
 ```javascript
 icesi.slideSidebarLeftBlue(
-  'Event Loop de Node.js',
+  'Node.js Event Loop',
   `<ul>
     <li>Single-threaded, non-blocking</li>
-    <li>libuv gestiona operaciones I/O</li>
-    <li>Callbacks se ejecutan en orden</li>
+    <li>libuv handles I/O operations</li>
+    <li>Callbacks execute in order</li>
   </ul>`,
-  'slides/nodejs/assets/event_loop_diagram.svg'  // El CSS maneja el tamaño: 359×359px
+  'slides/nodejs/assets/event_loop_diagram.svg'  // Size is handled by CSS: 359×359px
 )
 ```
 
-### En Two-Column Slides (zona: columna derecha)
+### In Two-Column Slides (zone: right column)
 ```javascript
 icesi.slideTwoCols(
-  'Comparativa Node.js vs Python',
+  'Node.js vs Python Comparison',
   `<ul>
-    <li>Node.js: alta concurrencia I/O</li>
-    <li>Python: mejor para ML/Data Science</li>
+    <li>Node.js: High I/O concurrency</li>
+    <li>Python: Better for ML/Data Science</li>
   </ul>`,
   `<img src="slides/nodejs/assets/comparison_table.svg"
         style="width:100%; height:auto;"
-        alt="Tabla comparativa Node.js vs Python">`
+        alt="Comparison Table Node.js vs Python">`
 )
 ```
 
-### En Stripe Slides (zona: área de contenido abierta)
+### In Stripe Slides (zone: open content area)
 ```javascript
 icesi.slideStripeTopLeft(
-  'Arquitectura Node.js',
+  'Node.js Architecture Stack',
   `<div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:start;">
     <ul>
-      <li>Motor V8 de Google</li>
-      <li>libuv para I/O asíncrono</li>
+      <li>Google Chrome V8 Engine</li>
+      <li>libuv for async I/O</li>
     </ul>
     <img src="slides/nodejs/assets/node_architecture.svg"
-         style="width:100%; height:auto;" alt="Arquitectura">
+         style="width:100%; height:auto;" alt="Architecture">
   </div>`
 )
 ```
 
-### En Standard Slides (ancho completo)
+### In Standard Slides (full content width)
 ```javascript
 icesi.slideStandard(
-  'Fases del Event Loop',
+  'Event Loop Phases',
   `<img src="slides/nodejs/assets/event_loop_phases.svg"
         style="width:80%; height:auto; display:block; margin:0 auto;"
-        alt="Fases del Event Loop de Node.js">`
+        alt="Event Loop Phases">`
 )
 ```
 
 ---
 
-## 📐 6. Restricciones de Zona Gráfica por Layout
+## 📐 6. Graphic Zone Limits per Layout
 
-| Layout | Zona de imagen disponible | Notas |
+| Layout | Available Image Zone | Notes |
 |---|---|---|
-| `slideSidebarLeft*` (parámetro imagePath) | 359×359px | CSS maneja el tamaño automáticamente |
-| `slideTwoCols` col2 | ~570px ancho, 460px alto | `width:100%; height:auto` |
-| `slideStripeTopLeft/Right` (content) | 1218px ancho, 430px alto | Combinar con mini-grid si es necesario |
-| `slideStandard` (content) | 1218px ancho, 460px alto | `width:80%; margin:auto` para centrar |
-| `slideFourCards` por card | ~270px ancho, 320px alto | Solo micro-iconos, mantener minimal |
+| `slideSidebarLeft*` (imagePath parameter) | 359×359px | Sized automatically by CSS |
+| `slideTwoCols` col2 | ~570px wide, 460px high | `width:100%; height:auto` |
+| `slideStripeTopLeft/Right` (content) | 1218px wide, 430px high | Combine with mini-grid if necessary |
+| `slideStandard` (content) | 1218px wide, 460px high | `width:80%; margin:auto` to center |
+| `slideFourCards` per card | ~270px wide, 320px high | Keep minimal, micro-icons only |
 
 ---
 
-## ✅ 7. Checklist de Calidad SVG
+## ✅ 7. SVG Quality Control Checklist
 
-Antes de embeber cualquier SVG en un slide, verificar:
-- [ ] Fondo transparente (`fill="none"` o `fill="transparent"` en el `<svg>` raíz)
-- [ ] `viewBox` declarado explícitamente (permite escalar sin distorsión)
-- [ ] Todo texto legible al tamaño objetivo: mínimo `font-size="13"` para columnas, `font-size="11"` para sidebar
-- [ ] Contraste de color correcto: texto oscuro en relleno claro, texto blanco en relleno oscuro
-- [ ] Sin recorte: todos los elementos dentro del `viewBox` declarado
-- [ ] Flechas con `marker-end="url(#arrow)"` visibles
-- [ ] Archivo guardado como `.svg` en `slides/<tema>/assets/`
-- [ ] **No se requiere PDF companion** — el SVG se usa directamente
-- [ ] Verificar visualmente en el navegador al 1280×720px (abrir la presentación y navegar al slide)
+Before embedding any SVG, verify:
+- [ ] Transparent background (`fill="none"` or `fill="transparent"` on root `<svg>`)
+- [ ] `viewBox` declared explicitly (enables scaling without distortion)
+- [ ] Text readable at target size: minimum `font-size="13"` for columns, `font-size="11"` for sidebar
+- [ ] Correct color contrast: dark text on light backgrounds, white text on dark backgrounds
+- [ ] No clipping: all elements fit inside the declared `viewBox` boundary
+- [ ] Arrows with `marker-end="url(#arrow)"` visible
+- [ ] File saved as `.svg` under `slides/<topic>/assets/`
+- [ ] **No PDF companion required** — SVG is used directly
+- [ ] Visually verified in the browser at 1280×720px

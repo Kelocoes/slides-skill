@@ -1,0 +1,142 @@
+/* ══════════════════════════════════════════
+   CATEGORÍA 2 — DIVISORES DE SECCIÓN
+   ══════════════════════════════════════════ */
+
+/* ──────────────────────────────────────────
+   SECCIÓN A: Minimal, barra azul abajo
+   Ref: \sectionSlideA{title}
+   Visual: page-07.png
+   ────────────────────────────────────────── */
+.slide.section-a {
+  background: var(--icesi-white);
+}
+/* Barra azul inferior: xshift=6.10cm→231px, yshift=-14.33cm→542px, +28.24cm=1067px, +3.08cm=116px */
+.slide.section-a .blue-bar {
+  position: absolute;
+  left: 231px;
+  top: 542px;
+  width: 1067px;
+  height: 116px;
+  background: var(--icesi-blue);
+}
+/* Título: xshift=7.33cm→277px, yshift=-14.82cm→560px, text-width=25.18cm=952px */
+.slide.section-a .section-title {
+  position: absolute;
+  left: 277px;
+  top: 560px;
+  width: 952px;
+  color: var(--icesi-white);
+  font-size: 51px;
+  line-height: 62px;
+  font-weight: 700;
+  hyphens: none;
+}
+
+/* ──────────────────────────────────────────
+   SECCIÓN B: Imagen derecha, barra naranja
+   Ref: \sectionSlideB{title}{imagePath}
+   Visual: page-08.png
+   ────────────────────────────────────────── */
+.slide.section-b {
+  background: var(--icesi-white);
+}
+/* Imagen derecha: xshift=15.50cm→586px, width=18.84cm=712px, height=720px */
+.slide.section-b .right-image {
+  position: absolute;
+  left: 586px;
+  top: 0;
+  width: 694px;
+  height: 720px;
+  object-fit: cover;
+}
+/* Barra naranja inferior: misma posición que section-a pero color naranja */
+.slide.section-b .orange-bar {
+  position: absolute;
+  left: 231px;
+  top: 542px;
+  width: 1067px;
+  height: 116px;
+  background: var(--icesi-orange);
+}
+/* Título: misma posición que section-a */
+.slide.section-b .section-title {
+  position: absolute;
+  left: 277px;
+  top: 560px;
+  width: 952px;
+  color: var(--icesi-white);
+  font-size: 48px;
+  line-height: 58px;
+  font-weight: 700;
+  hyphens: none;
+}
+
+/* ──────────────────────────────────────────
+   SECCIÓN C: Fondo azul, caja blanca, acento verde
+   Ref: \sectionSlideC{title}
+   Visual: page-09.png
+   ────────────────────────────────────────── */
+.slide.section-c {
+  background: var(--icesi-blue);
+}
+/* Acento verde: xshift=14.48cm→547px, yshift=-15.63cm→591px, +19.38cm=733px, +1.50cm=57px */
+.slide.section-c .green-accent {
+  position: absolute;
+  left: 547px;
+  top: 591px;
+  width: 733px;
+  height: 57px;
+  background: var(--icesi-green);
+}
+/* Caja blanca: xshift=10.84cm→410px, yshift=-12.82cm→484px, +23.02cm=870px, +4.31cm=163px */
+.slide.section-c .white-box {
+  position: absolute;
+  left: 410px;
+  top: 484px;
+  width: 870px;
+  height: 163px;
+  background: var(--icesi-white);
+}
+/* Título: xshift=11.83cm→447px, yshift=-13.50cm→510px, text-width=21.19cm=801px */
+.slide.section-c .section-title {
+  position: absolute;
+  left: 447px;
+  top: 510px;
+  width: 801px;
+  color: var(--icesi-blue);
+  font-size: 51px;
+  line-height: 62px;
+  font-weight: 700;
+  hyphens: none;
+}
+
+/* ──────────────────────────────────────────
+   SECCIÓN E: Minimalista — 5 variantes de color
+   Ref: \sectionSlideE*, \sectionSlideEBlue, etc.
+   Visual: page-10 al page-14.png
+   ────────────────────────────────────────── */
+.slide.section-e {
+  background: var(--icesi-white); /* variante por defecto (blanco) */
+}
+.slide.section-e.bg-blue   { background: var(--icesi-blue); }
+.slide.section-e.bg-green  { background: var(--icesi-green); }
+.slide.section-e.bg-yellow { background: var(--icesi-yellow); }
+.slide.section-e.bg-orange { background: var(--icesi-orange); }
+
+/* Título centrado verticalmente: xshift=1.36cm→51px, yshift=-10.54cm→398px, text-width=30cm=1134px */
+.slide.section-e .section-title {
+  position: absolute;
+  left: 51px;
+  top: 398px;
+  width: 1134px;
+  font-size: 57px;
+  line-height: 66px;
+  font-weight: 700;
+  hyphens: none;
+}
+/* Color del título según variante */
+.slide.section-e .section-title              { color: var(--icesi-blue); }
+.slide.section-e.bg-blue .section-title      { color: var(--icesi-white); }
+.slide.section-e.bg-green .section-title     { color: var(--icesi-white); }
+.slide.section-e.bg-yellow .section-title    { color: var(--icesi-dark); }
+.slide.section-e.bg-orange .section-title    { color: var(--icesi-white); }

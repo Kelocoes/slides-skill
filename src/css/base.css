@@ -1,0 +1,223 @@
+/* ──────────────────────────────────────────
+   FUENTE INSTITUCIONAL: Plus Jakarta Sans
+   ────────────────────────────────────────── */
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('resources/fonts/PlusJakartaSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('resources/fonts/PlusJakartaSans-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: block;
+}
+
+/* ──────────────────────────────────────────
+   VARIABLES DE COLOR INSTITUCIONAL (Paleta oficial)
+   ────────────────────────────────────────── */
+:root {
+  --icesi-blue:   #5454E9;
+  --icesi-green:  #4CB979;
+  --icesi-yellow: #E4EB60;
+  --icesi-dark:   #393939;
+  --icesi-purple: #865CF0;
+  --icesi-orange: #E9683B;
+  --icesi-gray1:  #88898C;
+  --icesi-gray2:  #CECFD4;
+  --icesi-white:  #FFFFFF;
+
+  /* Canvas dimensions */
+  --slide-w: 1280px;
+  --slide-h: 720px;
+
+  /* Logo standard position: xshift=1.90cm, yshift=-1.60cm → left:72px, top:60px */
+  --logo-top:  60px;
+  --logo-left: 72px;
+  --logo-w:    187px; /* 4.95cm × 37.8 */
+
+  /* Page number position: yshift=1.60cm from bottom → bottom:60px */
+  --num-bottom: 60px;
+  --num-lr:     72px;
+}
+
+/* ──────────────────────────────────────────
+   RESET / BASE REVEAL.JS OVERRIDES
+   ────────────────────────────────────────── */
+.reveal {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  color: var(--icesi-dark) !important;
+}
+
+.reveal .slides {
+  text-align: left !important;
+}
+
+/* Reveal.js controla el tamaño de los <section>. No interferir. */
+.reveal .slides > section {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* ──────────────────────────────────────────
+   SLIDE BASE CANVAS
+   El div.slide es el canvas de la presentación.
+   Ocupa toda la sección de Reveal.js con dimensiones fijas.
+   ────────────────────────────────────────── */
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--slide-w) !important;
+  height: var(--slide-h) !important;
+  overflow: hidden;
+  background: var(--icesi-white);
+  box-sizing: border-box;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--icesi-dark);
+}
+
+/* Resetear estilos de texto de Reveal.js dentro del canvas */
+.slide h1, .slide h2, .slide h3, .slide h4,
+.slide p, .slide li, .slide span, .slide div {
+  text-transform: none;
+  letter-spacing: normal;
+  text-shadow: none;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  line-height: normal;
+}
+
+/* ──────────────────────────────────────────
+   LOGOS (helper clases usadas en todos los layouts)
+   ────────────────────────────────────────── */
+.slide .logo-positive,
+.slide .logo-negative {
+  position: absolute;
+  top: var(--logo-top);
+  left: var(--logo-left);
+  width: var(--logo-w);
+  height: auto;
+  display: block;
+  z-index: 10;
+}
+
+/* ──────────────────────────────────────────
+   NÚMERO DE PÁGINA
+   ────────────────────────────────────────── */
+.slide .icesi-slide-number {
+  position: absolute;
+  bottom: var(--num-bottom);
+  font-size: 10px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 400;
+  z-index: 20;
+  line-height: 1;
+}
+.slide .icesi-slide-number.right { right: var(--num-lr); left: auto; }
+.slide .icesi-slide-number.left  { left:  var(--num-lr); right: auto; }
+
+/* ──────────────────────────────────────────
+   HEADER ESTÁNDAR (compartido por standard, two-cols, three-cols, four-cards)
+   Ref: \drawStandardSlideHeader{title}
+   ────────────────────────────────────────── */
+.slide.standard .slide-header,
+.slide.two-cols .slide-header,
+.slide.three-cols .slide-header,
+.slide.four-cards .slide-header {
+  position: absolute;
+  left: 0; top: 0;
+  width: 1280px;
+  height: 220px; /* zona segura del header con logo */
+}
+/* Título: xshift=0.85cm→32px, yshift=-4.66cm→176px, text-width=31.59cm=1194px */
+.slide.standard .slide-header h2,
+.slide.two-cols .slide-header h2,
+.slide.three-cols .slide-header h2,
+.slide.four-cards .slide-header h2 {
+  position: absolute;
+  left: 32px;
+  top: 176px;
+  width: 1194px;
+  color: var(--icesi-blue);
+  font-size: 38px;
+  line-height: 46px;
+  font-weight: 700;
+  hyphens: none;
+  margin: 0;
+}
+
+/* ══════════════════════════════════════════
+   MERMAID.JS — Diagramas inline
+   ══════════════════════════════════════════ */
+.slide .mermaid {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.slide .mermaid svg {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+/* ══════════════════════════════════════════
+   UTILIDADES GLOBALES
+   ══════════════════════════════════════════ */
+
+/* Code blocks dentro de slides */
+.slide pre {
+  background: #f4f4f8;
+  border-left: 4px solid var(--icesi-blue);
+  border-radius: 4px;
+  padding: 12px 16px;
+  font-size: 16px;
+  line-height: 24px;
+  overflow: auto;
+  margin: 12px 0;
+}
+.slide code {
+  font-family: 'Consolas', 'Fira Code', monospace;
+  font-size: 0.9em;
+  background: #f0f0f6;
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+.slide pre code {
+  background: transparent;
+  padding: 0;
+}
+
+/* Imágenes en contenido */
+.slide .slide-content img,
+.slide .col img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Emphasis/color helpers */
+.text-blue   { color: var(--icesi-blue) !important; }
+.text-green  { color: var(--icesi-green) !important; }
+.text-orange { color: var(--icesi-orange) !important; }
+.text-purple { color: var(--icesi-purple) !important; }
+.text-dark   { color: var(--icesi-dark) !important; }
+
+/* Bold inline */
+.slide strong, .slide b { font-weight: 700; }
+
+/* ══════════════════════════════════════════
+   PRINT / PDF EXPORT
+   @media print → para imprimir desde el navegador
+   ══════════════════════════════════════════ */
+@media print {
+  body { margin: 0; }
+  .slide {
+    page-break-after: always;
+    break-after: page;
+    box-shadow: none !important;
+  }
+  .reveal .controls,
+  .reveal .progress { display: none !important; }
+}

@@ -5,6 +5,7 @@ old_context/
 util/
 slides/
 .playwright-mcp/
+build_html/
 
 # LaTeX auxiliary files in root
 *.aux

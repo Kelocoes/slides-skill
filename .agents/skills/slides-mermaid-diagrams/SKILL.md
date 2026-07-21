@@ -1,61 +1,61 @@
 ---
 name: slides-mermaid-diagrams
-description: Workflow para generar diagramas Mermaid inline directamente en slides HTML de la Universidad Icesi, sin CLI externo ni conversión a PNG/PDF.
+description: Workflow to generate inline Mermaid diagrams directly in Universidad Icesi HTML slides, without external CLI or PNG/PDF conversion.
 ---
 
 # Skill: `slides-mermaid-diagrams` (Mermaid.js Inline)
 
-Este workflow explica cómo usar **Mermaid.js directamente dentro de los slides HTML** de la Universidad Icesi. No se requieren herramientas CLI (`mmdc`), ni conversión a PNG/PDF.
+This workflow explains how to use **Mermaid.js directly inside Universidad Icesi HTML slides**. No CLI tools (`mmdc`) or PNG/PDF pre-compiling are required.
 
 ---
 
-### Sección 1: Cómo funciona Mermaid inline
+### Section 1: How Inline Mermaid Works
 
-Mermaid.js se carga desde CDN y procesa todos los `<div class="mermaid">` automáticamente al cargar la página. El helper `icesi.mermaid(code)` genera este bloque:
+Mermaid.js is loaded from a CDN and automatically compiles all `<div class="mermaid">` blocks when the page loads. The helper `icesi.mermaid(code)` generates this wrapper block:
 
 ```javascript
-// En el contenido de cualquier slide:
+// Inside the content of any slide:
 icesi.slideStandard(
-  'Flujo de Autenticación',
+  'Authentication Flow',
   icesi.mermaid(`
     sequenceDiagram
-      actor Cliente
+      actor Client
       participant API
       participant DB
-      Cliente->>API: POST /login
-      API->>DB: SELECT usuario
-      DB-->>API: datos
-      API-->>Cliente: JWT Token
+      Client->>API: POST /login
+      API->>DB: SELECT user
+      DB-->>API: data
+      API-->>Client: JWT Token
   `)
 )
 ```
 
-El resultado HTML que se inserta en el slide:
+The resulting HTML inserted into the slide:
 ```html
 <div class="mermaid">
   sequenceDiagram
-    actor Cliente
+    actor Client
     ...
 </div>
 ```
 
-Mermaid convierte este bloque en un SVG renderizado con el tema de colores Icesi.
+Mermaid converts this block into a dynamically rendered SVG matching the Icesi color theme variables.
 
 ---
 
-### Sección 2: Inicialización con Tema Icesi
+### Section 2: Initialization with Icesi Theme
 
-La inicialización de Mermaid ocurre automáticamente dentro de `icesi.init()`. El tema usa los colores institucionales:
+Mermaid initialization occurs automatically within `icesi.init()`. The theme uses the institutional brand colors:
 
 ```javascript
-// Esto se ejecuta dentro de icesi.init() — NO necesitas llamarlo manualmente:
-mermaid.initialize({
+// This runs inside icesi.init() — you DO NOT need to call it manually:
+window.mermaid.initialize({
   startOnLoad: true,
   theme: 'base',
   themeVariables: {
-    primaryColor:     '#5454E9',  // icesiblue — nodos primarios
-    secondaryColor:   '#865CF0',  // icesipurple — nodos secundarios
-    tertiaryColor:    '#4CB979',  // icesigreen — nodos terciarios
+    primaryColor:     '#5454E9',  // icesiblue — primary nodes
+    secondaryColor:   '#865CF0',  // icesipurple — secondary nodes
+    tertiaryColor:    '#4CB979',  // icesigreen — tertiary nodes
     primaryTextColor: '#FFFFFF',
     lineColor:        '#393939',  // icesidark
   },
@@ -63,7 +63,7 @@ mermaid.initialize({
 });
 ```
 
-Si necesitas override de colores por diagrama, usa directivas `%%{init}%%`:
+If you need to override colors per diagram, use Mermaid `%%{init}%%` directives:
 
 ```
 %%{init: {'theme': 'base', 'themeVariables': {
@@ -75,19 +75,19 @@ graph TD ...
 
 ---
 
-### Sección 3: Tipos de Diagramas y Ejemplos
+### Section 3: Diagram Types and Examples
 
-#### A. Diagrama de Flujo (Flowchart)
+#### A. Flowcharts
 
 ```javascript
 icesi.slideStandard(
-  'Flujo de Petición HTTP',
+  'HTTP Request Flow',
   icesi.mermaid(`
     %%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#5454E9', 'primaryTextColor': '#fff', 'lineColor': '#393939'}}}%%
     graph TD
-      A["Cliente"] -->|"Petición HTTP"| B{"API Gateway"}
-      B -->|"Ruta /users"| C["Servicio Usuarios"]
-      B -->|"Ruta /data"| D["Servicio Datos"]
+      A["Client"] -->|"HTTP Request"| B{"API Gateway"}
+      B -->|"Route /users"| C["Users Service"]
+      B -->|"Route /data"| D["Data Service"]
       C --> E[("PostgreSQL")]
       D --> F[("MongoDB")]
       classDef blue fill:#5454E9,stroke:none,color:#fff
@@ -100,66 +100,66 @@ icesi.slideStandard(
 )
 ```
 
-#### B. Diagrama de Secuencia
+#### B. Sequence Diagrams
 
 ```javascript
 icesi.slideTwoCols(
-  'Ciclo de Autenticación JWT',
+  'JWT Authentication Lifecycle',
   `<ul>
-    <li>POST /login envía credenciales</li>
-    <li>El servidor valida contra la BD</li>
-    <li>Se retorna un JWT firmado</li>
-    <li>El cliente adjunta el token en cada request</li>
+    <li>POST /login sends credentials</li>
+    <li>Server validates against DB</li>
+    <li>Signed JWT is returned</li>
+    <li>Client attaches token to subsequent requests</li>
   </ul>`,
   icesi.mermaid(`
     sequenceDiagram
       autonumber
-      actor Cliente
+      actor Client
       participant API
       participant DB
-      Cliente->>API: POST /login
-      API->>DB: SELECT usuario
-      DB-->>API: datos
-      API-->>Cliente: JWT Token
-      Cliente->>API: GET /perfil + JWT
-      API-->>Cliente: Datos protegidos
+      Client->>API: POST /login
+      API->>DB: SELECT user
+      DB-->>API: data
+      API-->>Client: JWT Token
+      Client->>API: GET /profile + JWT
+      API-->>Client: Protected Data
   `)
 )
 ```
 
-#### C. Diagrama de Arquitectura (Subgraphs)
+#### C. Architecture Diagrams (Subgraphs)
 
 ```javascript
 icesi.slideSidebarLeftBlue(
-  'Arquitectura Node.js',
+  'Node.js Architecture Stack',
   `<ul>
-    <li>Motor V8 ejecuta JavaScript</li>
-    <li>libuv gestiona I/O asíncrono</li>
-    <li>El Event Loop coordina callbacks</li>
+    <li>V8 engine executes JS</li>
+    <li>libuv handles async I/O</li>
+    <li>Event Loop coordinates callbacks</li>
   </ul>`,
-  '' // sin imagen en sidebar, usamos el diagrama inline
+  '' // no sidebar graphic, inline diagram used in content area
 )
 
-// O con el diagrama en la segunda columna:
+// Or with the diagram in the second column:
 icesi.slideTwoCols(
-  'Capas de la Plataforma',
+  'Platform Layers',
   `<ul>
-    <li>Aplicación JS (tu código)</li>
+    <li>JS Application (your code)</li>
     <li>Node.js APIs (http, fs, stream)</li>
-    <li>Motor V8 + libuv</li>
-    <li>Sistema Operativo</li>
+    <li>V8 Engine + libuv</li>
+    <li>Operating System</li>
   </ul>`,
   icesi.mermaid(`
     graph TB
-      subgraph App ["Tu Aplicación"]
+      subgraph App ["Your Application"]
         JS["JavaScript"]
       end
       subgraph Node ["Node.js Runtime"]
-        V8["Motor V8"]
+        V8["V8 Engine"]
         libuv["libuv"]
         APIs["Node APIs"]
       end
-      subgraph OS ["Sistema Operativo"]
+      subgraph OS ["Operating System"]
         IO["I/O, Network, Timers"]
       end
       JS --> APIs
@@ -170,11 +170,11 @@ icesi.slideTwoCols(
 )
 ```
 
-#### D. Diagrama de Estado / Ciclo de Vida
+#### D. State / Lifecycle Diagrams
 
 ```javascript
 icesi.slideStripeTopLeft(
-  'Ciclo de Vida de una Promise',
+  'Promise Lifecycle States',
   icesi.mermaid(`
     stateDiagram-v2
       [*] --> Pending
@@ -186,62 +186,62 @@ icesi.slideStripeTopLeft(
 )
 ```
 
-#### E. Diagrama de Clases / ER
+#### E. Entity-Relationship Diagrams
 
 ```javascript
 icesi.slideStandard(
-  'Modelo de Datos',
+  'Data Model Relationships',
   icesi.mermaid(`
     erDiagram
-      USUARIO ||--o{ PEDIDO : "realiza"
-      PEDIDO ||--|{ ITEM : "contiene"
-      ITEM }|--|| PRODUCTO : "es un"
+      USER ||--o{ ORDER : "places"
+      ORDER ||--|{ ITEM : "contains"
+      ITEM }|--|| PRODUCT : "references"
   `)
 )
 ```
 
 ---
 
-### Sección 4: Integración por Tipo de Slide
+### Section 4: Layout Specific Integrations
 
-#### En `slideStandard` (diagrama ocupa todo el ancho):
+#### In `slideStandard` (Full width diagram):
 ```javascript
-icesi.slideStandard('Título', icesi.mermaid(`graph LR\n  A --> B --> C`))
+icesi.slideStandard('Title', icesi.mermaid(`graph LR\n  A --> B --> C`))
 ```
 
-#### En `slideTwoCols` (diagrama en col2, texto en col1):
+#### In `slideTwoCols` (col1 for text, col2 for diagram):
 ```javascript
 icesi.slideTwoCols(
-  'Título',
-  `<ul><li>Punto 1</li></ul>`,
+  'Title',
+  `<ul><li>Point 1</li></ul>`,
   icesi.mermaid(`graph TD\n  A --> B`)
 )
 ```
 
-#### En `slideSidebarLeft*` (diagrama en el contenido derecho):
+#### In `slideSidebarLeft*` (diagram in the right content area):
 ```javascript
 icesi.slideSidebarLeftBlue(
-  'Título',
-  icesi.mermaid(`graph LR\n  A --> B`) + `<p>Descripción adicional</p>`,
-  '' // sin imagen de sidebar
+  'Title',
+  icesi.mermaid(`graph LR\n  A --> B`) + `<p>Additional Description</p>`,
+  '' // no sidebar image
 )
 ```
 
-#### En `slideStripeTopLeft/Right` (diagrama en zona de contenido):
+#### In `slideStripeTopLeft/Right` (diagram in open content area):
 ```javascript
 icesi.slideStripeTopLeft(
-  'Título en Barra Verde',
+  'Green Stripe Title',
   icesi.mermaid(`graph TD\n  A --> B --> C`)
 )
 ```
 
 ---
 
-### Sección 5: Reglas de Calidad Visual
+### Section 5: Visual Quality Guidelines
 
-- **Fondo transparente**: Mermaid.js usa SVG con fondo transparente por defecto. ✅
-- **Escala**: Los SVGs de Mermaid tienen `max-width:100%; height:auto` en `icesibeamer.css`. ✅
-- **Texto legible**: Usa `font-size` mínimo de 14px en variables de Mermaid para que sea legible al 1280×720px.
-- **Simplicidad**: Máximo 8-10 nodos por diagrama en slides. Si el diagrama es más complejo, dividirlo en dos slides.
-- **Colores**: Usar `classDef` para aplicar colores de marca a nodos específicos en diagramas complejos.
-- **Sin mmdc CLI**: NO exportar a PNG/PDF para esta presentación. Mermaid renderiza directamente en el navegador.
+- **Transparent Background**: Mermaid.js uses SVG with a transparent background by default. ✅
+- **Scaling**: Mermaid SVGs inherit `max-width: 100%; height: auto` styling in `icesibeamer.css`. ✅
+- **Font Legibility**: Keep a minimum `font-size` of 14px in theme variables to ensure text remains readable on 1280×720px screens.
+- **Simplicity**: Target a maximum of 8-10 nodes per slide diagram. If it is more complex, split it across two slides.
+- **Node Coloring**: Use `classDef` to apply brand colors to specific nodes in complex graphs.
+- **No mmdc CLI required**: Do not export diagrams to PNG or PDF. Mermaid renders them dynamically in the browser.

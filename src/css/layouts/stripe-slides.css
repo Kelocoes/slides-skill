@@ -1,0 +1,90 @@
+/* ══════════════════════════════════════════
+   CATEGORÍA 4 — DECORATIVOS / BANNER SLIDES
+   ══════════════════════════════════════════ */
+
+/* ──────────────────────────────────────────
+   STRIPE TOP LEFT: Franja azul superior + acento verde izquierda
+   Ref: \slideStripeTopLeft{title}{content}
+   Visual: page-18.png
+   ────────────────────────────────────────── */
+.slide.stripe-top-left,
+.slide.stripe-top-right {
+  background: var(--icesi-white);
+}
+
+/* Banner azul superior: width=33.86cm=1280px, height=4.18cm=158px */
+.slide.stripe-top-left .blue-banner,
+.slide.stripe-top-right .blue-banner {
+  position: absolute;
+  left: 0; top: 0;
+  width: 1280px;
+  height: 158px;
+  background: var(--icesi-blue);
+}
+
+/* Acento verde izquierda (stripe-top-left): xshift=-0.12cm→-5px, yshift=-4.18cm→158px, +20.99cm=793px, +2.39cm=90px */
+.slide.stripe-top-left .green-accent {
+  position: absolute;
+  left: -5px;
+  top: 158px;
+  width: 793px;
+  height: 90px;
+  background: var(--icesi-green);
+}
+
+/* Acento verde derecha (stripe-top-right): xshift=13.17cm→498px, yshift=-4.18cm→158px, +20.69cm=782px, +2.39cm=90px */
+.slide.stripe-top-right .green-accent {
+  position: absolute;
+  left: 498px;
+  top: 158px;
+  width: 782px;
+  height: 90px;
+  background: var(--icesi-green);
+}
+
+/* Título en la barra verde (stripe-top-left): xshift=0.85cm→32px, yshift=-4.88cm→184px, text-width=19.59cm=740px */
+.slide.stripe-top-left .slide-title {
+  position: absolute;
+  left: 32px;
+  top: 172px;
+  width: 740px;
+  color: var(--icesi-white);
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: 700;
+  hyphens: none;
+}
+
+/* Título en la barra verde (stripe-top-right): xshift=13.87cm→524px, text-width=18.57cm=702px */
+.slide.stripe-top-right .slide-title {
+  position: absolute;
+  left: 524px;
+  top: 172px;
+  width: 702px;
+  color: var(--icesi-white);
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: 700;
+  hyphens: none;
+}
+
+/* Contenido principal (debajo de las franjas): empieza en ~290px para clearear las 2 franjas */
+.slide.stripe-top-left .slide-content,
+.slide.stripe-top-right .slide-content {
+  position: absolute;
+  top: 268px;
+  left: 32px;
+  width: 1218px;
+  color: var(--icesi-dark);
+  font-size: 22px;
+  line-height: 30px;
+}
+.slide.stripe-top-left .slide-content ul,
+.slide.stripe-top-right .slide-content ul {
+  padding-left: 22px;
+  margin: 0;
+}
+.slide.stripe-top-left .slide-content li,
+.slide.stripe-top-right .slide-content li {
+  margin-bottom: 10px;
+}

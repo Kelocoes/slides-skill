@@ -5,111 +5,114 @@ description: Beamer Layout Library and Slide Generation skill — Universidad Ic
 
 # Skill: `generate-slides` (HTML Component Library — Reveal.js)
 
-Esta skill define la biblioteca de layouts para las presentaciones de la Universidad Icesi y provee el workflow de composición para que agentes autónomos construyan slides HTML visualmente ricos, alineados a la marca institucional, usando el sistema **Reveal.js + icesibeamer.css + icesibeamer.js**.
+This skill defines the layout library for Universidad Icesi slide presentations and provides the composition workflow for autonomous agents to build visually rich, brand-aligned HTML slides using the **Reveal.js + icesibeamer.css + icesibeamer.js** system.
 
 ---
 
-## 📂 Estructura del Proyecto
+## 📂 Project Structure
 
 ```
 skill-slides/
-├── icesibeamer.css            # Master stylesheet (≡ icesibeamer.sty en LaTeX)
+├── icesibeamer.css            # Master stylesheet (≡ icesibeamer.sty in LaTeX)
 ├── icesibeamer.js             # Component library (≡ macros \titleSlideA, etc.)
+├── src/                       # Modular source code
+│   ├── css/                   # Split CSS layout modules
+│   └── js/                    # Split JavaScript component modules
 ├── resources/
 │   ├── fonts/                 # Plus Jakarta Sans TTF
-│   ├── logos/                 # ICESI logos en SVG (positivo y negativo)
-│   └── patterns/              # icesi_stripe_pattern.svg y otros SVGs globales
-└── slides/<tema>/
-    ├── <tema>.html            # Archivo de presentación (≡ <tema>.tex)
-    └── assets/                # Diagramas, iconos e imágenes del tema
+│   ├── logos/                 # ICESI logos in SVG (positive and negative)
+│   └── patterns/              # Stripe pattern and other global SVGs
+└── slides/<topic>/
+    ├── <topic>.html           # Presentation HTML file (≡ <topic>.tex)
+    └── assets/                # Presentation-specific diagrams, icons, and images
 ```
 
 ---
 
-## 🎨 Paleta de Color Institucional
+## 🎨 Institutional Color Palette
 
-| Variable CSS | Hex | Uso |
+| CSS Variable | Hex | Usage |
 |---|---|---|
-| `--icesi-blue`   | `#5454E9` | Títulos primarios, accents, fondo portadas |
-| `--icesi-purple` | `#865CF0` | Secciones secundarias, sidebar morado |
-| `--icesi-green`  | `#4CB979` | Estado de éxito, acento de franja |
-| `--icesi-yellow` | `#E4EB60` | Highlights, cajas de subtítulo |
-| `--icesi-orange` | `#E9683B` | Alertas, sidebar naranja |
-| `--icesi-dark`   | `#393939` | Texto del cuerpo |
+| `--icesi-blue`   | `#5454E9` | Primary titles, accents, cover slide background |
+| `--icesi-purple` | `#865CF0` | Secondary sections, purple sidebar |
+| `--icesi-green`  | `#4CB979` | Success state, green stripe accents |
+| `--icesi-yellow` | `#E4EB60` | Highlights, cover slide subtitle boxes |
+| `--icesi-orange` | `#E9683B` | Alerts, orange sidebar |
+| `--icesi-dark`   | `#393939` | Body text color |
 
 ---
 
-## 📐 Biblioteca de Layouts Disponibles
+## 📐 Available Layouts Library
 
-### Categoría 1 — Portadas (Title Slides)
+### Category 1 — Cover Slides (Title Slides)
 
-| Función JS | Args | Caso de uso |
+| JS Function | Args | Use Case |
 |---|---|---|
-| `icesi.titleSlideA(title, subtitle)` | 2 | Fondo azul, caja blanca, caja amarilla |
-| `icesi.titleSlideB(title, subtitle, footer)` | 3 | Fondo blanco, barra verde, texto derecha |
-| `icesi.titleSlideC(title, subtitle)` | 2 | Bloque azul abajo + patrón rayas |
-| `icesi.titleSlideD(title, subtitle, badge)` | 3 | Split azul/morado, badge amarillo |
-| `icesi.titleSlideE(title, subtitle)` | 2 | Fondo blanco, caja azul + morada |
-| `icesi.titleSlideF(title, subtitle)` | 2 | Bloque azul top + naranja, logo abajo |
+| `icesi.titleSlideA(title, subtitle)` | 2 | Blue background, white title box, yellow subtitle box |
+| `icesi.titleSlideB(title, subtitle, footer)` | 3 | White background, green bottom bar, right-aligned text |
+| `icesi.titleSlideC(title, subtitle)` | 2 | Blue bottom block with stripe patterns |
+| `icesi.titleSlideD(title, subtitle, badge)` | 3 | Split blue/purple blocks, yellow badge |
+| `icesi.titleSlideE(title, subtitle)` | 2 | White background, overlaid blue/purple boxes |
+| `icesi.titleSlideF(title, subtitle)` | 2 | Top blue & orange block layout, bottom logo |
 
-### Categoría 2 — Divisores de Sección
+### Category 2 — Section Dividers
 
-| Función JS | Args | Caso de uso |
+| JS Function | Args | Use Case |
 |---|---|---|
-| `icesi.sectionSlideA(title)` | 1 | Minimal, barra azul inferior |
-| `icesi.sectionSlideB(title, imagePath)` | 2 | Barra naranja, imagen en panel derecho |
-| `icesi.sectionSlideC(title)` | 1 | Fondo azul, caja blanca, acento verde |
-| `icesi.sectionSlideE(title)` | 1 | Fondo blanco, título azul |
-| `icesi.sectionSlideEBlue(title)` | 1 | Fondo azul, título blanco |
-| `icesi.sectionSlideEGreen(title)` | 1 | Fondo verde, título blanco |
-| `icesi.sectionSlideEYellow(title)` | 1 | Fondo amarillo, título oscuro |
-| `icesi.sectionSlideEOrange(title)` | 1 | Fondo naranja, título blanco |
+| `icesi.sectionSlideA(title)` | 1 | Minimalist, blue bottom accent bar |
+| `icesi.sectionSlideB(title, imagePath)` | 2 | Orange bottom bar, image in right panel |
+| `icesi.sectionSlideC(title)` | 1 | Blue background, white text container, green accent |
+| `icesi.sectionSlideE(title)` | 1 | White background, blue title |
+| `icesi.sectionSlideEBlue(title)` | 1 | Blue background, white title |
+| `icesi.sectionSlideEGreen(title)` | 1 | Green background, white title |
+| `icesi.sectionSlideEYellow(title)` | 1 | Yellow background, dark title |
+| `icesi.sectionSlideEOrange(title)` | 1 | Orange background, white title |
 
-### Categoría 3 — Sidebar Slides
+### Category 3 — Sidebar Slides
 
-| Función JS | Args | Caso de uso |
+| JS Function | Args | Use Case |
 |---|---|---|
-| `icesi.slideSidebarLeftOrange(title, content, imagePath)` | 3 | Sidebar naranja + zona de gráfico |
-| `icesi.slideSidebarLeftBlue(title, content, imagePath)` | 3 | Sidebar azul + zona de gráfico |
-| `icesi.slideSidebarLeftPurple(title, content, imagePath)` | 3 | Sidebar morado + zona de gráfico |
+| `icesi.slideSidebarLeftOrange(title, content, imagePath)` | 3 | Orange sidebar + graphics zone |
+| `icesi.slideSidebarLeftBlue(title, content, imagePath)` | 3 | Blue sidebar + graphics zone |
+| `icesi.slideSidebarLeftPurple(title, content, imagePath)` | 3 | Purple sidebar + graphics zone |
 
-> **Parámetro `imagePath`**: Ruta a SVG/PNG para el panel lateral. Pasa `''` si no hay imagen.
+> **Parameter `imagePath`**: Path to SVG or PNG graphic for the sidebar panel. Pass `''` if no graphic is needed.
 
-### Categoría 4 — Decorativos / Banner
+### Category 4 — Banner / Stripe Layouts
 
-| Función JS | Args | Caso de uso |
+| JS Function | Args | Use Case |
 |---|---|---|
-| `icesi.slideStripeTopLeft(title, content)` | 2 | Franja azul top + acento verde izquierda |
-| `icesi.slideStripeTopRight(title, content)` | 2 | Franja azul top + acento verde derecha |
+| `icesi.slideStripeTopLeft(title, content)` | 2 | Top blue banner + green stripe accent on left |
+| `icesi.slideStripeTopRight(title, content)` | 2 | Top blue banner + green stripe accent on right |
 
-### Categoría 5 — Slides de Contenido
+### Category 5 — Standard Content Slides
 
-| Función JS | Args | Caso de uso |
+| JS Function | Args | Use Case |
 |---|---|---|
-| `icesi.slideStandard(title, content)` | 2 | Header logo + área de contenido libre |
-| `icesi.slideTwoCols(title, col1, col2)` | 3 | Dos columnas iguales |
-| `icesi.slideThreeCols(title, col1, col2, col3)` | 4 | Tres columnas iguales |
-| `icesi.slideFourCards(title, c1t,c1, c2t,c2, c3t,c3, c4t,c4)` | 9 | Grid de cuatro tarjetas coloreadas |
+| `icesi.slideStandard(title, content)` | 2 | Header logo + free content area |
+| `icesi.slideTwoCols(title, col1, col2)` | 3 | Two equal content columns |
+| `icesi.slideThreeCols(title, col1, col2, col3)` | 4 | Three equal content columns |
+| `icesi.slideFourCards(title, c1t, c1, c2t, c2, c3t, c3, c4t, c4)` | 9 | Four-card grid with custom titles and content |
 
 ---
 
-## 🛠️ Helpers de Contenido
+## 🛠️ Content Helpers
 
 ```javascript
-// Diagrama Mermaid inline (sin mmdc CLI, sin exportar a PNG)
+// Inline Mermaid diagram (renders without mmdc CLI or pre-compiling PNGs)
 icesi.mermaid(`
   graph TD
-    A[Cliente] --> B{API}
-    B --> C[BD]
+    A[Client] --> B{API}
+    B --> C[DB]
 `)
 
-// Bloque Markdown (procesado por Reveal.js plugin)
+// Markdown block (processed by Reveal.js markdown plugin)
 icesi.markdown(`
-  - Punto 1 con **negrita**
-  - Punto 2
+  - Point 1 with **bold** text
+  - Point 2
 `)
 
-// Bloque de código con resaltado de sintaxis
+// Code block with syntax highlighting
 icesi.codeBlock(`
   const express = require('express')
   const app = express()
@@ -118,100 +121,100 @@ icesi.codeBlock(`
 
 ---
 
-## 🚨 Reglas Críticas de Layout
+## 🚨 Critical Layout Rules
 
-### Regla 1 — Títulos sin Hyphenation
-Los títulos usan `hyphens: none` en CSS (equivalente al `\hyphenpenalty=10000` de LaTeX). Para títulos largos usa `<br>` explícito:
+### Rule 1 — No Hyphenation in Titles
+Titles use `hyphens: none` in CSS. For long titles, use explicit `<br>` breaks to control flow:
 
 ```javascript
 icesi.titleSlideA(
-  'Node.js:<br>Servidores JavaScript',
-  'Subtítulo aquí'
+  'Node.js:<br>JavaScript Servers',
+  'Subtitle here'
 )
 ```
 
-### Regla 2 — Imagen en Sidebar
-La zona de imagen en los sidebars es `359×359px`. Usa SVG o PNG con fondo transparente:
+### Rule 2 — Sidebar Graphics
+The image zone inside the sidebars is exactly `359×359px`. Use transparent SVGs or PNGs for best layout fitting:
 
 ```javascript
 icesi.slideSidebarLeftBlue(
-  'Arquitectura Node.js',
+  'Node.js Architecture',
   `<ul>
-    <li>Motor V8 de Google Chrome</li>
-    <li>Event Loop no bloqueante</li>
+    <li>Google Chrome V8 Engine</li>
+    <li>Non-blocking Event Loop</li>
   </ul>`,
-  'slides/nodejs/assets/node_architecture.svg'
+  'slides/nodejs/assets/nodejs_architecture.svg'
 )
 ```
 
-### Regla 3 — Tarjetas con Título Personalizable
-En `slideFourCards`, cada tarjeta acepta título y contenido separados:
+### Rule 3 — Customized Four Cards
+In `slideFourCards`, each card accepts a separate title and body block:
 
 ```javascript
 icesi.slideFourCards(
-  'APIs Nativas de Node.js',
-  'HTTP/HTTPS', '<p>Módulo para servidores</p>',
-  'File System', '<p>Lectura y escritura de archivos</p>',
-  'Events', '<p>EventEmitter y listeners</p>',
-  'Stream', '<p>Flujos de datos eficientes</p>'
+  'Native Node.js APIs',
+  'HTTP/HTTPS', '<p>Module for web servers</p>',
+  'File System', '<p>Read and write files</p>',
+  'Events', '<p>EventEmitter and listeners</p>',
+  'Stream', '<p>Efficient data flows</p>'
 )
 ```
 
-### Regla 4 — Densidad de Contenido
-- **Nunca dejar más del 40% vacío**: Si el contenido es escaso, añade un diagrama Mermaid o imagen.
-- **Slides estándar**: 4–6 bullet points O una combinación diagrama + 2–3 puntos.
-- **Columnas**: Cada columna debe tener mínimo 2 ítems.
+### Rule 4 — Content Density
+- **Never leave more than 40% of standard slides empty**: If content is sparse, add an inline Mermaid diagram or a supporting SVG illustration.
+- **Standard slides**: Aim for 4–6 bullet points, OR a combination of a diagram and 2–3 bullet points.
+- **Columns**: Each column should contain at least 2 items.
 
-### Regla 5 — Divisores de Sección
-Insertar un `sectionSlide*` cada 3–4 slides de contenido para dar estructura visual y respiración al flujo.
+### Rule 5 — Section Dividers
+Insert a `sectionSlide*` divider slide every 3–4 content slides to structuralize the presentation flow and give breathing space.
 
-### Regla 6 — Integración con Diagramas SVG
-Cuando un slide describe un sistema o flujo, SIEMPRE acompañarlo de un diagrama:
+### Rule 6 — SVG Graphics Integration
+Whenever a slide describes a system flow or architecture, ALWAYS accompany it with a clean vector diagram:
 
 ```javascript
-// Con sidebar — el diagrama va en el panel izquierdo
+// With sidebar — diagram fits inside the left panel
 icesi.slideSidebarLeftBlue(
-  'Event Loop de Node.js',
+  'Node.js Event Loop',
   `<ul><li>Single-threaded</li><li>Non-blocking I/O</li></ul>`,
-  'slides/nodejs/assets/event_loop.svg'
+  'slides/nodejs/assets/event_loop_diagram.svg'
 )
 
-// Con dos columnas — el diagrama va en col2
+// With two columns — diagram goes into the second column
 icesi.slideTwoCols(
-  'Comparativa de Rendimiento',
-  `<ul><li>Node.js: alta concurrencia</li></ul>`,
+  'Performance Benchmark',
+  `<ul><li>Node.js handles high concurrency</li></ul>`,
   `<img src="slides/nodejs/assets/benchmark.svg" style="width:100%;height:auto;">`
 )
 
-// Con Mermaid inline — directamente en el contenido
+// With inline Mermaid — goes directly inside the body content
 icesi.slideStandard(
-  'Flujo de Petición HTTP',
+  'HTTP Request Cycle',
   icesi.mermaid(`
     sequenceDiagram
-      actor Cliente
+      actor Client
       participant API
       participant DB
-      Cliente->>API: GET /datos
+      Client->>API: GET /data
       API->>DB: SELECT *
       DB-->>API: rows
-      API-->>Cliente: JSON
+      API-->>Client: JSON
   `)
 )
 ```
 
 ---
 
-## 🚀 Workflow de Composición
+## 🚀 Composition Workflow
 
-### Paso 1 — Crear el archivo HTML de la presentación
+### Step 1 — Create the presentation HTML file
 
 ```html
-<!-- slides/<tema>/<tema>.html -->
+<!-- slides/<topic>/<topic>.html -->
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Mi Presentación — Universidad Icesi</title>
+  <title>Presentation Title — Universidad Icesi</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
   <link rel="stylesheet" href="../../icesibeamer.css">
 </head>
@@ -222,15 +225,18 @@ icesi.slideStandard(
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/markdown/markdown.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  window.mermaid = mermaid;
+</script>
 <script src="../../icesibeamer.js"></script>
-<script>
-  // Ajustar rutas de logos para subdirectorio
+<script type="module">
+  // Configure relative base path for assets and logos
   icesi.setBasePath('../../');
 
   const slides = [
-    icesi.titleSlideA('Mi Tema', 'Subtítulo del curso'),
-    // ... más slides
+    icesi.titleSlideA('My Topic', 'Course Subtitle'),
+    // ... more slides
   ];
   document.getElementById('icesi-slides').innerHTML = slides.join('\n');
   icesi.init();
@@ -239,88 +245,81 @@ icesi.slideStandard(
 </html>
 ```
 
-### Paso 2 — Ver en el navegador
-Abrir `slides/<tema>/<tema>.html` en Chrome o Edge. **No requiere compilación.**
-
-> **IMPORTANTE**: Por restricciones de CORS en recursos locales (fuentes, logos), usar un servidor local:
-> ```powershell
-> # Desde la raíz del proyecto:
-> npx -y http-server . -p 8080
-> # Luego abrir: http://localhost:8080/slides/<tema>/<tema>.html
-> ```
-
-### Paso 3 — Exportar a PDF (opcional)
+### Step 2 — View in the Browser
+Open `slides/<topic>/<topic>.html` in Chrome or Edge. Due to local CORS restrictions (fonts, logo loading), you must use a local HTTP server:
 ```powershell
-# Con puppeteer (método más fiel):
-npx -y puppeteer-pdf http://localhost:8080/slides/<tema>/<tema>.html?print-pdf slides/<tema>/build/<tema>.pdf
-
-# O desde Chrome: Ctrl+P → Guardar como PDF → Sin márgenes
+# From the project root directory:
+npx -y http-server . -p 8080
+# Then open: http://localhost:8080/slides/<topic>/<topic>.html
 ```
 
-### Paso 4 — Capturas PNG para QA visual
+### Step 3 — Export to PDF (Optional)
 ```powershell
-# Captura de cada slide como PNG para revisión:
-npx -y puppeteer-screenshots http://localhost:8080/slides/<tema>/<tema>.html slides/<tema>/build/
+# Using puppeteer-pdf:
+npx -y puppeteer-pdf http://localhost:8080/slides/<topic>/<topic>.html?print-pdf slides/<topic>/build/<topic>.pdf
+
+# Or from Chrome: Ctrl+P → Save as PDF → Margins: None → Background graphics: Enabled
 ```
 
-### Paso 5 — QA Visual Checklist
-- [ ] **Portadas**: Título visible, sin overflow, sin hyphenation indeseada.
-- [ ] **Divisores de sección**: Título completo, sin truncación.
-- [ ] **Slides estándar**: Texto inicia debajo del header (> 240px), no se solapa con logo.
-- [ ] **Sidebar slides**: Imagen visible y proporcionada dentro del panel de color.
-- [ ] **Tarjetas**: 4 tarjetas completas, texto no truncado, bordes visibles.
-- [ ] **Dos/Tres columnas**: Columnas equilibradas, sin desbordamiento.
-- [ ] **Stripe slides**: Título en barra verde legible, contenido en zona blanca.
-- [ ] **Diagramas Mermaid**: Renderizan correctamente, colores institucionales visibles.
+### Step 4 — Generate PNG Screenshots for Visual QA
+```powershell
+# Take screenshots of every slide:
+npx -y puppeteer-screenshots http://localhost:8080/slides/<topic>/<topic>.html slides/<topic>/build/
+```
+
+### Step 5 — Visual QA Checklist
+- [ ] **Covers**: Title readable, no overlaps, no unwanted hyphenations.
+- [ ] **Section Dividers**: Full title fits, zero clipping.
+- [ ] **Standard Slides**: Body text starts below header (> 240px), no overlap with logo.
+- [ ] **Sidebar Slides**: Sidebar graphic is rendered with correct proportions.
+- [ ] **Cards**: All 4 cards render completely, text fits inside blocks.
+- [ ] **Two/Three Columns**: Columns are visually balanced without horizontal overflows.
+- [ ] **Stripe Slides**: Title fits in top banner, content is positioned correctly in the white space below `268px`.
+- [ ] **Mermaid Diagrams**: Renders correctly using the institutional color theme variables.
 
 ---
 
-## 📋 Template de Presentación — 25 Slides
+## 📋 Recommended Presentation Blueprint — 25 Slides
 
 ```javascript
-// Estructura recomendada para un módulo técnico completo
+// Recommended layout flow for a complete engineering/technical presentation module
 
-// PORTADA (1)
-icesi.titleSlideA('Tema: [Tecnología]', 'Nombre del curso • Fecha'),
+// COVER (1)
+icesi.titleSlideA('Topic: [Technology]', 'Course Name • Date'),
 
-// BLOQUE 1: Introducción (4 slides)
-icesi.slideStandard('¿Qué es [Tecnología]?', `<ul>...</ul>`),
-icesi.slideSidebarLeftBlue('Historia y Origen', `...`, 'assets/timeline.svg'),
-icesi.slideTwoCols('Características Clave', `<ul>...</ul>`, `<ul>...</ul>`),
-icesi.sectionSlideA('Instalación y Configuración'),
+// BLOCK 1: Introduction (4 slides)
+icesi.slideStandard('What is [Technology]?', `<ul>...</ul>`),
+icesi.slideSidebarLeftBlue('History and Origins', `...`, 'assets/timeline.svg'),
+icesi.slideTwoCols('Key Characteristics', `<ul>...</ul>`, `<ul>...</ul>`),
+icesi.sectionSlideA('Installation & Setup'),
 
-// BLOQUE 2: Instalación (3 slides)
-icesi.slideStripeTopLeft('Requisitos del Sistema', `<ul>...</ul>`),
-icesi.slideStandard('Verificación', icesi.codeBlock('node --version\nnpm --version', 'bash')),
-icesi.slideSidebarLeftOrange('Estructura del Proyecto', `...`, 'assets/folder.svg'),
+// BLOCK 2: Setup (3 slides)
+icesi.slideStripeTopLeft('System Requirements', `<ul>...</ul>`),
+icesi.slideStandard('Verification', icesi.codeBlock('node --version\nnpm --version', 'bash')),
+icesi.slideSidebarLeftOrange('Project Folder Structure', `...`, 'assets/folder.svg'),
 
-// BLOQUE 3: Conceptos Centrales (5 slides)
-icesi.sectionSlideEBlue('Arquitectura y Event Loop'),
-icesi.slideSidebarLeftBlue('Event Loop', `...`, 'assets/event_loop.svg'),
+// BLOCK 3: Core Concepts (5 slides)
+icesi.sectionSlideEBlue('Architecture & Event Loop'),
+icesi.slideSidebarLeftBlue('Event Loop', `...`, 'assets/event_loop_diagram.svg'),
 icesi.slideTwoCols('Single Thread vs Multi-Thread', `...`, `...`),
-icesi.slideThreeCols('Fases del Event Loop', `...`, `...`, `...`),
-icesi.slideFourCards('APIs Nativas Clave', 'HTTP','...', 'fs','...', 'Events','...', 'Stream','...'),
+icesi.slideThreeCols('Event Loop Phases', `...`, `...`, `...`),
+icesi.slideFourCards('Core Native APIs', 'HTTP','...', 'fs','...', 'Events','...', 'Stream','...'),
 
-// BLOQUE 4: Async (4 slides)
-icesi.sectionSlideEPurple('Async en la Práctica'),
-icesi.slideSidebarLeftPurple('Callbacks', `...`, 'assets/callback_hell.svg'),
+// BLOCK 4: Asynchronous Code (4 slides)
+icesi.sectionSlideEGreen('Asynchronous Patterns'),
+icesi.slideSidebarLeftPurple('Callbacks & Hell', `...`, 'assets/callback.svg'),
 icesi.slideTwoCols('Promises vs Async/Await', `...`, `...`),
-icesi.slideStripeTopRight('Ejemplo Completo', icesi.codeBlock('...', 'js')),
+icesi.slideStripeTopRight('Full Example', icesi.codeBlock('...', 'js')),
 
-// CIERRE (2 slides)
-icesi.slideStandard('Recursos y Próximos Pasos', `<ul>...</ul>`),
-icesi.titleSlideF('¡Gracias!', '¿Preguntas?'),
+// WRAP-UP (2 slides)
+icesi.slideStandard('Resources & Next Steps', `<ul>...</ul>`),
+icesi.titleSlideA('Questions & Answers', 'Official Docs • Community Chat'),
 ```
 
 ---
 
-## 🔗 Integración con Skills Hermanas
+## 🔗 Sister Skills Integration
 
-- **`slides-mermaid-diagrams`**: Usar `icesi.mermaid(code)` para diagramas inline sin CLI
-- **`slides-iconification`**: Usar SVGs directamente con `<img src="...">` en el contenido
-- **`slides-svg-graphics`**: Emb usar `<img>` apuntando a SVGs en `slides/<tema>/assets/`
-
-### Convención de rutas de assets:
-- Assets de cada tema: `slides/<tema>/assets/`
-- Recursos globales de plantilla: `resources/patterns/`, `resources/logos/`
-- **Nunca** mezclar assets de tema con recursos globales
+- **`slides-mermaid-diagrams`**: Use `icesi.mermaid(code)` to write inline charts.
+- **`slides-iconification`**: Add simple SVG icons inside content parameters.
+- **`slides-svg-graphics`**: Reference custom SVGs placed under `slides/<topic>/assets/`.

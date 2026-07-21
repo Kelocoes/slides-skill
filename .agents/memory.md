@@ -55,6 +55,25 @@ The main presentation file [main.html](file:///C:/Users/GlobE/Desktop/Docencia%2
 
 ## 💾 Summary of Technical Design Decisions (Project Log)
 
-1.  **Native SVG Loading (No conversion required)**: Brand logos and pattern SVGs are used directly via `<img src="...">` tags referencing files in `resources/logos/` and `resources/patterns/`. No Inkscape, `rsvg-convert`, or PDF conversion required. The browser renders SVG natively.
-2.  **Top Banner Height Fix on Striped Slides**: Stripe accent slides (`icesi.slideStripeTopLeft()` and `icesi.slideStripeTopRight()`) use the CSS class `.blue-banner` with `height:158px` (equivalent to 4.18cm in the original LaTeX). Content is positioned with `top:268px` in `.slide-content` to ensure all text renders consistently below the institutional header bars and the green accent stripe.
-3.  **Reveal.js Canvas**: The system uses Reveal.js with `width=1280, height=720` (16:9 ratio). All elements within each `<section class="slide">` use `position:absolute` with pixel values derived from the original TikZ coordinates at the scale of **1cm = 37.8px** (1280px / 33.86cm). Reveal.js handles scaling, fullscreen, keyboard navigation, and PDF export via `?print-pdf` URL parameter.
+1.  **Native SVG Loading (No conversion required)**: Brand logos and pattern SVGs are used directly via `<img src="...">` tags referencing files in `resources/logos/` and `resources/patterns/`. The browser renders SVG natively for perfect vector sharpness.
+2.  **Top Banner Height Fix on Striped Slides**: Stripe accent slides (`icesi.slideStripeTopLeft()` and `icesi.slideStripeTopRight()`) use the CSS class `.blue-banner` with `height:158px` (equivalent to 4.18cm in the original LaTeX). Content is positioned with `top:268px` in `.slide-content` to ensure all text renders consistently below the header bars.
+3.  **Reveal.js Canvas**: The system uses Reveal.js with `width=1280, height=720` (16:9 ratio). All elements within each `<section class="slide">` use `position:absolute` with pixel values derived from the original TikZ coordinates at the scale of **1cm = 37.8px** (1280px / 33.86cm).
+4.  **Modular Refactoring (`src/` folder)**:
+    - The stylesheet and layout engine scripts were split into clean modules under `src/css/` and `src/js/` (categorized by base style, title, section, sidebar, stripe, and content slides).
+    - A compiler script [src/build.js](file:///C:/Users/GlobE/Desktop/Docencia%20Icesi/skill-slides/src/build.js) bundles these modules into [icesibeamer.css](file:///C:/Users/GlobE/Desktop/Docencia%20Icesi/skill-slides/icesibeamer.css) and [icesibeamer.js](file:///C:/Users/GlobE/Desktop/Docencia%20Icesi/skill-slides/icesibeamer.js) in the project root.
+5.  **Negative Contrast Logos**:
+    - Created [ICESI_logo_prin_descriptor_WHITE.svg](file:///C:/Users/GlobE/Desktop/Docencia%20Icesi/skill-slides/resources/logos/ICESI_logo_prin_descriptor_WHITE.svg) with pure white fills (`#ffffff`) to ensure contrast on dark backgrounds (blue, green, orange, purple).
+    - Overridable logo functions (`_logoNegFn()`, `_logoPosF()`) render correct files depending on background theme.
+6.  **Page Number Collision Resolution**:
+    - Renamed `.slide-number` class to `.icesi-slide-number` in [src/js/core.js](file:///C:/Users/GlobE/Desktop/Docencia%20Icesi/skill-slides/src/js/core.js) and [src/css/base.css](file:///C:/Users/GlobE/Desktop/Docencia%20Icesi/skill-slides/src/css/base.css) to prevent Reveal.js from applying its native grey background block.
+    - Explicitly set `left: auto` / `right: auto` to prevent horizontal line stretching.
+7.  **Mermaid v11 (ESM) & Scope Shadowing Resolution**:
+    - Loaded Mermaid v11 from CDN ES Modules in presentation HTML.
+    - Resolved scope shadowing bug by referencing `window.mermaid.initialize()` instead of `mermaid.initialize()` inside `icesi.init()` (since the local helper function `mermaid(code)` shadowed the global space).
+8.  **Cards Layout Safe Margins**:
+    - Set `margin: 0` for `.slide-header h2` titles to prevent default vertical displacement.
+    - Moved the cards grid down by 30px (`top: 256px` for background, `top: 276px` for cards grid) to establish a safe margin of 54px and prevent title overlaps in `.four-cards` layout.
+9.  **Node.js Presentation Migration**:
+    - Successfully compiled 25 HTML/Reveal.js slides in [slides/nodejs-html/nodejs-html.html](file:///C:/Users/GlobE/Desktop/Docencia%20Icesi/skill-slides/slides/nodejs-html/nodejs-html.html) utilizing SVG assets.
+    - Saved captured QA screenshots inside [slides/nodejs-html/build/](file:///C:/Users/GlobE/Desktop/Docencia%20Icesi/skill-slides/slides/nodejs-html/build/).
+

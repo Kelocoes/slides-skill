@@ -1,10 +1,8 @@
-/* ═══════════════════════════════════════════════════════════════════
-   ICESI BEAMER — Master Stylesheet v2.0 (HTML/Reveal.js)
-   Equivalente a: icesibeamer.sty
-   Canvas: 1280×720px (≡ 33.86cm × 19.05cm @ 96dpi)
-   Escala: 1cm = 37.795px → se usa 37.8px
-   ═══════════════════════════════════════════════════════════════════ */
+/* Compilado automáticamente por src/build.js a partir de archivos modulares */
 
+/* =================================================================
+   ARCHIVO: base.css
+   ================================================================= */
 /* ──────────────────────────────────────────
    FUENTE INSTITUCIONAL: Plus Jakarta Sans
    ────────────────────────────────────────── */
@@ -67,8 +65,6 @@
 .reveal .slides > section {
   padding: 0 !important;
   margin: 0 !important;
-  /* La sección de Reveal.js es el contenedor transformado.
-     Nuestro .slide div ocupa el espacio interno. */
 }
 
 /* ──────────────────────────────────────────
@@ -99,7 +95,6 @@
   line-height: normal;
 }
 
-
 /* ──────────────────────────────────────────
    LOGOS (helper clases usadas en todos los layouts)
    ────────────────────────────────────────── */
@@ -117,7 +112,7 @@
 /* ──────────────────────────────────────────
    NÚMERO DE PÁGINA
    ────────────────────────────────────────── */
-.slide .slide-number {
+.slide .icesi-slide-number {
   position: absolute;
   bottom: var(--num-bottom);
   font-size: 10px;
@@ -126,9 +121,116 @@
   z-index: 20;
   line-height: 1;
 }
-.slide .slide-number.right { right: var(--num-lr); }
-.slide .slide-number.left  { left:  var(--num-lr); }
+.slide .icesi-slide-number.right { right: var(--num-lr); left: auto; }
+.slide .icesi-slide-number.left  { left:  var(--num-lr); right: auto; }
 
+/* ──────────────────────────────────────────
+   HEADER ESTÁNDAR (compartido por standard, two-cols, three-cols, four-cards)
+   Ref: \drawStandardSlideHeader{title}
+   ────────────────────────────────────────── */
+.slide.standard .slide-header,
+.slide.two-cols .slide-header,
+.slide.three-cols .slide-header,
+.slide.four-cards .slide-header {
+  position: absolute;
+  left: 0; top: 0;
+  width: 1280px;
+  height: 220px; /* zona segura del header con logo */
+}
+/* Título: xshift=0.85cm→32px, yshift=-4.66cm→176px, text-width=31.59cm=1194px */
+.slide.standard .slide-header h2,
+.slide.two-cols .slide-header h2,
+.slide.three-cols .slide-header h2,
+.slide.four-cards .slide-header h2 {
+  position: absolute;
+  left: 32px;
+  top: 176px;
+  width: 1194px;
+  color: var(--icesi-blue);
+  font-size: 38px;
+  line-height: 46px;
+  font-weight: 700;
+  hyphens: none;
+  margin: 0;
+}
+
+/* ══════════════════════════════════════════
+   MERMAID.JS — Diagramas inline
+   ══════════════════════════════════════════ */
+.slide .mermaid {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.slide .mermaid svg {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+/* ══════════════════════════════════════════
+   UTILIDADES GLOBALES
+   ══════════════════════════════════════════ */
+
+/* Code blocks dentro de slides */
+.slide pre {
+  background: #f4f4f8;
+  border-left: 4px solid var(--icesi-blue);
+  border-radius: 4px;
+  padding: 12px 16px;
+  font-size: 16px;
+  line-height: 24px;
+  overflow: auto;
+  margin: 12px 0;
+}
+.slide code {
+  font-family: 'Consolas', 'Fira Code', monospace;
+  font-size: 0.9em;
+  background: #f0f0f6;
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+.slide pre code {
+  background: transparent;
+  padding: 0;
+}
+
+/* Imágenes en contenido */
+.slide .slide-content img,
+.slide .col img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Emphasis/color helpers */
+.text-blue   { color: var(--icesi-blue) !important; }
+.text-green  { color: var(--icesi-green) !important; }
+.text-orange { color: var(--icesi-orange) !important; }
+.text-purple { color: var(--icesi-purple) !important; }
+.text-dark   { color: var(--icesi-dark) !important; }
+
+/* Bold inline */
+.slide strong, .slide b { font-weight: 700; }
+
+/* ══════════════════════════════════════════
+   PRINT / PDF EXPORT
+   @media print → para imprimir desde el navegador
+   ══════════════════════════════════════════ */
+@media print {
+  body { margin: 0; }
+  .slide {
+    page-break-after: always;
+    break-after: page;
+    box-shadow: none !important;
+  }
+  .reveal .controls,
+  .reveal .progress { display: none !important; }
+}
+
+
+/* =================================================================
+   ARCHIVO: layouts/title-slides.css
+   ================================================================= */
 /* ══════════════════════════════════════════
    CATEGORÍA 1 — PORTADAS (TITLE SLIDES)
    ══════════════════════════════════════════ */
@@ -455,6 +557,9 @@
 }
 
 
+/* =================================================================
+   ARCHIVO: layouts/section-slides.css
+   ================================================================= */
 /* ══════════════════════════════════════════
    CATEGORÍA 2 — DIVISORES DE SECCIÓN
    ══════════════════════════════════════════ */
@@ -599,6 +704,9 @@
 .slide.section-e.bg-orange .section-title    { color: var(--icesi-white); }
 
 
+/* =================================================================
+   ARCHIVO: layouts/sidebar-slides.css
+   ================================================================= */
 /* ══════════════════════════════════════════
    CATEGORÍA 3 — SIDEBARS IZQUIERDA
    ══════════════════════════════════════════ */
@@ -675,6 +783,9 @@
 }
 
 
+/* =================================================================
+   ARCHIVO: layouts/stripe-slides.css
+   ================================================================= */
 /* ══════════════════════════════════════════
    CATEGORÍA 4 — DECORATIVOS / BANNER SLIDES
    ══════════════════════════════════════════ */
@@ -767,38 +878,12 @@
 }
 
 
+/* =================================================================
+   ARCHIVO: layouts/content-slides.css
+   ================================================================= */
 /* ══════════════════════════════════════════
    CATEGORÍA 5 — SLIDES DE CONTENIDO
    ══════════════════════════════════════════ */
-
-/* ──────────────────────────────────────────
-   HEADER ESTÁNDAR (compartido por standard, two-cols, three-cols, four-cards)
-   Ref: \drawStandardSlideHeader{title}
-   ────────────────────────────────────────── */
-.slide.standard .slide-header,
-.slide.two-cols .slide-header,
-.slide.three-cols .slide-header,
-.slide.four-cards .slide-header {
-  position: absolute;
-  left: 0; top: 0;
-  width: 1280px;
-  height: 220px; /* zona segura del header con logo */
-}
-/* Título: xshift=0.85cm→32px, yshift=-4.66cm→176px, text-width=31.59cm=1194px */
-.slide.standard .slide-header h2,
-.slide.two-cols .slide-header h2,
-.slide.three-cols .slide-header h2,
-.slide.four-cards .slide-header h2 {
-  position: absolute;
-  left: 32px;
-  top: 176px;
-  width: 1194px;
-  color: var(--icesi-blue);
-  font-size: 38px;
-  line-height: 46px;
-  font-weight: 700;
-  hyphens: none;
-}
 
 /* ──────────────────────────────────────────
    SLIDE ESTÁNDAR: logo header + contenido libre
@@ -885,15 +970,15 @@
 .slide.four-cards .cards-bg {
   position: absolute;
   left: -10px;
-  top: 226px;
+  top: 256px;
   width: 1300px;
-  height: 506px;
+  height: 464px;
   background: rgba(206, 207, 212, 0.2);
 }
 
 .slide.four-cards .cards-grid {
   position: absolute;
-  top: 246px;
+  top: 276px;
   left: 28px;
   width: 1226px;
   display: grid;
@@ -936,77 +1021,3 @@
 .slide.four-cards .card ul { padding-left: 18px; margin: 0; }
 .slide.four-cards .card li { margin-bottom: 6px; }
 
-
-/* ══════════════════════════════════════════
-   MERMAID.JS — Diagramas inline
-   ══════════════════════════════════════════ */
-.slide .mermaid {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
-.slide .mermaid svg {
-  max-width: 100% !important;
-  height: auto !important;
-}
-
-
-/* ══════════════════════════════════════════
-   UTILIDADES GLOBALES
-   ══════════════════════════════════════════ */
-
-/* Code blocks dentro de slides */
-.slide pre {
-  background: #f4f4f8;
-  border-left: 4px solid var(--icesi-blue);
-  border-radius: 4px;
-  padding: 12px 16px;
-  font-size: 16px;
-  line-height: 24px;
-  overflow: auto;
-  margin: 12px 0;
-}
-.slide code {
-  font-family: 'Consolas', 'Fira Code', monospace;
-  font-size: 0.9em;
-  background: #f0f0f6;
-  padding: 1px 5px;
-  border-radius: 3px;
-}
-.slide pre code {
-  background: transparent;
-  padding: 0;
-}
-
-/* Imágenes en contenido */
-.slide .slide-content img,
-.slide .col img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* Emphasis/color helpers */
-.text-blue   { color: var(--icesi-blue) !important; }
-.text-green  { color: var(--icesi-green) !important; }
-.text-orange { color: var(--icesi-orange) !important; }
-.text-purple { color: var(--icesi-purple) !important; }
-.text-dark   { color: var(--icesi-dark) !important; }
-
-/* Bold inline */
-.slide strong, .slide b { font-weight: 700; }
-
-/* ══════════════════════════════════════════
-   PRINT / PDF EXPORT
-   @media print → para imprimir desde el navegador
-   ══════════════════════════════════════════ */
-@media print {
-  body { margin: 0; }
-  .slide {
-    page-break-after: always;
-    break-after: page;
-    box-shadow: none !important;
-  }
-  .reveal .controls,
-  .reveal .progress { display: none !important; }
-}

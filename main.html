@@ -9,7 +9,7 @@
   <!-- Reveal.js CDN -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
   <!-- ICESI Beamer — Stylesheet institucional (reemplaza icesibeamer.sty) -->
-  <link rel="stylesheet" href="icesibeamer.css">
+  <link rel="stylesheet" href="icesibeamer.css?v=8">
 
   <style>
     /* Overrides mínimos para que Reveal.js no interfiera con el canvas fijo */
@@ -34,12 +34,15 @@
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
 
 <!-- Mermaid.js CDN — Diagramas inline -->
-<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  window.mermaid = mermaid;
+</script>
 
 <!-- ICESI Beamer — Component Library (reemplaza los macros de icesibeamer.sty) -->
-<script src="icesibeamer.js"></script>
+<script src="icesibeamer.js?v=8"></script>
 
-<script>
+<script type="module">
   /**
    * ═══════════════════════════════════════════════════════════════
    * PRESENTACIÓN DEMO — Universidad Icesi
