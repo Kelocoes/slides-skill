@@ -1,0 +1,29 @@
+# Build and output directories
+build/
+svg-inkscape/
+old_context/
+util/
+
+# LaTeX auxiliary files in root
+*.aux
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.pdf_tex
+*.pdf
+
+# Python cache & virtual environments
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+env/
+
+# OS files
+.DS_Store
+Thumbs.db

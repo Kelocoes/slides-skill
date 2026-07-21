@@ -1,0 +1,74 @@
+\documentclass[aspectratio=169, 12pt]{beamer}
+
+% Page geometry matching PPTX Widescreen (33.86cm x 19.05cm)
+\geometry{paperwidth=33.86cm, paperheight=19.05cm}
+\paperwidth=33.86cm
+\paperheight=19.05cm
+\pdfpagewidth=\paperwidth
+\pdfpageheight=\paperheight
+
+\usepackage{templates/icesibeamer/icesibeamer}
+\usepackage{fontspec}
+\usepackage[spanish]{babel}
+
+% Institutional Font: Plus Jakarta Sans from resources/fonts/
+\setmainfont{PlusJakartaSans-Regular.ttf}[
+    Path = resources/fonts/,
+    BoldFont = PlusJakartaSans-Bold.ttf
+]
+\setsansfont{PlusJakartaSans-Regular.ttf}[
+    Path = resources/fonts/,
+    BoldFont = PlusJakartaSans-Bold.ttf
+]
+
+\begin{document}
+
+% SLIDE 1: Portada A
+\titleSlideA{Título de la Diapositiva 1}{Subtítulo de la presentación}
+
+% SLIDE 2: Portada B
+\titleSlideB{Título de la Diapositiva 2}{Subtítulo de la presentación}{Autor / Nombre del evento / Fecha}
+
+% SLIDE 3: Portada C
+\titleSlideC{Título de la Diapositiva 3}{Subtítulo de la presentación}
+
+% SLIDE 4: Portada D
+\titleSlideD{Título de la Diapositiva 4}{Subtítulo de la presentación}{Texto Destacado en Caja Azul}
+
+% SLIDE 5: Portada E
+\titleSlideE{Título de la Diapositiva 5}{Subtítulo de la presentación}
+
+% SLIDE 6: Portada F
+\titleSlideF{Título de la Diapositiva 6}{Subtítulo de la presentación}
+
+% SLIDE 7: División A
+\sectionSlideA{División A: Título de Sección}
+
+% SLIDE 8: División B
+\sectionSlideB{División B: Título de Sección}{resources/photo_section_b.jpg}
+
+% SLIDE 9: División C
+\sectionSlideC{División C: Título de Sección}
+
+% SLIDE 10: División E (5 variantes de color)
+\sectionSlideEBlue{División E: Fondo Azul}
+\sectionSlideE{División E: Fondo Blanco}
+\sectionSlideEGreen{División E: Fondo Verde}
+\sectionSlideEYellow{División E: Fondo Amarillo}
+\sectionSlideEOrange{División E: Fondo Naranja}
+
+% SLIDE 15: Sidebar Izquierda Naranja
+\slideSidebarLeftOrange{Título Diapositiva 15}{Esta es una diapositiva con una barra lateral izquierda de color naranja y el logotipo institucional en blanco negativo. El contenido y el título se posicionan limpiamente en la parte derecha.}
+
+% SLIDE 16: Sidebar Izquierda Azul
+\slideSidebarLeftBlue{Título Diapositiva 16}{Esta variante cuenta con la barra lateral en color azul institucional, manteniendo el mismo esquema de alineación y márgenes de seguridad.}
+
+% SLIDE 17: Sidebar Izquierda Morada
+\slideSidebarLeftPurple{Título Diapositiva 17}{Esta variante cuenta con la barra lateral en color morado, ideal para cambiar de sección de forma dinámica.}
+
+% SLIDE 18: Franja Superior con Acento a la Izquierda
+\slideStripeTopLeft{Título Diapositiva 18}{Esta es una diapositiva con una franja azul superior y una franja verde de acento posicionada a la izquierda. La caja de contenido se ubica en el centro de la diapositiva sobre fondo blanco.}
+
+% SLIDE 19: Franja Superior con Acento a la Derecha
+\slideStripeTopRight{Título Diapositiva 19}{Esta es una diapositiva hermana con una franja azul superior y la franja verde de acento posicionada a la derecha. Ambas comparten la alineación y el uso del logo blanco en negativo en la esquina superior izquierda.}
+\end{document}
