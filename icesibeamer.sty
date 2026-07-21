@@ -7,7 +7,6 @@
 \RequirePackage{tcolorbox}
 \tcbuselibrary{skins,breakable}
 \RequirePackage{xcolor}
-% \RequirePackage{svg} % Removed to use native pdf vector graphics
 
 % Official Color Palette
 \definecolor{icesiblue}{HTML}{5454E9}
@@ -194,7 +193,7 @@
         \fill[icesiblue] ([xshift=6.10cm, yshift=-14.33cm]current page.north west) rectangle ++(28.24cm, -3.08cm);
         % Section title text
         \node[anchor=north west, inner sep=0pt, align=left, text width=25.18cm] at ([xshift=7.33cm, yshift=-14.82cm]current page.north west) {
-            \color{white}\fontsize{32pt}{38pt}\selectfont\bfseries #1
+            \color{white}\fontsize{32pt}{38pt}\selectfont\bfseries\hyphenpenalty=10000\exhyphenpenalty=10000 #1
         };
     \end{tikzpicture}
     \end{frame}
@@ -215,7 +214,7 @@
             \drawPositiveLogo
             % Title text (occupies full width overlay)
             \node[anchor=north west, inner sep=0pt, align=left, text width=25.18cm] at ([xshift=7.33cm, yshift=-14.82cm]current page.north west) {
-                \color{white}\fontsize{30pt}{36pt}\selectfont\bfseries #1
+                \color{white}\fontsize{30pt}{36pt}\selectfont\bfseries\hyphenpenalty=10000\exhyphenpenalty=10000 #1
             };
         \end{tikzpicture}
     }{
@@ -228,7 +227,7 @@
             \drawPositiveLogo
             % Title text
             \node[anchor=north west, inner sep=0pt, align=left, text width=25.18cm] at ([xshift=7.33cm, yshift=-14.82cm]current page.north west) {
-                \color{white}\fontsize{30pt}{36pt}\selectfont\bfseries #1
+                \color{white}\fontsize{30pt}{36pt}\selectfont\bfseries\hyphenpenalty=10000\exhyphenpenalty=10000 #1
             };
         \end{tikzpicture}
     }
@@ -249,7 +248,7 @@
         \drawNegativeLogo
         % Title text inside white box (colored blue)
         \node[anchor=north west, inner sep=0pt, align=left, text width=21.19cm] at ([xshift=11.83cm, yshift=-13.50cm]current page.north west) {
-            \color{icesiblue}\fontsize{32pt}{38pt}\selectfont\bfseries #1
+            \color{icesiblue}\fontsize{32pt}{38pt}\selectfont\bfseries\hyphenpenalty=10000\exhyphenpenalty=10000 #1
         };
     \end{tikzpicture}
     \end{frame}
@@ -515,7 +514,7 @@
     \begin{tikzpicture}[remember picture, overlay]
         \drawStandardSlideHeader{#1}
     \end{tikzpicture}
-    \mbox{}\vspace*{4.8cm}
+    \mbox{}\vspace*{5.6cm}
     \begin{minipage}{\textwidth}
         \fontsize{14pt}{18pt}\selectfont
         #2
@@ -529,7 +528,7 @@
     \begin{tikzpicture}[remember picture, overlay]
         \drawStandardSlideHeader{#1}
     \end{tikzpicture}
-    \mbox{}\vspace*{4.8cm}
+    \mbox{}\vspace*{5.6cm}
     \begin{columns}[T, onlytextwidth]
         \begin{column}{0.48\textwidth}
             \fontsize{14pt}{18pt}\selectfont
@@ -549,7 +548,7 @@
     \begin{tikzpicture}[remember picture, overlay]
         \drawStandardSlideHeader{#1}
     \end{tikzpicture}
-    \mbox{}\vspace*{4.8cm}
+    \mbox{}\vspace*{5.6cm}
     \begin{columns}[T, onlytextwidth]
         \begin{column}{0.31\textwidth}
             \fontsize{13pt}{16pt}\selectfont
@@ -575,7 +574,7 @@
         % Draw gray container block at bottom
         \fill[icesigray2!20] ([xshift=-0.27cm, yshift=-9.52cm]current page.north west) rectangle ++(34.47cm, -9.91cm);
     \end{tikzpicture}
-    \mbox{}\vspace*{5.2cm}
+    \mbox{}\vspace*{5.6cm}
     \begin{columns}[T, onlytextwidth]
         \begin{column}{0.23\textwidth}
             \begin{tcolorbox}[colback=white,colframe=icesiblue,arc=4pt,title=\textbf{Card 1},coltitle=white,fonttitle=\bfseries]
