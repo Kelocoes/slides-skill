@@ -276,6 +276,75 @@
 /* Bold inline */
 .slide strong, .slide b { font-weight: 700; }
 
+/* Native Code Box Class */
+.code-box {
+  background: #1e1e2e;
+  color: #cdd6f4;
+  padding: 14px 18px;
+  border-radius: 8px;
+  font-family: 'Fira Code', 'Consolas', 'Courier New', monospace;
+  font-size: 15px;
+  line-height: 1.45;
+  white-space: pre;
+  overflow-x: auto;
+  border: 1px solid #313244;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  margin: 10px 0;
+}
+
+.code-box .keyword { color: #cba6f7; font-weight: bold; }
+.code-box .function { color: #89b4fa; }
+.code-box .string { color: #a6e3a1; }
+.code-box .comment { color: #6c7086; font-style: italic; }
+.code-box .number { color: #fab387; }
+.code-box .type { color: #f9e2af; font-weight: bold; }
+.code-box .operator { color: #89dceb; }
+
+/* Native Badge Labels */
+.badge-label {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-right: 6px;
+}
+.badge-blue   { background-color: var(--icesi-blue, #5454E9); color: #ffffff; }
+.badge-green  { background-color: var(--icesi-green, #4CB979); color: #ffffff; }
+.badge-purple { background-color: var(--icesi-purple, #865CF0); color: #ffffff; }
+.badge-orange { background-color: var(--icesi-orange, #E9683B); color: #ffffff; }
+.badge-yellow { background-color: var(--icesi-yellow, #E4EB60); color: #393939; }
+
+/* Native Image Container */
+.img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 8px 0;
+}
+.img-container svg, .img-container img {
+  max-width: 100%;
+  max-height: 420px;
+  height: auto;
+}
+
+/* Icon Lists */
+ul.icon-list, ol.icon-list {
+  list-style: none !important;
+  padding-left: 0 !important;
+  margin-top: 10px;
+}
+ul.icon-list li, ol.icon-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: 18px;
+  line-height: 1.4;
+}
+
 /* ══════════════════════════════════════════
    PRINT / PDF EXPORT
    @media print → para imprimir desde el navegador

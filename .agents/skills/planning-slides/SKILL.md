@@ -41,13 +41,14 @@ Before finalizing the plan, you MUST use the `search_web` tool (if available) or
 - **Out of Scope**: Complex edge cases or related technologies consciously ruled out for this presentation.
 
 ### 3. Layout & Visual Strategy
-- **CRITICAL PDF LIMITATION**: Do NOT plan for Mermaid diagrams in the HTML. They render as blank white boxes during PDF export. ALWAYS specify that they must be pre-compiled to Custom SVG Vector Graphics (`slides-svg-graphics`) via `mermaid-cli` and injected as images.
+- **CRITICAL AESTHETIC REQUIREMENT**: DO NOT use Mermaid for major architecture diagrams unless it's a simple sequence diagram. Mermaid is visually sterile. ALWAYS prefer crafting **raw SVG code** (following `slides-svg-graphics` templates) for premium, beautifully colored infographics.
+- **AVOID DENSE TEXT**: Never pack heavy paragraphs into a single slide. If a concept has 4 steps, use 4 slides (or progressive code frames). Chunk the content!
 - **SHARED ASSETS REGISTRY**: Reusable SVGs, logos, and general architecture diagrams should be checked for and stored in `slides/shared/`. Always read `slides/shared/registry.json` first to see if an image you need already exists. If you generate a highly reusable diagram, add it to `slides/shared/` instead of the local topic's asset folder, and update the `registry.json` with its path and an English description.
-- **PEDAGOGICAL REQUIREMENT**: Students learn best visually! For EVERY major complex topic (e.g., State Management, Dependency Injection, Component Lifecycle), you MUST include at least one static SVG diagram or flowchart. Do not rely solely on text and code.
-- Which slides benefit from vector assets/graphics (`slides-svg-graphics`) or icons (`slides-iconification`)?
+- **PEDAGOGICAL REQUIREMENT**: Students learn best visually! For EVERY major complex topic, you MUST include at least one custom raw SVG infographic.
+- **ICONIFICATION**: Every bullet point list (`<ul>`, `<li>`) MUST use an inline SVG icon instead of default black dots. Read `slides-iconification` for details.
 - How should multi-column or 4-card grids (`icesi.slideFourCards`) be distributed to maintain ideal content density (>60% visual fullness, zero overflow)?
 - **Sidebar panel planning**: For every `slideSidebarLeft*` slide, explicitly decide what goes in the sidebar panel:
-  - SVG illustration / Diagram — for conceptual diagrams or architecture overviews
+  - Custom SVG illustration / Architecture Graphic
   - Icon list — for up to 5 key attributes or features. **Icons MUST be inline SVG, never emoji characters.**
   - Leave empty only for explicitly minimalist transition slides
 - **Evenly-distributed items**: When a slide has 2–4 key points with icons, plan for `.items-evenly` or `.icon-grid-2/3` layout instead of plain bullet lists. This maximizes visual density and engagement.

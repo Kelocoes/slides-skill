@@ -7,9 +7,27 @@ description: Guidelines to design and embed simple, semantic inline SVG icons wi
 
 This guide establishes the guidelines to design and embed simple, semantic **inline SVG icons** within Universidad Icesi HTML slides. SVGs are used **directly as inline code or `<img>` tags**, without any conversion to PNG or PDF.
 
-> **⚠️ CRITICAL RULE: Emoji are strictly forbidden.**
-> Never use emoji characters (🚀, ⚙️, 📦, 🔌, etc.) as icons in slides.
-> All icon slots MUST use compact inline SVG graphics designed by the agent.
+## 🚨 1. The Zero Emoji Policy
+
+> **CRITICAL RULE**: Do not use Emoji characters (`✅`, `❌`, `🚀`, `💡`, etc.) in ANY HTML slide. They render inconsistently across operating systems and PDFs.
+
+## 📌 2. Inline Icons for Bullet Lists
+Instead of default black dots in standard `<ul>`/`<ol>` lists, you MUST use inline SVG icons to make text more engaging.
+Use the `icesi.icons` dictionary provided by the framework (e.g. `icesi.icons.check`, `icesi.icons.lightning`).
+
+**Example:**
+```html
+<ul style="list-style:none; padding-left:0;">
+  <li style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+    <span style="color:#5454E9; display:flex;">${icesi.icons.check}</span>
+    <strong>Punteros y Referencias:</strong> Explicación del concepto...
+  </li>
+  <li style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+    <span style="color:#E9683B; display:flex;">${icesi.icons.cpu}</span>
+    <strong>Gestión de Memoria:</strong> Explicación...
+  </li>
+</ul>
+```
 
 ---
 

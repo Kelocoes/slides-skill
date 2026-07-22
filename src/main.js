@@ -32,6 +32,7 @@ import {
   slideFourCards
 } from './components/content-slides.js';
 import { mermaid, markdown, codeBlock } from './utils/helpers.js';
+import { icons } from './utils/icons.js';
 import { init, setBasePath, _reset, _count } from './utils/init.js';
 
 const icesi = {
@@ -61,6 +62,7 @@ const icesi = {
   mermaid,
   markdown,
   codeBlock,
+  icons,
   init,
   setBasePath,
   _reset,
@@ -98,6 +100,7 @@ export {
   mermaid,
   markdown,
   codeBlock,
+  icons,
   init,
   setBasePath,
   _reset,
