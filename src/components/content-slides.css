@@ -83,47 +83,48 @@
    SLIDE CUATRO TARJETAS
    Ref: \slideFourCards{title}{c1}{c2}{c3}{c4}
    ────────────────────────────────────────── */
-/* Fondo gris suave para zona de tarjetas: yshift=-9.52cm→360px, height=9.53cm=360px */
+/* Eliminado el fondo gris translucido — era visualmente confuso */
 .slide.four-cards .cards-bg {
-  position: absolute;
-  left: -10px;
-  top: 256px;
-  width: 1300px;
-  height: 464px;
-  background: rgba(206, 207, 212, 0.2);
+  display: none; /* Removed: gray tinted background looks like an error, not a design choice */
 }
 
 .slide.four-cards .cards-grid {
   position: absolute;
-  top: 276px;
-  left: 28px;
-  width: 1226px;
+  top: 260px;
+  left: 32px;
+  width: 1216px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
+  gap: 20px;
   align-items: start;
 }
 
 /* Tarjeta base */
 .slide.four-cards .card {
   background: var(--icesi-white);
-  border-radius: 6px;
+  border-radius: 8px;
   overflow: hidden;
+  /* Body text size is hierarchy baseline */
   font-size: 18px;
-  line-height: 25px;
+  line-height: 26px;
   color: var(--icesi-dark);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 3px 12px rgba(0,0,0,0.10);
 }
+/* Card header: accent color label — smaller than body text to show it is a CATEGORY, not body */
 .slide.four-cards .card-header {
   padding: 10px 14px;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 14px;  /* SMALLER than body intentionally: label/tag hierarchy */
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   color: var(--icesi-white);
-  line-height: 22px;
+  line-height: 20px;
 }
 .slide.four-cards .card-body {
-  padding: 12px 14px;
+  padding: 14px 14px;
   border-left: 3px solid transparent;
+  font-size: 17px;
+  line-height: 25px;
 }
 /* Colores por tarjeta */
 .slide.four-cards .card.blue   .card-header { background: var(--icesi-blue); }
@@ -137,3 +138,137 @@
 
 .slide.four-cards .card ul { padding-left: 18px; margin: 0; }
 .slide.four-cards .card li { margin-bottom: 6px; }
+
+/* ──────────────────────────────────────────
+   TABLA SEGURA (respeta márgenes del canvas)
+   Prevents tables from touching right / bottom slide edges
+   ────────────────────────────────────────── */
+.slide .slide-content table,
+.slide .col table {
+  width: 100%;
+  max-width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  box-sizing: border-box;
+}
+.slide .slide-content th,
+.slide .col th {
+  background: var(--icesi-blue);
+  color: var(--icesi-white);
+  padding: 8px 12px;
+  text-align: left;
+  font-size: 16px;
+  font-weight: 700;
+}
+.slide .slide-content td,
+.slide .col td {
+  border-bottom: 1px solid var(--icesi-gray2);
+  padding: 8px 12px;
+  font-size: 15px;
+  background: var(--icesi-white);
+  color: var(--icesi-dark);
+}
+.slide .slide-content tr:nth-child(even) td,
+.slide .col tr:nth-child(even) td { background: #f9f9ff; }
+
+/* ──────────────────────────────────────────
+   ITEMS DISTRIBUIDOS UNIFORMEMENTE (evenly-spaced)
+   Use: .items-evenly inside .slide-content or .sidebar-content
+   Ideal for icon+label cards spaced across the full available height
+   ────────────────────────────────────────── */
+.slide .items-evenly {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 100%;
+  gap: 0;
+}
+.slide .items-evenly .item-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 6px 0;
+}
+.slide .items-evenly .item-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.slide .items-evenly .item-icon svg,
+.slide .items-evenly .item-icon img {
+  width: 100%;
+  height: 100%;
+}
+.slide .items-evenly .item-text {
+  flex: 1;
+  font-size: 20px;
+  line-height: 27px;
+  color: var(--icesi-dark);
+}
+.slide .items-evenly .item-text strong {
+  display: block;
+  font-weight: 700;
+  color: var(--icesi-blue);
+  font-size: 18px;
+  margin-bottom: 2px;
+}
+
+/* ──────────────────────────────────────────
+   GRID DE ICONOS (2 col, evenly spaced)
+   Use: .icon-grid-2 or .icon-grid-3 inside .slide-content
+   ────────────────────────────────────────── */
+.slide .icon-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 32px;
+  align-items: start;
+  margin-top: 8px;
+}
+.slide .icon-grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px 24px;
+  align-items: start;
+  margin-top: 8px;
+}
+.slide .icon-grid-2 .icon-card,
+.slide .icon-grid-3 .icon-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 10px 0;
+}
+.slide .icon-card .icon-symbol {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  background: rgba(84,84,233,0.08);
+  color: var(--icesi-blue);
+}
+.slide .icon-card .icon-symbol.green  { background: rgba(76,185,121,0.12); color: var(--icesi-green); }
+.slide .icon-card .icon-symbol.orange { background: rgba(233,104,59,0.12); color: var(--icesi-orange); }
+.slide .icon-card .icon-symbol.purple { background: rgba(134,92,240,0.12); color: var(--icesi-purple); }
+.slide .icon-card .icon-body {
+  flex: 1;
+}
+.slide .icon-card .icon-body strong {
+  display: block;
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--icesi-dark);
+  margin-bottom: 3px;
+}
+.slide .icon-card .icon-body span {
+  font-size: 15px;
+  line-height: 22px;
+  color: #555;
+}
+

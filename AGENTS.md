@@ -17,8 +17,9 @@ Review exact dimensions, brand colors, and safe bounding boxes (in CSS pixels) t
 - 📐 **[.agents/formatting_rules.md](.agents/formatting_rules.md)**: Manual detailing safe text bounding boxes for each slide layout in CSS/px units.
 
 ### 3. Composition Skills
-Review the interactive guide to composing new slides using `dist/main.js` component functions at:
-- 🛠️ **[.agents/skills/generate-slides/SKILL.md](.agents/skills/generate-slides/SKILL.md)**: Guidelines on structured HTML frame composition and content flow using Reveal.js.
+Review the interactive guide to planning and composing new slides at:
+- 🛠️ **[.agents/skills/planning-slides/SKILL.md](.agents/skills/planning-slides/SKILL.md)**: Guidelines on slide presentation planning, structure design, and spec generation.
+- 🛠️ **[.agents/skills/implement-slides/SKILL.md](.agents/skills/implement-slides/SKILL.md)**: Workflow for building Reveal.js HTML slides from a spec plan.
 
 ---
 

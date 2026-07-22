@@ -28,6 +28,9 @@
   --icesi-orange: #E9683B;
   --icesi-gray1:  #88898C;
   --icesi-gray2:  #CECFD4;
+  /* Alias with hyphen (used in formatting_rules.md) */
+  --icesi-gray-1: #88898C;
+  --icesi-gray-2: #CECFD4;
   --icesi-white:  #FFFFFF;
 
   /* Canvas dimensions */
@@ -149,9 +152,9 @@
   margin: 0;
 }
 
-/* ══════════════════════════════════════════
+/* ════════════════════════════════════════════
    MERMAID.JS — Diagramas inline
-   ══════════════════════════════════════════ */
+   ════════════════════════════════════════════ */
 .slide .mermaid {
   display: flex;
   justify-content: center;
@@ -161,6 +164,72 @@
   max-width: 100% !important;
   height: auto !important;
 }
+
+/* ⚠️ CONTRAST FIX for Mermaid on dark / colored slide backgrounds.
+   When a .mermaid diagram is placed inside a dark-background slide
+   (section-e bg-blue/green/orange, title-a, etc.),
+   the SVG default transparent background becomes invisible.
+   Force a light card background on the SVG container. */
+.slide.section-e.bg-blue   .mermaid svg,
+.slide.section-e.bg-green  .mermaid svg,
+.slide.section-e.bg-orange .mermaid svg,
+.slide.title-a .mermaid svg,
+.slide.section-c .mermaid svg {
+  background: rgba(255,255,255,0.90);
+  border-radius: 10px;
+  padding: 12px;
+}
+
+/* When placing a mermaid inside a sidebar slide:
+   The diagram goes in the right-side content area (light background) — no override needed.
+   But if placed inside the sidebar panel itself, force contrast: */
+.slide.sidebar-left .sidebar .mermaid svg {
+  background: rgba(255,255,255,0.88);
+  border-radius: 8px;
+  padding: 8px;
+  max-width: 340px !important;
+}
+
+/* ════════════════════════════════════════════
+   JERARQUÍA TIPOGRÁFICA DENTRO DE SLIDES
+   h3 = sección sub-heading (inside card or column)
+   h4 = micro-label
+   RULE: h3 < slide-header h2, h3 > body text
+   ════════════════════════════════════════════ */
+.slide .slide-content h3,
+.slide .col h3,
+.slide .sidebar-content h3 {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 28px;
+  color: var(--icesi-blue);
+  margin: 0 0 8px 0;
+}
+.slide .slide-content h4,
+.slide .col h4,
+.slide .sidebar-content h4 {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 24px;
+  color: var(--icesi-dark);
+  margin: 6px 0 4px 0;
+}
+/* List items MUST be visually smaller than h3 headings */
+.slide .slide-content li,
+.slide .col li,
+.slide .sidebar-content li {
+  font-size: 19px;
+  line-height: 27px;
+}
+/* Paragraphs inside content */
+.slide .slide-content p,
+.slide .col p,
+.slide .sidebar-content p {
+  margin-bottom: 10px;
+  font-size: 19px;
+  line-height: 27px;
+}
+
 
 /* ══════════════════════════════════════════
    UTILIDADES GLOBALES

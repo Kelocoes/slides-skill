@@ -123,14 +123,16 @@
 .slide.section-e.bg-yellow { background: var(--icesi-yellow); }
 .slide.section-e.bg-orange { background: var(--icesi-orange); }
 
-/* Título centrado verticalmente: xshift=1.36cm→51px, yshift=-10.54cm→398px, text-width=30cm=1134px */
+/* Título centrado verticalmente: xshift=1.36cm→51px, yshift=-10.54cm→398px, text-width=30cm=1134px
+   FLUID FONT: clamp() allows 2-line titles without overflow (e.g., title + small subtitle tag) */
 .slide.section-e .section-title {
   position: absolute;
   left: 51px;
-  top: 398px;
-  width: 1134px;
-  font-size: 57px;
-  line-height: 66px;
+  top: 340px;
+  width: 1180px;
+  /* Fluid: from 38px (2-line titles) up to 57px (single-line) */
+  font-size: clamp(36px, 4.4vw, 57px);
+  line-height: 1.18;
   font-weight: 700;
   hyphens: none;
 }
@@ -140,3 +142,4 @@
 .slide.section-e.bg-green .section-title     { color: var(--icesi-white); }
 .slide.section-e.bg-yellow .section-title    { color: var(--icesi-dark); }
 .slide.section-e.bg-orange .section-title    { color: var(--icesi-white); }
+

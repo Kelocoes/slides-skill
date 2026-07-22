@@ -16,6 +16,7 @@
   left: 0; top: 0;
   width: 469px;
   height: 720px;
+  overflow: hidden; /* clip any content that might overflow */
 }
 /* Colores del sidebar según variante */
 .slide.sidebar-left.orange .sidebar { background: var(--icesi-orange); }
@@ -30,7 +31,13 @@
   width: var(--logo-w);
 }
 
-/* Imagen en el sidebar (opcional): centrada horizontalmente, yshift=-10.50cm→centrado */
+/* ──────────────────────────────────────────
+   SIDEBAR CONTENT: imagen clásica o elemento visual
+   ENHANCED: now supports SVG graphics, mermaid diagrams, and icons
+   with full contrast safety inside the colored panel.
+   ────────────────────────────────────────── */
+
+/* Imagen clásica en el sidebar: centrada, margen superior de logo */
 .slide.sidebar-left .sidebar-image {
   position: absolute;
   left: 55px;
@@ -40,19 +47,104 @@
   object-fit: contain;
 }
 
+/* SVG graphic inline in sidebar:
+   Use <div class="sidebar-graphic"> inside the sidebar HTML content.
+   Renders below the logo with proper contrast padding. */
+.slide.sidebar-left .sidebar-graphic {
+  position: absolute;
+  left: 20px;
+  top: 140px;
+  width: 429px;         /* nearly full sidebar width */
+  height: 540px;        /* large visual space below logo */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+}
+.slide.sidebar-left .sidebar-graphic svg,
+.slide.sidebar-left .sidebar-graphic img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+}
+
+/* Mermaid diagram in sidebar: ALWAYS force light background for contrast */
+.slide.sidebar-left .sidebar .mermaid {
+  position: absolute;
+  left: 12px;
+  top: 140px;
+  width: 445px;
+  background: rgba(255,255,255,0.92);
+  border-radius: 10px;
+  padding: 12px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.slide.sidebar-left .sidebar .mermaid svg {
+  max-width: 100% !important;
+  height: auto !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+}
+
+/* Icon list in sidebar: for up to 4 items stacked evenly */
+.slide.sidebar-left .sidebar-icons {
+  position: absolute;
+  left: 24px;
+  top: 145px;
+  width: 421px;
+  bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.slide.sidebar-left .sidebar-icons .icon-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: rgba(255,255,255,0.95);
+}
+.slide.sidebar-left .sidebar-icons .icon-item .icon-mark {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  background: rgba(255,255,255,0.20);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+.slide.sidebar-left .sidebar-icons .icon-item .icon-label {
+  font-size: 17px;
+  line-height: 22px;
+  font-weight: 600;
+}
+
+/* ──────────────────────────────────────────
+   ZONA DE CONTENIDO DERECHA
+   ────────────────────────────────────────── */
+
 /* Título del slide (en zona blanca derecha): xshift=14.00cm→529px, yshift=-4.66cm→176px, width=18cm=680px */
 .slide.sidebar-left .sidebar-title {
   position: absolute;
   left: 529px;
   top: 176px;
-  width: 680px;
+  width: 720px;   /* extended slightly: 1280 - 529 - 32 = 719px */
 }
 .slide.sidebar-left .sidebar-title h2 {
   color: var(--icesi-blue);
-  font-size: 38px;
-  line-height: 46px;
+  /* Fluid: allows long titles to shrink gracefully */
+  font-size: clamp(28px, 3vw, 38px);
+  line-height: 1.2;
   font-weight: 700;
   hyphens: none;
+  margin: 0;
 }
 
 /* Contenido (debajo del título): top deja margen sobre el título */
@@ -60,10 +152,12 @@
   position: absolute;
   left: 529px;
   top: 290px;
-  width: 700px;
+  width: 720px;
+  /* Bottom respects slide boundary with safe margin */
+  max-height: 400px;
   color: var(--icesi-dark);
-  font-size: 22px;
-  line-height: 30px;
+  font-size: 20px;
+  line-height: 28px;
 }
 .slide.sidebar-left .sidebar-content ul {
   padding-left: 22px;
@@ -71,4 +165,10 @@
 }
 .slide.sidebar-left .sidebar-content li {
   margin-bottom: 10px;
+  font-size: 19px;
+  line-height: 27px;
+}
+.slide.sidebar-left .sidebar-content ol {
+  padding-left: 22px;
+  margin: 0;
 }

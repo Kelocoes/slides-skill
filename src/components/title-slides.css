@@ -11,42 +11,68 @@
   background: var(--icesi-blue);
 }
 
-/* Caja blanca del título: xshift=1.36cm→51px, yshift=-7.73cm→292px, +16.33cm=617px, +5.28cm=200px */
+/* Caja blanca del título: xshift=1.36cm→51px, yshift=-7.73cm→292px, +16.33cm=617px, +5.28cm=200px
+   FLUID FONT: clamp() adapts size between 36px and 54px so long titles never overflow the box. */
 .slide.title-a .title-box {
   position: absolute;
   left: 51px;
-  top: 292px;
-  width: 617px;
-  height: 200px;
+  top: 200px;
+  width: 640px;
+  min-height: 190px;
+  max-height: 285px;
   background: var(--icesi-white);
-  padding: 20px 15px 15px 15px;
+  padding: 22px 20px 18px 20px;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
 }
 .slide.title-a .title-box h1 {
   color: var(--icesi-blue);
-  font-size: 54px;
-  line-height: 64px;
+  /* Fluid: scales from 36px (long titles) up to 54px (short titles) */
+  font-size: clamp(34px, 4.2vw, 54px);
+  line-height: 1.18;
   font-weight: 700;
   hyphens: none;
   overflow-wrap: break-word;
+  margin: 0;
+  width: 100%;
 }
 
-/* Caja amarilla del subtítulo: yshift=-13.01cm→492px, +11.59cm=438px, +2.75cm=104px */
+/* Caja amarilla del subtítulo: positioned right below title-box with auto height so text never overflows */
 .slide.title-a .subtitle-box {
   position: absolute;
   left: 51px;
-  top: 491px;
-  width: 438px;
-  height: 104px;
+  top: 495px;
+  width: 640px;
+  min-height: 80px;
+  max-height: 130px;
   background: var(--icesi-yellow);
-  padding: 12px 15px;
+  padding: 14px 20px;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
 }
 .slide.title-a .subtitle-box p {
   color: var(--icesi-dark);
-  font-size: 28px;
-  line-height: 34px;
+  /* Fluid: scales from 18px (long subtitles) up to 26px */
+  font-size: clamp(16px, 2vw, 26px);
+  line-height: 1.35;
   font-weight: 400;
+  margin: 0;
+  width: 100%;
+  overflow-wrap: break-word;
+}
+/* Footer text (e.g. Faculty name) rendered inside subtitle-box — white text on blue overlay strip */
+.slide.title-a .subtitle-box .slide-footer-tag {
+  display: block;
+  margin-top: 6px;
+  font-size: clamp(12px, 1.3vw, 16px);
+  color: var(--icesi-white);
+  background: var(--icesi-blue);
+  padding: 3px 10px;
+  border-radius: 3px;
+  font-weight: 600;
+  width: fit-content;
 }
 
 /* ──────────────────────────────────────────

@@ -76,4 +76,43 @@ The main presentation file [main.html](../main.html) (and per-topic files in `sl
 9.  **Node.js Presentation Migration**:
     - Successfully compiled 25 HTML/Reveal.js slides in [slides/nodejs-html/nodejs-html.html](../slides/nodejs-html/nodejs-html.html) utilizing SVG assets.
     - Saved captured QA screenshots inside [slides/nodejs-html/build/](../slides/nodejs-html/build/).
+10. **`implement-slides` Skill & Formatting Rules Evolution (Visual QA Agent Loop)**:
+    - Updated [.agents/skills/implement-slides/SKILL.md](.agents/skills/implement-slides/SKILL.md) to formalize a mandatory 4-step QA loop: `Implement -> Launch Local Server -> Capture PNG Screenshots via Playwright/Puppeteer -> Multimodal Visual Analysis & Code Refinement`.
+    - Enhanced [.agents/formatting_rules.md](.agents/formatting_rules.md) with strict contrast guidelines (high-contrast node fills on dark backgrounds), title character line limits (2 lines for cover titles, 1 line for content headers), and explicit safe margins across all template layouts.
+11. **NestJS QA Feedback — System-Wide Improvements (July 2026)**:
+    - Analyzed [slides/nestjs/nestjs.pdf](../slides/nestjs/nestjs.pdf) and identified 9 categories of recurring visual problems. Implemented the following fixes across the component library:
+    - **`src/components/title-slides.css` (titleSlideA)**:
+        - Title box now uses `font-size: clamp(34px, 4.2vw, 54px)` — scales from 34px to 54px automatically. No more text cut off for long titles.
+        - Title box moved to `top: 200px` with `min-height/max-height` and `display:flex` so content never overflows the white box.
+        - Subtitle box (`--icesi-yellow`) widened to 640px, uses `min/max-height` and `display:flex` to prevent text escape.
+        - Added `.slide-footer-tag` class: renders faculty/institution labels as a blue badge with white text inside the yellow box. Fixes "Engineering Faculty — Universidad Icesi" appearing in black on blue background.
+    - **`src/components/section-slides.css` (sectionSlideE)**:
+        - Section title now uses `font-size: clamp(36px, 4.4vw, 57px)` and `top: 340px` (60px higher) to accommodate 2-line titles with `<small>` subtitle tags. Fixes "Injection" being cut off.
+    - **`src/components/content-slides.css`**:
+        - `.cards-bg` (semi-transparent gray tint) **disabled** with `display:none` — was visually confusing (looked like a rendering artifact).
+        - Card hierarchy inverted to correct order: `.card-header` = 14px uppercase label (smallest), `.card-body` = 17px body (larger). This restores correct visual hierarchy.
+        - Added **global table styles** (`.slide-content table`, `.col table`) with `width:100%; max-width:100%; box-sizing:border-box` to prevent tables from touching slide edges.
+        - Added **`.items-evenly`** layout: flex column with `justify-content:space-evenly` for distributing icon+label rows across full available height.
+        - Added **`.icon-grid-2`** and **`.icon-grid-3`** CSS grid layouts for 2 and 3-column icon card grids.
+        - Added **`.icon-card`** / **`.icon-symbol`** / **`.icon-body`** component pattern for icon+text cards with color variants.
+    - **`src/components/base.css`**:
+        - Added `--icesi-gray-1` and `--icesi-gray-2` CSS variable aliases (with hyphens).
+        - Added **Mermaid dark-background contrast fix** — automatically applies `background: rgba(255,255,255,0.90)` + `border-radius: 10px` + `padding: 12px` to `.mermaid svg` inside all dark slide variants (`section-e bg-blue/green/orange`, `title-a`, `section-c`).
+        - Added **sidebar Mermaid panel contrast** — `.slide.sidebar-left .sidebar .mermaid` has a light container background when diagram is placed inside colored sidebar.
+        - Added **global typography hierarchy** rules enforced via CSS: `h3 = 22px/blue`, `h4 = 17px/dark`, `li/p = 19px` inside all content areas. This prevents card body text from appearing larger than section titles.
+    - **`src/components/sidebar-slides.js`**:
+        - Extended `_sidebarLeft()` to accept `sidebarVisual` as an object with 4 new types:
+          1. `{ type: 'graphic', html }` → SVG inside `.sidebar-graphic` container
+          2. `{ type: 'mermaid', code }` → Mermaid diagram with automatic contrast container
+          3. `{ type: 'icons', items: [{icon, label}] }` → Icon list evenly distributed in `.sidebar-icons`
+          4. Legacy string path still supported for backward compatibility.
+    - **`src/components/sidebar-slides.css`**:
+        - Added `.sidebar-graphic` container (429×540px, flex-centered, below logo).
+        - Added `.sidebar .mermaid` with `background:rgba(255,255,255,0.92)` force-contrast container.
+        - Added `.sidebar-icons` / `.icon-item` / `.icon-mark` / `.icon-label` styles for icon list in sidebar.
+        - Extended `.sidebar-content` width from 700px to 720px and added `max-height: 400px`.
+        - `.sidebar-title h2` now uses `font-size: clamp(28px, 3vw, 38px)` for long titles.
+    - **[`.agents/formatting_rules.md`](./formatting_rules.md)**:
+        - Complete rewrite incorporating all new rules: fluid typography, sidebar visual types, Mermaid contrast, card hierarchy, table margins, icon grid layouts, density rules, and expanded QA checklist.
+
 

@@ -239,9 +239,20 @@ icesi.slideStripeTopLeft(
 
 ### Section 5: Visual Quality Guidelines
 
-- **Transparent Background**: Mermaid.js uses SVG with a transparent background by default. ✅
+> **⚠️ CRITICAL — Dark Background Contrast Rule**
+>
+> Mermaid SVGs use a **transparent background** by default. On dark or colored slides (`sectionSlideEBlue`, `sectionSlideEOrange`, `sectionSlideEGreen`, `titleSlideA`, `sectionSlideC`), the SVG becomes **invisible** because transparent = same color as the background.
+>
+> **Automatic fix**: `base.css` applies `background: rgba(255,255,255,0.90)` + border-radius + padding to `.mermaid svg` inside those dark slide selectors. However, this is a CSS fallback — you MUST also:
+> 1. Use `%%{init}%%` directives to set light colors on nodes.
+> 2. Use `classDef` to explicitly color each node group.
+> 3. **Never** rely on Mermaid's default gray nodes (`#f4f4f4`) on dark backgrounds.
+
+- **Transparent Background**: Mermaid.js uses SVG with a transparent background by default. ✅ (OK for white slides, requires contrast fix for dark slides)
+- **Dark slide auto-contrast**: CSS in `base.css` wraps SVG with `rgba(255,255,255,0.90)` background for all dark slide variants — always supplement this with explicit node colors.
 - **Scaling**: Mermaid SVGs inherit `max-width: 100%; height: auto` styling in `dist/main.css`. ✅
 - **Font Legibility**: Keep a minimum `font-size` of 14px in theme variables to ensure text remains readable on 1280×720px screens.
 - **Simplicity**: Target a maximum of 8-10 nodes per slide diagram. If it is more complex, split it across two slides.
 - **Node Coloring**: Use `classDef` to apply brand colors to specific nodes in complex graphs.
+- **Sidebar diagrams**: When placing a Mermaid diagram inside a `slideSidebarLeft*` sidebar, use `{ type: 'mermaid', code: '...' }` in the `sidebarVisual` parameter. This renders the diagram inside a `.sidebar .mermaid` container with automatic `rgba(255,255,255,0.92)` background for contrast against the orange/blue/purple sidebar.
 - **No mmdc CLI required**: Do not export diagrams to PNG or PDF. Mermaid renders them dynamically in the browser.
