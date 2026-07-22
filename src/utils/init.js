@@ -46,7 +46,7 @@ export function init(options = {}) {
   if (typeof window.mermaid !== 'undefined') {
     try {
       window.mermaid.initialize({
-        startOnLoad: true,
+        startOnLoad: false,
         theme: 'base',
         themeVariables: {
           primaryColor:     '#5454E9',
@@ -71,6 +71,7 @@ export function init(options = {}) {
         },
         fontFamily: "'Plus Jakarta Sans', sans-serif",
       });
+      window.mermaid.run({ querySelector: '.mermaid' });
     } catch(e) {
       console.warn('[icesibeamer] Mermaid initialize error:', e);
     }

@@ -7,11 +7,16 @@ description: Workflow to generate inline Mermaid diagrams directly in Universida
 
 This workflow explains how to use **Mermaid.js directly inside Universidad Icesi HTML slides**. No CLI tools (`mmdc`) or PNG/PDF pre-compiling are required.
 
+> **💡 Graphic Strategy Note:**
+> Mermaid diagrams are ideal for quick flowcharts, sequence diagrams, and ER models. If a diagram requires custom styling, pixel-perfect alignment, or multi-layered architecture stacks, consider using **`slides-svg-graphics`** to build custom inline vector graphics.
+
 ---
 
 ### Section 1: How Inline Mermaid Works
 
-Mermaid.js is loaded from a CDN and automatically compiles all `<div class="mermaid">` blocks when the page loads. The helper `icesi.mermaid(code)` generates this wrapper block:
+Mermaid.js is loaded from CDN and initialized automatically via `icesi.init()`.
+
+The helper `icesi.mermaid(code)` generates the required wrapper block:
 
 ```javascript
 // Inside the content of any slide:
@@ -39,220 +44,55 @@ The resulting HTML inserted into the slide:
 </div>
 ```
 
-Mermaid converts this block into a dynamically rendered SVG matching the Icesi color theme variables.
-
 ---
 
 ### Section 2: Initialization with Icesi Theme
 
-Mermaid initialization occurs automatically within `icesi.init()`. The theme uses the institutional brand colors:
+Mermaid initialization and rendering occur automatically within `icesi.init()`. The theme uses institutional brand colors:
 
 ```javascript
-// This runs inside icesi.init() — you DO NOT need to call it manually:
+// Automatically executed inside icesi.init():
 window.mermaid.initialize({
-  startOnLoad: true,
+  startOnLoad: false,
   theme: 'base',
   themeVariables: {
-    primaryColor:     '#5454E9',  // icesiblue — primary nodes
-    secondaryColor:   '#865CF0',  // icesipurple — secondary nodes
-    tertiaryColor:    '#4CB979',  // icesigreen — tertiary nodes
+    primaryColor:     '#5454E9',  // icesiblue
+    secondaryColor:   '#865CF0',  // icesipurple
+    tertiaryColor:    '#4CB979',  // icesigreen
     primaryTextColor: '#FFFFFF',
+    secondaryTextColor: '#393939',
     lineColor:        '#393939',  // icesidark
   },
   fontFamily: "'Plus Jakarta Sans', sans-serif",
 });
-```
-
-If you need to override colors per diagram, use Mermaid `%%{init}%%` directives:
-
-```
-%%{init: {'theme': 'base', 'themeVariables': {
-  'primaryColor': '#E9683B',
-  'primaryTextColor': '#fff'
-}}}%%
-graph TD ...
+window.mermaid.run({ querySelector: '.mermaid' });
 ```
 
 ---
 
-### Section 3: Diagram Types and Examples
+### Section 3: Sidebar Diagram Integration
 
-#### A. Flowcharts
-
-```javascript
-icesi.slideStandard(
-  'HTTP Request Flow',
-  icesi.mermaid(`
-    %%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#5454E9', 'primaryTextColor': '#fff', 'lineColor': '#393939'}}}%%
-    graph TD
-      A["Client"] -->|"HTTP Request"| B{"API Gateway"}
-      B -->|"Route /users"| C["Users Service"]
-      B -->|"Route /data"| D["Data Service"]
-      C --> E[("PostgreSQL")]
-      D --> F[("MongoDB")]
-      classDef blue fill:#5454E9,stroke:none,color:#fff
-      classDef green fill:#4CB979,stroke:none,color:#fff
-      classDef purple fill:#865CF0,stroke:none,color:#fff
-      class A,B blue
-      class C,D purple
-      class E,F green
-  `)
-)
-```
-
-#### B. Sequence Diagrams
+When placing a Mermaid diagram in `slideSidebarLeft*` sidebars:
 
 ```javascript
-icesi.slideTwoCols(
-  'JWT Authentication Lifecycle',
-  `<ul>
-    <li>POST /login sends credentials</li>
-    <li>Server validates against DB</li>
-    <li>Signed JWT is returned</li>
-    <li>Client attaches token to subsequent requests</li>
-  </ul>`,
-  icesi.mermaid(`
-    sequenceDiagram
-      autonumber
-      actor Client
-      participant API
-      participant DB
-      Client->>API: POST /login
-      API->>DB: SELECT user
-      DB-->>API: data
-      API-->>Client: JWT Token
-      Client->>API: GET /profile + JWT
-      API-->>Client: Protected Data
-  `)
-)
-```
-
-#### C. Architecture Diagrams (Subgraphs)
-
-```javascript
-icesi.slideSidebarLeftBlue(
-  'Node.js Architecture Stack',
-  `<ul>
-    <li>V8 engine executes JS</li>
-    <li>libuv handles async I/O</li>
-    <li>Event Loop coordinates callbacks</li>
-  </ul>`,
-  '' // no sidebar graphic, inline diagram used in content area
-)
-
-// Or with the diagram in the second column:
-icesi.slideTwoCols(
-  'Platform Layers',
-  `<ul>
-    <li>JS Application (your code)</li>
-    <li>Node.js APIs (http, fs, stream)</li>
-    <li>V8 Engine + libuv</li>
-    <li>Operating System</li>
-  </ul>`,
-  icesi.mermaid(`
-    graph TB
-      subgraph App ["Your Application"]
-        JS["JavaScript"]
-      end
-      subgraph Node ["Node.js Runtime"]
-        V8["V8 Engine"]
-        libuv["libuv"]
-        APIs["Node APIs"]
-      end
-      subgraph OS ["Operating System"]
-        IO["I/O, Network, Timers"]
-      end
-      JS --> APIs
-      APIs --> V8
-      APIs --> libuv
-      libuv --> IO
-  `)
-)
-```
-
-#### D. State / Lifecycle Diagrams
-
-```javascript
-icesi.slideStripeTopLeft(
-  'Promise Lifecycle States',
-  icesi.mermaid(`
-    stateDiagram-v2
-      [*] --> Pending
-      Pending --> Fulfilled : resolve()
-      Pending --> Rejected  : reject()
-      Fulfilled --> [*]
-      Rejected  --> [*]
-  `)
-)
-```
-
-#### E. Entity-Relationship Diagrams
-
-```javascript
-icesi.slideStandard(
-  'Data Model Relationships',
-  icesi.mermaid(`
-    erDiagram
-      USER ||--o{ ORDER : "places"
-      ORDER ||--|{ ITEM : "contains"
-      ITEM }|--|| PRODUCT : "references"
-  `)
+icesi.slideSidebarLeftOrange(
+  'Module Structure',
+  `<p>Content text...</p>`,
+  {
+    type: 'mermaid',
+    code: `graph TD
+      Root[AppModule] --> Auth[AuthModule]
+      Root --> Users[UsersModule]
+      style Root fill:#5454E9,color:#fff,stroke:none
+      style Auth fill:#E9683B,color:#fff,stroke:none
+      style Users fill:#4CB979,color:#fff,stroke:none`
+  }
 )
 ```
 
 ---
 
-### Section 4: Layout Specific Integrations
-
-#### In `slideStandard` (Full width diagram):
-```javascript
-icesi.slideStandard('Title', icesi.mermaid(`graph LR\n  A --> B --> C`))
-```
-
-#### In `slideTwoCols` (col1 for text, col2 for diagram):
-```javascript
-icesi.slideTwoCols(
-  'Title',
-  `<ul><li>Point 1</li></ul>`,
-  icesi.mermaid(`graph TD\n  A --> B`)
-)
-```
-
-#### In `slideSidebarLeft*` (diagram in the right content area):
-```javascript
-icesi.slideSidebarLeftBlue(
-  'Title',
-  icesi.mermaid(`graph LR\n  A --> B`) + `<p>Additional Description</p>`,
-  '' // no sidebar image
-)
-```
-
-#### In `slideStripeTopLeft/Right` (diagram in open content area):
-```javascript
-icesi.slideStripeTopLeft(
-  'Green Stripe Title',
-  icesi.mermaid(`graph TD\n  A --> B --> C`)
-)
-```
-
----
-
-### Section 5: Visual Quality Guidelines
-
-> **⚠️ CRITICAL — Dark Background Contrast Rule**
->
-> Mermaid SVGs use a **transparent background** by default. On dark or colored slides (`sectionSlideEBlue`, `sectionSlideEOrange`, `sectionSlideEGreen`, `titleSlideA`, `sectionSlideC`), the SVG becomes **invisible** because transparent = same color as the background.
->
-> **Automatic fix**: `base.css` applies `background: rgba(255,255,255,0.90)` + border-radius + padding to `.mermaid svg` inside those dark slide selectors. However, this is a CSS fallback — you MUST also:
-> 1. Use `%%{init}%%` directives to set light colors on nodes.
-> 2. Use `classDef` to explicitly color each node group.
-> 3. **Never** rely on Mermaid's default gray nodes (`#f4f4f4`) on dark backgrounds.
-
-- **Transparent Background**: Mermaid.js uses SVG with a transparent background by default. ✅ (OK for white slides, requires contrast fix for dark slides)
-- **Dark slide auto-contrast**: CSS in `base.css` wraps SVG with `rgba(255,255,255,0.90)` background for all dark slide variants — always supplement this with explicit node colors.
-- **Scaling**: Mermaid SVGs inherit `max-width: 100%; height: auto` styling in `dist/main.css`. ✅
-- **Font Legibility**: Keep a minimum `font-size` of 14px in theme variables to ensure text remains readable on 1280×720px screens.
-- **Simplicity**: Target a maximum of 8-10 nodes per slide diagram. If it is more complex, split it across two slides.
-- **Node Coloring**: Use `classDef` to apply brand colors to specific nodes in complex graphs.
-- **Sidebar diagrams**: When placing a Mermaid diagram inside a `slideSidebarLeft*` sidebar, use `{ type: 'mermaid', code: '...' }` in the `sidebarVisual` parameter. This renders the diagram inside a `.sidebar .mermaid` container with automatic `rgba(255,255,255,0.92)` background for contrast against the orange/blue/purple sidebar.
-- **No mmdc CLI required**: Do not export diagrams to PNG or PDF. Mermaid renders them dynamically in the browser.
+### Section 4: Visual Quality & Contrast Checklist
+- **Contrast**: Node fills on dark sidebar panels or colored slides MUST have explicit text colors (`color:#fff` or `primaryTextColor`).
+- **No Raw Code Leakage**: Verify that Mermaid diagrams render into SVG graphs rather than displaying raw code text.
+- **Verification**: Always inspect screenshots under `slides/<topic>/build/` to verify that all diagrams rendered cleanly into SVG elements.
