@@ -25,8 +25,13 @@ function _sidebarLeft(color, title, content, sidebarVisual = '') {
     // Empty panel: just the logo
     sidebarInner = '';
   } else if (typeof sidebarVisual === 'string') {
-    // Legacy: image path
-    sidebarInner = `<img class="sidebar-image" src="${sidebarVisual}" alt="Diagrama">`;
+    if (sidebarVisual.trim().startsWith('<')) {
+      // It's raw HTML (e.g. from codeBlock)
+      sidebarInner = `<div class="sidebar-graphic">${sidebarVisual}</div>`;
+    } else {
+      // Legacy: image path
+      sidebarInner = `<img class="sidebar-image" src="${sidebarVisual}" alt="Diagrama">`;
+    }
   } else if (sidebarVisual.type === 'graphic') {
     // SVG / vector illustration inside a safe container
     sidebarInner = `<div class="sidebar-graphic">${sidebarVisual.html}</div>`;

@@ -168,4 +168,4 @@ icesi.slideStandard(
 - [ ] Uses institutional colors (`#5454E9`, `#865CF0`, `#4CB979`, `#E9683B`, `#393939`, `#FFFFFF`).
 - [ ] Root `<svg>` specifies `viewBox="0 0 W H"` and `fill="none"`.
 - [ ] Text elements use `font-family="'Plus Jakarta Sans', sans-serif"` and clean `font-size` (12px–16px).
-- [ ] Tested via Playwright screenshots in `slides/<topic>/build/` to verify crispness and legibility.
+- [ ] Visual inspection of SVG rendering inside the HTML presentation.

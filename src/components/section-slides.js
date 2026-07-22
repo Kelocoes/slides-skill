@@ -54,10 +54,11 @@ export function sectionSlideC(title) {
  * Equivale a: \sectionSlideE{title}
  * @param {string} title - Título de sección
  */
-export function sectionSlideE(title) {
+export function sectionSlideE(title, content = '') {
   return _section('section-e', `
   ${state.logoPosFn()}
   <div class="section-title">${title}</div>
+  <div class="section-content">${content}</div>
   `, 'blue', 'right');
 }
 
@@ -66,10 +67,11 @@ export function sectionSlideE(title) {
  * Equivale a: \sectionSlideEBlue{title}
  * @param {string} title - Título de sección
  */
-export function sectionSlideEBlue(title) {
+export function sectionSlideEBlue(title, content = '') {
   return _section('section-e bg-blue', `
   ${state.logoNegFn()}
   <div class="section-title">${title}</div>
+  <div class="section-content">${content}</div>
   `, 'white', 'right');
 }
 
@@ -78,10 +80,11 @@ export function sectionSlideEBlue(title) {
  * Equivale a: \sectionSlideEGreen{title}
  * @param {string} title - Título de sección
  */
-export function sectionSlideEGreen(title) {
+export function sectionSlideEGreen(title, content = '') {
   return _section('section-e bg-green', `
   ${state.logoNegFn()}
   <div class="section-title">${title}</div>
+  <div class="section-content">${content}</div>
   `, 'white', 'right');
 }
 
@@ -90,10 +93,11 @@ export function sectionSlideEGreen(title) {
  * Equivale a: \sectionSlideEYellow{title}
  * @param {string} title - Título de sección
  */
-export function sectionSlideEYellow(title) {
+export function sectionSlideEYellow(title, content = '') {
   return _section('section-e bg-yellow', `
   ${state.logoPosFn()}
   <div class="section-title">${title}</div>
+  <div class="section-content">${content}</div>
   `, 'dark', 'right');
 }
 
@@ -102,9 +106,10 @@ export function sectionSlideEYellow(title) {
  * Equivale a: \sectionSlideEOrange{title}
  * @param {string} title - Título de sección
  */
-export function sectionSlideEOrange(title) {
+export function sectionSlideEOrange(title, content = '') {
   return _section('section-e bg-orange', `
   ${state.logoNegFn()}
   <div class="section-title">${title}</div>
+  <div class="section-content">${content}</div>
   `, 'white', 'right');
 }

@@ -143,3 +143,28 @@
 .slide.section-e.bg-yellow .section-title    { color: var(--icesi-dark); }
 .slide.section-e.bg-orange .section-title    { color: var(--icesi-white); }
 
+/* Content injection container (for diagrams, SVGs, etc) */
+.slide.section-e .section-content {
+  position: absolute;
+  left: 51px;
+  top: 420px;
+  width: 1180px;
+  height: 280px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  color: var(--icesi-dark);
+}
+.slide.section-e.bg-blue .section-content,
+.slide.section-e.bg-green .section-content,
+.slide.section-e.bg-orange .section-content {
+  color: var(--icesi-white);
+}
+
+.slide.section-e .section-content svg,
+.slide.section-e .section-content img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+}
