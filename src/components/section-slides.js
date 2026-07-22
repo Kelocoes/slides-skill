@@ -2,14 +2,16 @@
 // CATEGORÍA 2 — DIVISORES DE SECCIÓN
 // =================================================================
 
+import { _section, state } from '../utils/core.js';
+
 /**
  * Sección A: Minimal, logo top-left, barra azul inferior con título
  * Equivale a: \sectionSlideA{title}
  * @param {string} title - Título de sección (blanco, sobre barra azul)
  */
-function sectionSlideA(title) {
+export function sectionSlideA(title) {
   return _section('section-a', `
-  ${_logoPosF()}
+  ${state.logoPosFn()}
   <div class="blue-bar"></div>
   <div class="section-title">${title}</div>
   `, 'white', 'right');
@@ -21,12 +23,12 @@ function sectionSlideA(title) {
  * @param {string} title - Título de sección (blanco, sobre barra naranja)
  * @param {string} imagePath - Ruta de imagen para el panel derecho ('' para omitir)
  */
-function sectionSlideB(title, imagePath = '') {
+export function sectionSlideB(title, imagePath = '') {
   const img = imagePath
     ? `<img class="right-image" src="${imagePath}" alt="${title}">`
     : '';
   return _section('section-b', `
-  ${_logoPosF()}
+  ${state.logoPosFn()}
   ${img}
   <div class="orange-bar"></div>
   <div class="section-title">${title}</div>
@@ -38,9 +40,9 @@ function sectionSlideB(title, imagePath = '') {
  * Equivale a: \sectionSlideC{title}
  * @param {string} title - Título de sección (azul, dentro de caja blanca)
  */
-function sectionSlideC(title) {
+export function sectionSlideC(title) {
   return _section('section-c', `
-  ${_logoNegFn()}
+  ${state.logoNegFn()}
   <div class="green-accent"></div>
   <div class="white-box"></div>
   <div class="section-title">${title}</div>
@@ -52,9 +54,9 @@ function sectionSlideC(title) {
  * Equivale a: \sectionSlideE{title}
  * @param {string} title - Título de sección
  */
-function sectionSlideE(title) {
+export function sectionSlideE(title) {
   return _section('section-e', `
-  ${_logoPosF()}
+  ${state.logoPosFn()}
   <div class="section-title">${title}</div>
   `, 'blue', 'right');
 }
@@ -64,9 +66,9 @@ function sectionSlideE(title) {
  * Equivale a: \sectionSlideEBlue{title}
  * @param {string} title - Título de sección
  */
-function sectionSlideEBlue(title) {
+export function sectionSlideEBlue(title) {
   return _section('section-e bg-blue', `
-  ${_logoNegFn()}
+  ${state.logoNegFn()}
   <div class="section-title">${title}</div>
   `, 'white', 'right');
 }
@@ -76,9 +78,9 @@ function sectionSlideEBlue(title) {
  * Equivale a: \sectionSlideEGreen{title}
  * @param {string} title - Título de sección
  */
-function sectionSlideEGreen(title) {
+export function sectionSlideEGreen(title) {
   return _section('section-e bg-green', `
-  ${_logoNegFn()}
+  ${state.logoNegFn()}
   <div class="section-title">${title}</div>
   `, 'white', 'right');
 }
@@ -88,9 +90,9 @@ function sectionSlideEGreen(title) {
  * Equivale a: \sectionSlideEYellow{title}
  * @param {string} title - Título de sección
  */
-function sectionSlideEYellow(title) {
+export function sectionSlideEYellow(title) {
   return _section('section-e bg-yellow', `
-  ${_logoPosF()}
+  ${state.logoPosFn()}
   <div class="section-title">${title}</div>
   `, 'dark', 'right');
 }
@@ -100,9 +102,9 @@ function sectionSlideEYellow(title) {
  * Equivale a: \sectionSlideEOrange{title}
  * @param {string} title - Título de sección
  */
-function sectionSlideEOrange(title) {
+export function sectionSlideEOrange(title) {
   return _section('section-e bg-orange', `
-  ${_logoNegFn()}
+  ${state.logoNegFn()}
   <div class="section-title">${title}</div>
   `, 'white', 'right');
 }

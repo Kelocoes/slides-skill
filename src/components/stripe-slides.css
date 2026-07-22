@@ -2,11 +2,6 @@
    CATEGORÍA 4 — DECORATIVOS / BANNER SLIDES
    ══════════════════════════════════════════ */
 
-/* ──────────────────────────────────────────
-   STRIPE TOP LEFT: Franja azul superior + acento verde izquierda
-   Ref: \slideStripeTopLeft{title}{content}
-   Visual: page-18.png
-   ────────────────────────────────────────── */
 .slide.stripe-top-left,
 .slide.stripe-top-right {
   background: var(--icesi-white);

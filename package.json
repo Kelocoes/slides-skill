@@ -1,0 +1,15 @@
+{
+  "name": "icesi-slides",
+  "version": "1.0.0",
+  "description": "Biblioteca de componentes para presentaciones de Reveal.js de la Universidad Icesi",
+  "type": "module",
+  "scripts": {
+    "build:js": "esbuild src/main.js --bundle --outfile=dist/main.js",
+    "build:css": "esbuild src/main.css --bundle --outfile=dist/main.css --external:*.ttf --external:*.svg",
+    "build": "npm run build:js && npm run build:css",
+    "dev": "npx -y http-server . -p 8080"
+  },
+  "devDependencies": {
+    "esbuild": "^0.20.0"
+  }
+}

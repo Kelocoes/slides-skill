@@ -2,15 +2,17 @@
 // CATEGORÍA 4 — DECORATIVOS / BANNER
 // =================================================================
 
+import { _section, state } from '../utils/core.js';
+
 /**
  * Franja azul superior + acento verde a la IZQUIERDA
  * Equivale a: \slideStripeTopLeft{title}{content}
  * @param {string} title - Título (blanco, en la barra verde)
  * @param {string} content - Contenido HTML (en zona blanca inferior)
  */
-function slideStripeTopLeft(title, content) {
+export function slideStripeTopLeft(title, content) {
   return _section('stripe-top-left', `
-  ${_logoNegFn()}
+  ${state.logoNegFn()}
   <div class="blue-banner"></div>
   <div class="green-accent"></div>
   <div class="slide-title">${title}</div>
@@ -24,9 +26,9 @@ function slideStripeTopLeft(title, content) {
  * @param {string} title - Título (blanco, en la barra verde derecha)
  * @param {string} content - Contenido HTML (en zona blanca inferior)
  */
-function slideStripeTopRight(title, content) {
+export function slideStripeTopRight(title, content) {
   return _section('stripe-top-right', `
-  ${_logoNegFn()}
+  ${state.logoNegFn()}
   <div class="blue-banner"></div>
   <div class="green-accent"></div>
   <div class="slide-title">${title}</div>

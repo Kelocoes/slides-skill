@@ -6,7 +6,7 @@ This file preserves the memory of the presentation slide states, their structure
 
 ## 🎯 Slide Classification and Intended Contexts of Use (19 Slides in `main.html`)
 
-The main presentation file [main.html](file:///C:/Users/GlobE/Desktop/Docencia%20Icesi/skill-slides/main.html) (and per-topic files in `slides/<tema>/<tema>.html`) consists of 19 slides designed and approved under the following specific contexts:
+The main presentation file [main.html](../main.html) (and per-topic files in `slides/<tema>/<tema>.html`) consists of 19 slides designed and approved under the following specific contexts:
 
 ### 1. Title Slides (Presentation Openings)
 *   **Slide 1 (Primary Cover - `icesi.titleSlideA()`)**:
@@ -58,14 +58,14 @@ The main presentation file [main.html](file:///C:/Users/GlobE/Desktop/Docencia%2
 1.  **Native SVG Loading (No conversion required)**: Brand logos and pattern SVGs are used directly via `<img src="...">` tags referencing files in `resources/logos/` and `resources/patterns/`. The browser renders SVG natively for perfect vector sharpness.
 2.  **Top Banner Height Fix on Striped Slides**: Stripe accent slides (`icesi.slideStripeTopLeft()` and `icesi.slideStripeTopRight()`) use the CSS class `.blue-banner` with `height:158px` (equivalent to 4.18cm in the original LaTeX). Content is positioned with `top:268px` in `.slide-content` to ensure all text renders consistently below the header bars.
 3.  **Reveal.js Canvas**: The system uses Reveal.js with `width=1280, height=720` (16:9 ratio). All elements within each `<section class="slide">` use `position:absolute` with pixel values derived from the original TikZ coordinates at the scale of **1cm = 37.8px** (1280px / 33.86cm).
-4.  **Modular Refactoring (`src/` folder)**:
-    - The stylesheet and layout engine scripts were split into clean modules under `src/css/` and `src/js/` (categorized by base style, title, section, sidebar, stripe, and content slides).
-    - A compiler script [src/build.js](file:///C:/Users/GlobE/Desktop/Docencia%20Icesi/skill-slides/src/build.js) bundles these modules into [icesibeamer.css](file:///C:/Users/GlobE/Desktop/Docencia%20Icesi/skill-slides/icesibeamer.css) and [icesibeamer.js](file:///C:/Users/GlobE/Desktop/Docencia%20Icesi/skill-slides/icesibeamer.js) in the project root.
+4.  **React-like ES6 modular folder structure and compilation (`src/` folder)**:
+    - The stylesheet and layout engine scripts were split into React-like clean ESM modules under `src/components/` and `src/utils/` (with entry points `src/main.js` and `src/main.css`).
+    - The bundle process was migrated to `esbuild` (defined in `package.json`). Run `npm run build` to generate the compiled bundles `dist/main.css` and `dist/main.js`.
 5.  **Negative Contrast Logos**:
-    - Created [ICESI_logo_prin_descriptor_WHITE.svg](file:///C:/Users/GlobE/Desktop/Docencia%20Icesi/skill-slides/resources/logos/ICESI_logo_prin_descriptor_WHITE.svg) with pure white fills (`#ffffff`) to ensure contrast on dark backgrounds (blue, green, orange, purple).
+    - Created [ICESI_logo_prin_descriptor_WHITE.svg](../resources/logos/ICESI_logo_prin_descriptor_WHITE.svg) with pure white fills (`#ffffff`) to ensure contrast on dark backgrounds (blue, green, orange, purple).
     - Overridable logo functions (`_logoNegFn()`, `_logoPosF()`) render correct files depending on background theme.
 6.  **Page Number Collision Resolution**:
-    - Renamed `.slide-number` class to `.icesi-slide-number` in [src/js/core.js](file:///C:/Users/GlobE/Desktop/Docencia%20Icesi/skill-slides/src/js/core.js) and [src/css/base.css](file:///C:/Users/GlobE/Desktop/Docencia%20Icesi/skill-slides/src/css/base.css) to prevent Reveal.js from applying its native grey background block.
+    - Renamed `.slide-number` class to `.icesi-slide-number` in [src/utils/core.js](../src/utils/core.js) and [src/components/base.css](../src/components/base.css) to prevent Reveal.js from applying its native grey background block.
     - Explicitly set `left: auto` / `right: auto` to prevent horizontal line stretching.
 7.  **Mermaid v11 (ESM) & Scope Shadowing Resolution**:
     - Loaded Mermaid v11 from CDN ES Modules in presentation HTML.
@@ -74,6 +74,6 @@ The main presentation file [main.html](file:///C:/Users/GlobE/Desktop/Docencia%2
     - Set `margin: 0` for `.slide-header h2` titles to prevent default vertical displacement.
     - Moved the cards grid down by 30px (`top: 256px` for background, `top: 276px` for cards grid) to establish a safe margin of 54px and prevent title overlaps in `.four-cards` layout.
 9.  **Node.js Presentation Migration**:
-    - Successfully compiled 25 HTML/Reveal.js slides in [slides/nodejs-html/nodejs-html.html](file:///C:/Users/GlobE/Desktop/Docencia%20Icesi/skill-slides/slides/nodejs-html/nodejs-html.html) utilizing SVG assets.
-    - Saved captured QA screenshots inside [slides/nodejs-html/build/](file:///C:/Users/GlobE/Desktop/Docencia%20Icesi/skill-slides/slides/nodejs-html/build/).
+    - Successfully compiled 25 HTML/Reveal.js slides in [slides/nodejs-html/nodejs-html.html](../slides/nodejs-html/nodejs-html.html) utilizing SVG assets.
+    - Saved captured QA screenshots inside [slides/nodejs-html/build/](../slides/nodejs-html/build/).
 

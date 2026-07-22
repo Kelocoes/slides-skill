@@ -240,7 +240,7 @@ icesi.slideStripeTopLeft(
 ### Section 5: Visual Quality Guidelines
 
 - **Transparent Background**: Mermaid.js uses SVG with a transparent background by default. ✅
-- **Scaling**: Mermaid SVGs inherit `max-width: 100%; height: auto` styling in `icesibeamer.css`. ✅
+- **Scaling**: Mermaid SVGs inherit `max-width: 100%; height: auto` styling in `dist/main.css`. ✅
 - **Font Legibility**: Keep a minimum `font-size` of 14px in theme variables to ensure text remains readable on 1280×720px screens.
 - **Simplicity**: Target a maximum of 8-10 nodes per slide diagram. If it is more complex, split it across two slides.
 - **Node Coloring**: Use `classDef` to apply brand colors to specific nodes in complex graphs.

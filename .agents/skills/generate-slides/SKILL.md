@@ -5,7 +5,7 @@ description: Beamer Layout Library and Slide Generation skill — Universidad Ic
 
 # Skill: `generate-slides` (HTML Component Library — Reveal.js)
 
-This skill defines the layout library for Universidad Icesi slide presentations and provides the composition workflow for autonomous agents to build visually rich, brand-aligned HTML slides using the **Reveal.js + icesibeamer.css + icesibeamer.js** system.
+This skill defines the layout library for Universidad Icesi slide presentations and provides the composition workflow for autonomous agents to build visually rich, brand-aligned HTML slides using the **Reveal.js + dist/main.css + dist/main.js** system.
 
 ---
 
@@ -13,11 +13,14 @@ This skill defines the layout library for Universidad Icesi slide presentations 
 
 ```
 skill-slides/
-├── icesibeamer.css            # Master stylesheet (≡ icesibeamer.sty in LaTeX)
-├── icesibeamer.js             # Component library (≡ macros \titleSlideA, etc.)
+├── dist/
+│   ├── main.css               # Bundled master stylesheet
+│   └── main.js                # Bundled component library
 ├── src/                       # Modular source code
-│   ├── css/                   # Split CSS layout modules
-│   └── js/                    # Split JavaScript component modules
+│   ├── components/            # Slide layout components (JS & CSS)
+│   ├── utils/                 # Utility files (core, helpers, init)
+│   ├── main.js                # JS bundle entrypoint
+│   └── main.css               # CSS bundle entrypoint
 ├── resources/
 │   ├── fonts/                 # Plus Jakarta Sans TTF
 │   ├── logos/                 # ICESI logos in SVG (positive and negative)
@@ -216,7 +219,7 @@ icesi.slideStandard(
   <meta charset="UTF-8">
   <title>Presentation Title — Universidad Icesi</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
-  <link rel="stylesheet" href="../../icesibeamer.css">
+  <link rel="stylesheet" href="../../dist/main.css">
 </head>
 <body>
 <div class="reveal">
@@ -229,7 +232,7 @@ icesi.slideStandard(
   import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
   window.mermaid = mermaid;
 </script>
-<script src="../../icesibeamer.js"></script>
+<script src="../../dist/main.js"></script>
 <script type="module">
   // Configure relative base path for assets and logos
   icesi.setBasePath('../../');

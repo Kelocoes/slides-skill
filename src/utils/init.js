@@ -1,13 +1,11 @@
-// =================================================================
-// INICIALIZACIÓN DE REVEAL.JS Y MERMAID.JS
-// =================================================================
+import { setN, getN, setLogos } from './core.js';
 
 /**
  * Inicializa Reveal.js con la configuración institucional de Icesi
  * Debe llamarse DESPUÉS de poblar el DOM con los slides
  * @param {object} options - Opciones adicionales de Reveal.js (override)
  */
-function init(options = {}) {
+export function init(options = {}) {
   // Inicializar Reveal.js
   if (typeof Reveal !== 'undefined') {
     Reveal.initialize({
@@ -84,75 +82,23 @@ function init(options = {}) {
 /**
  * Resetea el contador de slides (útil para testing o regeneración)
  */
-function _reset() {
-  _n = 0;
+export function _reset() {
+  setN(0);
 }
 
 /**
  * Retorna el número actual de slides generados
  */
-function _count() {
-  return _n;
+export function _count() {
+  return getN();
 }
 
 /**
  * Configura rutas de logos personalizadas (si la presentación está en un subdirectorio)
  * @param {string} basePath - Ruta relativa a resources/ desde el HTML de la presentación
  */
-function setBasePath(basePath) {
-  // Actualiza las rutas internas de logos
+export function setBasePath(basePath) {
   const neg = basePath + 'resources/logos/ICESI_logo_prin_descriptor_WHITE.svg';
   const pos = basePath + 'resources/logos/ICESI_logo_prin_descriptor_RGB_POSITIVO_0924.svg';
-  // Reemplaza las funciones de logo con las rutas actualizadas
-  _logoNegFn = () => `<img class="logo-negative" src="${neg}" alt="Universidad Icesi">`;
-  _logoPosF  = () => `<img class="logo-positive" src="${pos}" alt="Universidad Icesi">`;
+  setLogos(neg, pos);
 }
-
-// ─── API pública ───────────────────────────────────────────────
-return {
-  // Categoría 1 — Portadas
-  titleSlideA,
-  titleSlideB,
-  titleSlideC,
-  titleSlideD,
-  titleSlideE,
-  titleSlideF,
-
-  // Categoría 2 — Divisores de sección
-  sectionSlideA,
-  sectionSlideB,
-  sectionSlideC,
-  sectionSlideE,
-  sectionSlideEBlue,
-  sectionSlideEGreen,
-  sectionSlideEYellow,
-  sectionSlideEOrange,
-
-  // Categoría 3 — Sidebars
-  slideSidebarLeftOrange,
-  slideSidebarLeftBlue,
-  slideSidebarLeftPurple,
-
-  // Categoría 4 — Decorativos
-  slideStripeTopLeft,
-  slideStripeTopRight,
-
-  // Categoría 5 — Contenido
-  slideStandard,
-  slideTwoCols,
-  slideThreeCols,
-  slideFourCards,
-
-  // Helpers de contenido
-  mermaid,
-  markdown,
-  codeBlock,
-
-  // Inicialización
-  init,
-  setBasePath,
-
-  // Utilidades internas
-  _reset,
-  _count,
-};

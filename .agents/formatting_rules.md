@@ -14,7 +14,7 @@ The presentation renders in a standard **16:9 widescreen** aspect ratio:
 ---
 
 ## 🎨 2. Official Color Palette (Brand Colors)
-These are defined as global CSS variables in `icesibeamer.css`:
+These are defined as global CSS variables in `dist/main.css`:
 
 | CSS Variable | Hex | Primary Usage |
 |---|---|---|

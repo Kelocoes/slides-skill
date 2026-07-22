@@ -7,15 +7,8 @@
  * Para usar dentro del contenido de cualquier slide
  * @param {string} code - Código Mermaid (sin los delimitadores ```)
  * @returns {string} HTML string con el bloque mermaid
- *
- * @example
- * icesi.slideStandard('Arquitectura', icesi.mermaid(`
- *   graph TD
- *     A[Cliente] --> B{API}
- *     B --> C[BD]
- * `))
  */
-function mermaid(code) {
+export function mermaid(code) {
   return `<div class="mermaid">${code}</div>`;
 }
 
@@ -23,14 +16,8 @@ function mermaid(code) {
  * Genera un bloque de contenido Markdown (procesado por Reveal.js)
  * @param {string} md - Contenido en formato Markdown
  * @returns {string} HTML string con data-markdown
- *
- * @example
- * icesi.slideStandard('Puntos clave', icesi.markdown(`
- *   - Punto 1 con **negrita**
- *   - Punto 2
- * `))
  */
-function markdown(md) {
+export function markdown(md) {
   return `<div data-markdown>${md}</div>`;
 }
 
@@ -40,7 +27,7 @@ function markdown(md) {
  * @param {string} lang - Lenguaje (js, python, bash, html, etc.)
  * @returns {string} HTML string con bloque <pre><code>
  */
-function codeBlock(code, lang = '') {
+export function codeBlock(code, lang = '') {
   const escaped = code
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')

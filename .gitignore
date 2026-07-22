@@ -6,6 +6,8 @@ util/
 slides/
 .playwright-mcp/
 build_html/
+dist/
+node_modules/
 
 # LaTeX auxiliary files in root
 *.aux

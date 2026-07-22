@@ -2,6 +2,8 @@
 // CATEGORÍA 3 — SIDEBAR IZQUIERDA (3 variantes de color)
 // =================================================================
 
+import { _section, state } from '../utils/core.js';
+
 /**
  * Helper interno para slides con sidebar izquierda
  * @param {'orange'|'blue'|'purple'} color - Color del sidebar
@@ -15,7 +17,7 @@ function _sidebarLeft(color, title, content, imagePath = '') {
     : '';
   return _section(`sidebar-left ${color}`, `
   <div class="sidebar">
-    ${_logoNegFn()}
+    ${state.logoNegFn()}
     ${img}
   </div>
   <div class="sidebar-title"><h2>${title}</h2></div>
@@ -27,7 +29,7 @@ function _sidebarLeft(color, title, content, imagePath = '') {
  * Sidebar naranja: Panel izquierdo naranja + contenido en zona blanca derecha
  * Equivale a: \slideSidebarLeftOrange{title}{content}{imagePath}
  */
-function slideSidebarLeftOrange(title, content, imagePath = '') {
+export function slideSidebarLeftOrange(title, content, imagePath = '') {
   return _sidebarLeft('orange', title, content, imagePath);
 }
 
@@ -35,7 +37,7 @@ function slideSidebarLeftOrange(title, content, imagePath = '') {
  * Sidebar azul: Panel izquierdo azul + contenido en zona blanca derecha
  * Equivale a: \slideSidebarLeftBlue{title}{content}{imagePath}
  */
-function slideSidebarLeftBlue(title, content, imagePath = '') {
+export function slideSidebarLeftBlue(title, content, imagePath = '') {
   return _sidebarLeft('blue', title, content, imagePath);
 }
 
@@ -43,6 +45,6 @@ function slideSidebarLeftBlue(title, content, imagePath = '') {
  * Sidebar morado: Panel izquierdo morado + contenido en zona blanca derecha
  * Equivale a: \slideSidebarLeftPurple{title}{content}{imagePath}
  */
-function slideSidebarLeftPurple(title, content, imagePath = '') {
+export function slideSidebarLeftPurple(title, content, imagePath = '') {
   return _sidebarLeft('purple', title, content, imagePath);
 }
